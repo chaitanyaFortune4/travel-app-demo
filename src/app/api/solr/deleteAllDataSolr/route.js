@@ -1,4 +1,4 @@
-import { deleteAllDataSolrDbController } from "@/apiController/solrApisController";
+import { deleteAllDataSolrDbController } from "@/controllers/solrApisController";
 import { NextResponse } from "next/server";
 
 export const DELETE = async () => {

@@ -1,4 +1,4 @@
-import { searchAllDataSolrDbController } from "@/apiController/solrApisController";
+import { searchAllDataSolrDbController } from "@/controllers/solrApisController";
 import { NextResponse } from "next/server";
 
 export const GET = async () => {

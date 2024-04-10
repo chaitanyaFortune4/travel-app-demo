@@ -1,4 +1,4 @@
-import { searchByIdDataSolrDbController } from "@/apiController/solrApisController";
+import { searchByIdDataSolrDbController } from "@/controllers/solrApisController";
 import { client } from "@/db/config";
 import { NextResponse } from "next/server";
 

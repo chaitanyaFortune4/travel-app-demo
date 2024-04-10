@@ -1,4 +1,4 @@
-import { addDataSolrDbController } from "@/apiController/solrApisController";
+import { addDataSolrDbController } from "@/controllers/solrApisController";
 import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
