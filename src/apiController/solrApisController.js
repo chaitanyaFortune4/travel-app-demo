@@ -22,10 +22,10 @@ export const deleteAllDataSolrDbController = async () => {
   }
 };
 
-export const searchDataSolrDbController = async () => {
+export const searchAllDataSolrDbController = async () => {
   try {
     const solrResponse = await client.searchAll();
-    console.log("Solr response:", solrResponse);
+    // console.log("Solr response:", solrResponse);
     return {
       status: true,
       message: "Data found succesfully",
@@ -37,11 +37,11 @@ export const searchDataSolrDbController = async () => {
   }
 };
 
-export const searchByIdDataSolrDbController = async () => {
+export const searchByIdDataSolrDbController = async (reqBody) => {
   try {
-    const query = "q=*:*";
-    const solrResponse = await client.search();
-    console.log("Solr response:", solrResponse);
+    const query = `q=id:${reqBody.id}`;
+    const solrResponse = await client.search(query);
+    // console.log("Solr response:", solrResponse);
     return {
       status: true,
       message: "Data found succesfully",

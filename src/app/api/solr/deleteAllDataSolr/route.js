@@ -1,14 +1,12 @@
-import { searchDataSolrDbController } from "@/apiController/solrApisController";
-import { client } from "@/db/config";
+import { deleteAllDataSolrDbController } from "@/apiController/solrApisController";
 import { NextResponse } from "next/server";
 
 export const POST = async (req) => {
   try {
-    const requestBody = await req.json();
-    const result = await searchDataSolrDbController(requestBody);
+    const result = await deleteAllDataSolrDbController();
     if (result.status) {
       return NextResponse.json(
-        { success: result.status, message: result.message, data: result.data },
+        { success: result.status, message: result.message },
         { status: 200 }
       );
     } else {
