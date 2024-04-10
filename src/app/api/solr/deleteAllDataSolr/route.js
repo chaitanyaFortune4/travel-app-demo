@@ -1,7 +1,7 @@
 import { deleteAllDataSolrDbController } from "@/apiController/solrApisController";
 import { NextResponse } from "next/server";
 
-export const POST = async (req) => {
+export const DELETE = async () => {
   try {
     const result = await deleteAllDataSolrDbController();
     if (result.status) {
