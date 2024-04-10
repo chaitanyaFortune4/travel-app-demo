@@ -1,5 +1,5 @@
 "use client";
-import {} from "@/apiController/travelApis";
+
 import React, { useEffect, useState } from "react";
 import Products from "../ProductsComponent/products";
 import { getDestinationById } from "@/services/apiServices";

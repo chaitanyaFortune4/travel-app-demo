@@ -27,7 +27,7 @@ export const getDestinationById = async (destinationParams) => {
 export const addDataSolrDB = async () => {
   try {
     const addDataSolrDBResponse = await axios.post(
-      apiList.addDataSolrDB,
+      apiList.addDataSolr,
       payload
     );
     return addDataSolrDBResponse;
