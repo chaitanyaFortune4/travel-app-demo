@@ -4,8 +4,8 @@ export const apiList = {
   getAllDestinations: `${baseUrl}/api/getAllDestinations`,
   getDestinationById: `${baseUrl}/api/getDestinationById`,
   getDestinationDetailsByProductId: `${baseUrl}/api/getDestinationDetailByProductId`,
-  addDataSolrDB: `${baseUrl}/api/solr/addDataSolr`,
-  searchDataSolrDB: `${baseUrl}/api/solr/searchAllDataSolr`,
-  searchByIdDataSolrDB: `${baseUrl}/api/solr/searchByIdDataSolr`,
-  deleteAllDataSolrDB: `${baseUrl}/api/solr/deleteAllDataSolr`,
+  addDataSolr: `${baseUrl}/api/solr/addDataSolr`,
+  searchDataSolr: `${baseUrl}/api/solr/searchAllDataSolr`,
+  searchByIdDataSolr: `${baseUrl}/api/solr/searchByIdDataSolr`,
+  deleteAllDataSolr: `${baseUrl}/api/solr/deleteAllDataSolr`,
 };
