@@ -8,4 +8,5 @@ export const apiList = {
   searchDataSolr: `${baseUrl}/api/solr/searchAllDataSolr`,
   searchByIdDataSolr: `${baseUrl}/api/solr/searchByIdDataSolr`,
   deleteAllDataSolr: `${baseUrl}/api/solr/deleteAllDataSolr`,
+  addTracksdata: `${baseUrl}/api/getTracksData`,
 };

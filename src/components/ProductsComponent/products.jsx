@@ -1,3 +1,5 @@
+import { eventTrigger } from "@/utils/commonFun";
+import { apiList } from "@/utils/constants";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -88,6 +90,7 @@ const Products = ({ products }) => {
                 justifyContent: "space-around",
                 columnGap: "0.5rem",
               }}
+              onClick={() => eventTrigger(product)}
             >
               <div>
                 <img

@@ -50,6 +50,10 @@ const Search = ({ data }) => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    localStorage.setItem("mobile", "9886979895");
+  }, []);
+
   return (
     <>
       <div
