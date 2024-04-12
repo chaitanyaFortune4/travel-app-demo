@@ -1,10 +1,9 @@
-import { eventTrigger } from "@/utils/commonFun";
+import { convertToSlug, eventTrigger } from "@/utils/commonFun";
 import { apiList } from "@/utils/constants";
 import Image from "next/image";
 import { useState } from "react";
 
 const Products = ({ products }) => {
-  console.log("PRO", products);
   const convertMinutesToHours = (minutes) => {
     var hours = Math.floor(minutes / 60); // Calculate hours
     var remainingMinutes = minutes % 60; // Calculate remaining minutes
@@ -79,85 +78,93 @@ const Products = ({ products }) => {
       <div style={{ marginTop: "2rem" }}>
         {products?.length > 0 &&
           products.map((product, idx) => (
-            <div
-              key={idx}
-              style={{
-                cursor: "pointer",
-                border: "1px solid grey",
-                padding: "1rem",
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-around",
-                columnGap: "0.5rem",
-              }}
-              onClick={() => eventTrigger(product)}
+            <a
+              href={`/tour/${convertToSlug(product.title)}`}
             >
-              <div>
-                <img
-                  src={product.images[0].variants[8].url}
-                  style={{
-                    // height: "100%",
-                    // width: "100%",
-                    objectFit: "contain",
-                  }}
-                  alt="Picture of the author"
-                />
-              </div>
-              <div style={{ width: "60%" }}>
+              <div
+                key={idx}
+                style={{
+                  cursor: "pointer",
+                  border: "1px solid grey",
+                  padding: "1rem",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "space-around",
+                  columnGap: "0.5rem",
+                }}
+                onClick={() => eventTrigger(product)}
+              >
+                <div>
+                  <img
+                    src={product.images[0].variants[8].url}
+                    style={{
+                      // height: "100%",
+                      // width: "100%",
+                      objectFit: "contain",
+                    }}
+                    alt="Picture of the author"
+                  />
+                </div>
+                <div style={{ width: "60%" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "1rem",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    {product.title}
+                  </div>
+                  <div style={{ marginBottom: "1rem" }}>
+                    <StarRating
+                      rating={product.reviews?.combinedAverageRating}
+                    />
+                    {product.reviews?.totalReviews}
+                  </div>
+                  <div style={{ fontWeight: "300" }}>
+                    {product.description.slice(0, 300)}
+                    {product.description.length > 300 && (
+                      <button
+                        style={{
+                          background: "none",
+                          border: "none",
+                          marginLeft: "0.5rem",
+                          textDecoration: "underline",
+                        }}
+                      >
+                        ...More
+                      </button>
+                    )}
+                  </div>
+
+                  {product.duration && (
+                    <div style={{ marginTop: "1rem" }}>
+                      {timer(product.duration)}
+                    </div>
+                  )}
+                  <div>
+                    {product.flags.map((flag, idx) => (
+                      <div key={idx}>{convertFlag(flag)}</div>
+                    ))}
+                  </div>
+                </div>
                 <div
                   style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginBottom: "1rem",
+                    //   border: "1px solid red",
+                    width: "8%",
+                    textAlign: "right",
                   }}
                 >
-                  {product.title}
-                </div>
-                <div style={{ marginBottom: "1rem" }}>
-                  <StarRating rating={product.reviews?.combinedAverageRating} />
-                  {product.reviews?.totalReviews}
-                </div>
-                <div style={{ fontWeight: "300" }}>
-                  {product.description.slice(0, 300)}
-                  {product.description.length > 300 && (
-                    <button
-                      style={{
-                        background: "none",
-                        border: "none",
-                        marginLeft: "0.5rem",
-                        textDecoration: "underline",
-                      }}
-                    >
-                      ...More
-                    </button>
-                  )}
-                </div>
-
-                {product.duration && (
-                  <div style={{ marginTop: "1rem" }}>
-                    {timer(product.duration)}
-                  </div>
-                )}
-                <div>
-                  {product.flags.map((flag, idx) => (
-                    <div key={idx}>{convertFlag(flag)}</div>
-                  ))}
+                  from
+                  <p style={{ fontWeight: "bold" }}>
+                    Rs {product.pricing.summary.fromPrice}
+                  </p>
+                  <p style={{ fontSize: "0.8rem" }}>
+                    price varies by group size
+                  </p>
                 </div>
               </div>
-              <div
-                style={{
-                  //   border: "1px solid red",
-                  width: "8%",
-                  textAlign: "right",
-                }}
-              >
-                from
-                <p style={{ fontWeight: "bold" }}>
-                  Rs {product.pricing.summary.fromPrice}
-                </p>
-                <p style={{ fontSize: "0.8rem" }}>price varies by group size</p>
-              </div>
-            </div>
+            </a>
           ))}
       </div>
     </>
