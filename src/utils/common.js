@@ -18,3 +18,13 @@ export const isDataStaleChecker = (timestamp) => {
   }
   return true;
 };
+
+export const eventTrigger = async (data) => {
+  let mobile = localStorage.getItem("mobile");
+  let payload = {
+    id: data.productCode,
+    name: data.title,
+    mobile: mobile,
+  };
+  return payload;
+};

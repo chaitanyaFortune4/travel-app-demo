@@ -8,15 +8,15 @@ import { apiGetCall, apiPostCall } from "@/services/thirdPartyApiService";
 
 export const getAllDestinationsController = async () => {
   try {
-    const searchSolrResult = await searchAllDataSolrDbController();
-    if (searchSolrResult.status && searchSolrResult.isStale === false) {
-      return searchSolrResult;
-    }
+    // const searchSolrResult = await searchAllDataSolrDbController();
+    // if (searchSolrResult.status && searchSolrResult.isStale === false) {
+    //   return searchSolrResult;
+    // }
     const response = await apiGetCall(
       `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/destinations`
     );
     const transformedData = transformData(response.data);
-    addDataSolrDbController(transformedData);
+    // addDataSolrDbController(transformedData);
     return {
       status: true,
       message: "Data found successfully",
@@ -39,17 +39,25 @@ export const getDestinationByIdController = async (reqBody) => {
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
       reqBody
     );
-
     // console.log("Res2", response);
+    // const data = {
+    //   id: reqBody.filtering.destination,
+    //   products: response.products,
+    // };
+    // const result = await updateDataSolrDbController(data);
+    // console.log("result", result);
 
-    const data = {
-      id: reqBody.filtering.destination,
-      products: response.products,
+    return {
+      status: true,
+      message: "Destination products fetched successfully",
+      data: response.products,
     };
-
-    const result = await updateDataSolrDbController(data);
-    console.log("result", result);
   } catch (error) {
-    console.log("getDestinationById", error);
+    console.log("getDestinationById error", error);
+    return {
+      status: false,
+      message: "getDestinationById controller failed",
+      error: error,
+    };
   }
 };
