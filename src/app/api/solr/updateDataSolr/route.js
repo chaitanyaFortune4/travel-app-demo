@@ -1,13 +1,13 @@
-import { deleteAllDataSolr } from "@/helpers/solrHelpers";
+import { updateDataSolr } from "@/helpers/solrHelpers";
 import { NextResponse } from "next/server";
 
-export const DELETE = async () => {
+export const POST = async (req) => {
   try {
-    const result = await deleteAllDataSolr();
-    console.log("GG", result);
+    const requestBody = await req.json();
+    const result = await updateDataSolr(requestBody);
     return NextResponse.json(
       { success: result.status, message: result.message },
-      { status: 200 }
+      { status: 201 }
     );
   } catch (err) {
     console.log("err", err);

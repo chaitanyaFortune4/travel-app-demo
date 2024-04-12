@@ -1,10 +1,5 @@
-import { transformData } from "@/utils/common";
-import {
-  addDataSolrDbController,
-  searchAllDataSolrDbController,
-  updateDataSolrDbController,
-} from "./solrApisController";
 import { apiGetCall, apiPostCall } from "@/services/thirdPartyApiService";
+import { transformData } from "@/utils/common";
 
 export const getAllDestinationsController = async () => {
   try {
@@ -63,12 +58,14 @@ export const getDestinationByIdController = async (reqBody) => {
 };
 
 export const getProductdetailsByID = async (req) => {
-  const params = req.nextUrl.searchParams
-  let id = params.get('query');
+  const params = req.nextUrl.searchParams;
+  let id = params.get("query");
   try {
-    const resp = await apiGetCall(process.env.VIATOR_BASEURL + `/partner/products/${id}`);
-    return resp
+    const resp = await apiGetCall(
+      process.env.VIATOR_BASEURL + `/partner/products/${id}`
+    );
+    return resp;
   } catch (error) {
     console.log("error", error);
   }
-}
+};
