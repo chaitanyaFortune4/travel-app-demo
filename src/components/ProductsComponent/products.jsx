@@ -1,4 +1,4 @@
-import { convertToSlug, eventTrigger } from "@/utils/commonFun";
+import { convertToSlug, eventTrigger } from "@/utils/common";
 import { apiList } from "@/utils/constants";
 import Image from "next/image";
 import { useState } from "react";

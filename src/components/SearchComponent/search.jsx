@@ -27,7 +27,7 @@ const Search = ({ data }) => {
     if (result.status === 200) {
       setSearchTerm(selectedDestinationName);
       setFilteredList([]);
-      setProducts(result.data.products);
+      setProducts(result.data.data);
     }
   };
 
