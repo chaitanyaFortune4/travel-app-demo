@@ -4,10 +4,10 @@ import { isDataStaleChecker } from "@/utils/common";
 export const addDataSolrDbController = async (reqBody) => {
   try {
     const solrResponse = await client.add(reqBody);
-    // console.log("Solr response:", solrResponse.responseHeader);
+    console.log("Solr response:", solrResponse.responseHeader);
     return { status: true, message: "Data added succesfully" };
   } catch (err) {
-    console.log("addDataSolrDbController", err);
+    console.log("addDataSolrDbController fgfg", err);
     return { status: false, message: "Internal Solr server error" };
   }
 };

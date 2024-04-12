@@ -36,7 +36,7 @@ const client = solr.createClient({
 // };
 
 // addDocumentsToSolr();
-
+// console.log('client', client);
 module.exports = {
   client,
 };
