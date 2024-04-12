@@ -28,3 +28,12 @@ export const eventTrigger = async (data) => {
   };
   return payload;
 };
+
+export function convertToSlug(title) {
+  return title.toLowerCase()
+    .replace(/&/g, 'and') // Replace '&' with 'and'
+    .replace(/[^\w\s-]/g, '') // Remove special characters except whitespace and '-'
+    .replace(/\s+/g, '-') // Replace whitespace with '-'
+    .replace(/--+/g, '-') // Replace multiple '-' with single '-'
+    .trim(); // Remove leading and trailing whitespaces
+}

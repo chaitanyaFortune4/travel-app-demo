@@ -61,3 +61,14 @@ export const getDestinationByIdController = async (reqBody) => {
     };
   }
 };
+
+export const getProductdetailsByID = async (req) => {
+  const params = req.nextUrl.searchParams
+  let id = params.get('query');
+  try {
+    const resp = await apiGetCall(process.env.VIATOR_BASEURL + `/partner/products/${id}`);
+    return resp
+  } catch (error) {
+    console.log("error", error);
+  }
+}
