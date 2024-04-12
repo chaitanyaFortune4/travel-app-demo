@@ -21,6 +21,7 @@ export const isDataStaleChecker = (timestamp) => {
 
 export const eventTrigger = async (data) => {
   let mobile = localStorage.getItem("mobile");
+  localStorage.setItem("productId", data.productCode)
   let payload = {
     id: data.productCode,
     name: data.title,

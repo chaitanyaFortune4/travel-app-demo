@@ -57,13 +57,17 @@ export async function postApiData(action, payload) {
 }
 
 export async function fetchData(url) {
-    const response = await fetch(url, {
+    try {
+      const response = await fetch(url, {
         method: "GET",
         cache: "no-store",
         headers: {
-            'Content-Type': "application/json",
-        }
-    })
-    const data = await response.json()
-    return data
-}
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error("error", error);
+    }
+  }

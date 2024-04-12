@@ -11,7 +11,7 @@ const Products = ({ products }) => {
   };
 
   const timer = (duration) => {
-    console.log("DU", duration);
+    // console.log("DU", duration);
     const len = Object.keys(duration).length;
     if (len > 1) {
       return `${convertMinutesToHours(
