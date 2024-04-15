@@ -1,21 +1,31 @@
+import { addDataSolr, searchByIdDataSolr } from "@/helpers/solrHelpers";
 import { apiGetCall, apiPostCall } from "@/services/thirdPartyApiService";
-import { transformData } from "@/utils/common";
+import { solrDataName } from "@/utils/constants";
 
 export const getAllDestinationsController = async () => {
   try {
-    // const searchSolrResult = await searchAllDataSolrDbController();
-    // if (searchSolrResult.status && searchSolrResult.isStale === false) {
-    //   return searchSolrResult;
-    // }
+    const query = `q=dataName:${solrDataName.destinations}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+      return {
+        ...searchSolrResult,
+        data: JSON.parse(searchSolrResult.data[0].data),
+      };
+    }
     const response = await apiGetCall(
       `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/destinations`
     );
-    const transformedData = transformData(response.data);
-    // addDataSolrDbController(transformedData);
+    const transformedData = {
+      id: "1",
+      dataName: solrDataName.destinations,
+      data: JSON.stringify(response.data),
+      updatedAt: new Date(),
+    };
+    addDataSolr(transformedData);
     return {
       status: true,
       message: "Data found successfully",
-      data: transformedData,
+      data: response.data,
     };
   } catch (error) {
     console.log("getAllDestinationController error", error);
@@ -28,20 +38,33 @@ export const getAllDestinationsController = async () => {
 };
 
 export const getDestinationByIdController = async (reqBody) => {
-  console.log("REQB", reqBody);
   try {
+    const query = `q=id:${reqBody.destinationId}&dataName:${solrDataName.destinationById}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+
+    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+      return {
+        ...searchSolrResult,
+        data: JSON.parse(searchSolrResult.data[0].data),
+      };
+    }
+    const payload = {
+      filtering: {
+        destination: `${reqBody.destinationId}`,
+      },
+      currency: "INR",
+    };
     const response = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
-      reqBody
+      payload
     );
-    // console.log("Res2", response);
-    // const data = {
-    //   id: reqBody.filtering.destination,
-    //   products: response.products,
-    // };
-    // const result = await updateDataSolrDbController(data);
-    // console.log("result", result);
-
+    const transformedData = {
+      id: reqBody.destinationId,
+      dataName: solrDataName.destinationById,
+      data: JSON.stringify({ products: response.products }),
+      updatedAt: new Date(),
+    };
+    addDataSolr(transformedData);
     return {
       status: true,
       message: "Destination products fetched successfully",
@@ -57,15 +80,79 @@ export const getDestinationByIdController = async (reqBody) => {
   }
 };
 
-export const getProductdetailsByID = async (req) => {
-  const params = req.nextUrl.searchParams;
-  let id = params.get("query");
+export const getProductByCodeController = async (reqBody) => {
   try {
-    const resp = await apiGetCall(
-      process.env.VIATOR_BASEURL + `/partner/products/${id}`
+    const query = `q=id:${reqBody}&dataName:${solrDataName.productByProductCode}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+      return {
+        ...searchSolrResult,
+        data: JSON.parse(searchSolrResult.data[0].data),
+      };
+    }
+    const response = await apiGetCall(
+      process.env.VIATOR_BASEURL + `/partner/products/${reqBody}`
     );
-    return resp;
+    const transformedData = {
+      id: reqBody,
+      dataName: solrDataName.productByProductCode,
+      data: JSON.stringify(response),
+      updatedAt: new Date(),
+    };
+    addDataSolr(transformedData);
+    return {
+      status: true,
+      message: "Product details fetched successfully",
+      data: response,
+    };
   } catch (error) {
     console.log("error", error);
+    return {
+      status: false,
+      message: "getProductDetailsByProductCode controller failed",
+      error: error,
+    };
+  }
+};
+
+export const getAttractionsByDestIdController = async (reqBody) => {
+  try {
+    const query = `q=id:${reqBody.destinationId}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+    console.log("ATT", searchSolrResult);
+    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+      return {
+        ...searchSolrResult,
+        data: JSON.parse(searchSolrResult.data[0].data),
+      };
+    }
+    const payload = {
+      destId: reqBody.destinationId,
+      topX: "",
+      sortOrder: "RECOMMENDED",
+    };
+    const response = await apiPostCall(
+      `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/attractions`,
+      payload
+    );
+    const transformedData = {
+      id: reqBody.destinationId,
+      dataName: solrDataName.attractionsByDestId,
+      data: JSON.stringify(response),
+      updatedAt: new Date(),
+    };
+    // addDataSolr(transformedData);
+    return {
+      status: true,
+      message: "Attractions fetched successfully",
+      data: response,
+    };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      status: false,
+      message: "getProductDetailsByProductCode controller failed",
+      error: error,
+    };
   }
 };
