@@ -37,7 +37,7 @@ const Search = ({ data }) => {
       setSearchTerm(value);
     }
     if (value.length > 2) {
-      const filteredList = destinations.filter((destinations) =>
+      const filteredList = destinations?.filter((destinations) =>
         destinations.destinationName
           ?.toLowerCase()
           .includes(value.toLowerCase())
@@ -82,7 +82,7 @@ const Search = ({ data }) => {
                 onChange={(e) => handleInputChange(e)}
               />
               <div style={{ marginTop: "0.3rem" }}>
-                {filteredList.length > 0 &&
+                {filteredList?.length > 0 &&
                   filteredList.map((destination, idx) => (
                     <div
                       key={idx}
