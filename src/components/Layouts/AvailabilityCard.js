@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { HiMiniCheckCircle } from "react-icons/hi2";
 
 const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
-  const [count, setCount] = useState(travelers);
   
   return (
     <div className="availability-card">
