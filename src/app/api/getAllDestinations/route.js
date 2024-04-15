@@ -6,11 +6,24 @@ export const GET = async (req) => {
   //   const params = req.nextUrl.searchParams;
   //   let textData = params.get("query");
   try {
+    // let destinationData ;
+    // let destinationData = fs.readFile('public/json/allDestination.json', 'utf8', (err, data) => {
+    //   if (err) {
+    //     console.error('Error reading file:', err);
+    //     return;
+    //   }
+    // });
+    const destinationData = fs.readFileSync('Accounts.json', 'utf-8');
+    console.log("00000", destinationData);
     const destinations = await getAllDestinationsController();
     if (destinations.status) {
       const maindata = JSON.stringify(destinations);
-      fs.writeFile("public/json/AllDestinationsData.json", maindata, (err) => {
-        if (err) return err;
+      fs.writeFile(`public/json/allDestination.json`, maindata, (err) => {
+        if (err) {
+          console.error('Error writing file:', err);
+        } else {
+          console.log('File written successfully');
+        }
       });
       return NextResponse.json(destinations, { status: 200 });
     } else {
@@ -23,3 +36,4 @@ export const GET = async (req) => {
     });
   }
 };
+
