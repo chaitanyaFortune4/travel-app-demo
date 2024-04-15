@@ -12,7 +12,9 @@ export const GET = async (req) => {
       "utf-8"
     );
     if (destinationData) {
-      return NextResponse.json(destinationData, { status: 200 });
+      let ArrOfObj = { data: JSON.parse(destinationData).data };
+      
+      return NextResponse.json(ArrOfObj, { status: 200 });
     } else {
       const destinations = await getAllDestinationsController();
       if (destinations.status) {
@@ -24,6 +26,8 @@ export const GET = async (req) => {
             console.log("File written successfully");
           }
         });
+        console.log("inn 26");
+
         return NextResponse.json(destinations, { status: 200 });
       } else {
         throw destinations;
