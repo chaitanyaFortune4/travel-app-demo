@@ -9,8 +9,8 @@ export default async function Home() {
 
   return (
     <>
-      {/* <Search data={allDestinations.data.data} /> */}
-      <ProductDetails />
+      <Search data={allDestinations.data.data} />
+      {/* <ProductDetails /> */}
     </>
   );
 }
