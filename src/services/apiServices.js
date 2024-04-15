@@ -23,16 +23,3 @@ export const getDestinationById = async (destinationParams) => {
     throw error;
   }
 };
-
-export const addDataSolrDB = async () => {
-  try {
-    const addDataSolrDBResponse = await axios.post(
-      apiList.addDataSolr,
-      payload
-    );
-    return addDataSolrDBResponse;
-  } catch (error) {
-    console.log("addDataSolrDB", error);
-    throw error;
-  }
-};
