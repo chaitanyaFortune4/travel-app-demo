@@ -15,7 +15,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 export default function ProductDetailsImageContainer() {
-  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [thumbsSwiper, setThumbsSwiper] = useState('');
   const swiperOneOptions = {
     loop: true,
     spaceBetween: 10,
