@@ -4,7 +4,6 @@ import React, { useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { IoIosArrowDropright } from "react-icons/io";
 
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -15,7 +14,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 
 export default function ProductDetailsImageContainer() {
-  const [thumbsSwiper, setThumbsSwiper] = useState('');
+  const [thumbsSwiper, setThumbsSwiper] = useState("");
   const swiperOneOptions = {
     loop: true,
     spaceBetween: 10,
@@ -52,7 +51,7 @@ export default function ProductDetailsImageContainer() {
           ))}
         </Swiper>
       </div>
-      <div style={{ width: "80%", borderRadius: "10px" , }}>
+      <div style={{ width: "80%", borderRadius: "10px" }}>
         <Swiper
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
@@ -67,7 +66,6 @@ export default function ProductDetailsImageContainer() {
                 }.jpg`}
                 alt={`Nature ${index + 1}`}
                 // style={{borderRadius:'10px'}}
-
               />
             </SwiperSlide>
           ))}
