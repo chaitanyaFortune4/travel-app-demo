@@ -1,9 +1,11 @@
 import { apiList } from "@/utils/constants";
 import axios from "axios";
 
+
 export const getAllDestinations = async () => {
   try {
     const destinations = await axios.get(apiList.getAllDestinations);
+
     return destinations;
   } catch (error) {
     console.log("allDestinations Error", error);
