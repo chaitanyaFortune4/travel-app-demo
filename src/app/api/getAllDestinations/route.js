@@ -26,7 +26,6 @@ export const GET = async (req) => {
             console.log("File written successfully");
           }
         });
-        console.log("inn 26");
 
         return NextResponse.json(destinations, { status: 200 });
       } else {
