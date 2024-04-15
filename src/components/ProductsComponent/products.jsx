@@ -78,11 +78,8 @@ const Products = ({ products }) => {
       <div style={{ marginTop: "2rem" }}>
         {products?.length > 0 &&
           products.map((product, idx) => (
-            <a
-              href={`/tour/${convertToSlug(product.title)}`}
-            >
+            <a href={`/tour/${convertToSlug(product.title)}`} key={idx}>
               <div
-                key={idx}
                 style={{
                   cursor: "pointer",
                   border: "1px solid grey",
