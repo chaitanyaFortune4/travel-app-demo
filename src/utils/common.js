@@ -1,3 +1,6 @@
+import fs from "fs";
+import { apiList } from "./constants";
+
 export const transformData = (data) => {
   return data.map((item) => ({
     id: item?.destinationId,
@@ -37,4 +40,16 @@ export function convertToSlug(title) {
     .replace(/\s+/g, '-') // Replace whitespace with '-'
     .replace(/--+/g, '-') // Replace multiple '-' with single '-'
     .trim(); // Remove leading and trailing whitespaces
+}
+
+export const readFile = (path) => {
+  try {
+    const destinationData = fs.readFileSync(
+      `${apiList.fileUpload}/${path}`,
+      "utf-8"
+    );
+    return JSON.parse(destinationData);
+  } catch (error) {
+    return [];
+  }
 }
