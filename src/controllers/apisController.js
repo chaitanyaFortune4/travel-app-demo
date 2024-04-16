@@ -34,6 +34,14 @@ export const getDestinationByIdController = async (reqBody) => {
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
       reqBody
     );
+    const attReqBody = {
+      destId: reqBody?.filtering?.destination,
+      sortOrder: "RECOMMENDED",
+    };
+    const attractionData = await apiPostCall(
+      `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/attractions`,
+      attReqBody
+    );
     // console.log("Res2", response);
     // const data = {
     //   id: reqBody.filtering.destination,
@@ -46,6 +54,7 @@ export const getDestinationByIdController = async (reqBody) => {
       status: true,
       message: "Destination products fetched successfully",
       data: response.products,
+      attractionData: attractionData.data
     };
   } catch (error) {
     console.log("getDestinationById error", error);
