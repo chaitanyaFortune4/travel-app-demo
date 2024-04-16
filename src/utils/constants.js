@@ -5,6 +5,8 @@ export const apiList = {
   getDestinationById: `${baseUrl}/api/getDestinationById`,
   // getDestinationDetailsByProductId: `${baseUrl}/api/getDestinationDetailByProductId`,
   getProductDetailsByProductCode: `${baseUrl}/api/getProductDetailsByProductCode`,
+  getAttractionsByDestId: `${baseUrl}/api/getAttractionsByDestId`,
+  getAttractionBySeoId: `${baseUrl}/api/getAttractionDetailsBySeoId`,
   createSchemaSolr: `${baseUrl}/api/solr/createSchemaSolr`,
   addDataSolr: `${baseUrl}/api/solr/addDataSolr`,
   updateDataSolr: `${baseUrl}/api/solr/updateDataSolr`,
@@ -15,8 +17,9 @@ export const apiList = {
 };
 
 export const solrDataName = {
-  destinations: `destinations`,
+  allDestinations: `allDestinations`,
   destinationById: `destinationById`,
   productByProductCode: `productByProductCode`,
   attractionsByDestId: `attractionsByDestId`,
+  attractionBySeoId: `attractionBySeoId`,
 };

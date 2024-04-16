@@ -1,15 +1,20 @@
-import { addDataSolr, searchByIdDataSolr } from "@/helpers/solrHelpers";
+import {
+  addDataSolr,
+  searchByIdDataSolr,
+  updateDataSolr,
+} from "@/helpers/solrHelpers";
 import { apiGetCall, apiPostCall } from "@/services/thirdPartyApiService";
 import { solrDataName } from "@/utils/constants";
 
 export const getAllDestinationsController = async () => {
   try {
-    const query = `q=dataName:${solrDataName.destinations}`;
+    const query = `q=id:1&dataName:${solrDataName.allDestinations}`;
     const searchSolrResult = await searchByIdDataSolr(query);
+
     if (searchSolrResult.status && searchSolrResult.isStale === false) {
       return {
         ...searchSolrResult,
-        data: JSON.parse(searchSolrResult.data[0].data),
+        data: JSON.parse(searchSolrResult.data[0].destinationsList),
       };
     }
     const response = await apiGetCall(
@@ -17,8 +22,8 @@ export const getAllDestinationsController = async () => {
     );
     const transformedData = {
       id: "1",
-      dataName: solrDataName.destinations,
-      data: JSON.stringify(response.data),
+      dataName: solrDataName.allDestinations,
+      destinationsList: JSON.stringify(response.data),
       updatedAt: new Date(),
     };
     addDataSolr(transformedData);
@@ -45,7 +50,7 @@ export const getDestinationByIdController = async (reqBody) => {
     if (searchSolrResult.status && searchSolrResult.isStale === false) {
       return {
         ...searchSolrResult,
-        data: JSON.parse(searchSolrResult.data[0].data),
+        data: JSON.parse(searchSolrResult.data[0].destinationDetails),
       };
     }
     const payload = {
@@ -61,7 +66,7 @@ export const getDestinationByIdController = async (reqBody) => {
     const transformedData = {
       id: reqBody.destinationId,
       dataName: solrDataName.destinationById,
-      data: JSON.stringify({ products: response.products }),
+      destinationDetails: JSON.stringify({ products: response.products }),
       updatedAt: new Date(),
     };
     addDataSolr(transformedData);
@@ -87,7 +92,7 @@ export const getProductByCodeController = async (reqBody) => {
     if (searchSolrResult.status && searchSolrResult.isStale === false) {
       return {
         ...searchSolrResult,
-        data: JSON.parse(searchSolrResult.data[0].data),
+        data: JSON.parse(searchSolrResult.data[0].productDetails),
       };
     }
     const response = await apiGetCall(
@@ -96,7 +101,7 @@ export const getProductByCodeController = async (reqBody) => {
     const transformedData = {
       id: reqBody,
       dataName: solrDataName.productByProductCode,
-      data: JSON.stringify(response),
+      productDetails: JSON.stringify(response),
       updatedAt: new Date(),
     };
     addDataSolr(transformedData);
@@ -106,7 +111,7 @@ export const getProductByCodeController = async (reqBody) => {
       data: response,
     };
   } catch (error) {
-    console.log("error", error);
+    console.log("getProductDetailsByProductCode error", error);
     return {
       status: false,
       message: "getProductDetailsByProductCode controller failed",
@@ -119,11 +124,15 @@ export const getAttractionsByDestIdController = async (reqBody) => {
   try {
     const query = `q=id:${reqBody.destinationId}`;
     const searchSolrResult = await searchByIdDataSolr(query);
-    console.log("ATT", searchSolrResult);
-    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+
+    if (
+      searchSolrResult.status &&
+      searchSolrResult.isStale === false &&
+      searchSolrResult.data[0].hasOwnProperty("attractionsList")
+    ) {
       return {
         ...searchSolrResult,
-        data: JSON.parse(searchSolrResult.data[0].data),
+        data: JSON.parse(searchSolrResult.data[0].attractionsList),
       };
     }
     const payload = {
@@ -137,11 +146,11 @@ export const getAttractionsByDestIdController = async (reqBody) => {
     );
     const transformedData = {
       id: reqBody.destinationId,
-      dataName: solrDataName.attractionsByDestId,
-      data: JSON.stringify(response),
+      fieldName: "attractionsList",
+      dataToUpdate: JSON.stringify(response.data),
       updatedAt: new Date(),
     };
-    // addDataSolr(transformedData);
+    updateDataSolr(transformedData);
     return {
       status: true,
       message: "Attractions fetched successfully",
@@ -151,7 +160,44 @@ export const getAttractionsByDestIdController = async (reqBody) => {
     console.log("error", error);
     return {
       status: false,
-      message: "getProductDetailsByProductCode controller failed",
+      message: "getAttractionByDestId controller failed",
+      error: error,
+    };
+  }
+};
+
+export const getAttractionsBySeoIdController = async (reqBody) => {
+  try {
+    const query = `q=id:${reqBody}&dataName:${solrDataName.attractionBySeoId}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+      return {
+        ...searchSolrResult,
+        data: JSON.parse(searchSolrResult.data[0].attractionDetails),
+      };
+    }
+    const response = await apiGetCall(
+      process.env.VIATOR_BASEURL +
+        `/partner/v1/attraction/products?seoId=${reqBody}`
+    );
+
+    const transformedData = {
+      id: reqBody,
+      dataName: solrDataName.attractionBySeoId,
+      attractionDetails: JSON.stringify(response.data),
+      updatedAt: new Date(),
+    };
+    addDataSolr(transformedData);
+    return {
+      status: true,
+      message: "Attraction details fetched successfully",
+      data: response,
+    };
+  } catch (error) {
+    console.log("error", error);
+    return {
+      status: false,
+      message: "getAttractionDetailsBySeoId controller failed",
       error: error,
     };
   }
