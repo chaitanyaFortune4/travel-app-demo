@@ -28,7 +28,7 @@ export const getAllDestinationsController = async () => {
 };
 
 export const getDestinationByIdController = async (reqBody) => {
-  console.log("REQB", reqBody);
+  // console.log("REQB", reqBody);
   try {
     const response = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
