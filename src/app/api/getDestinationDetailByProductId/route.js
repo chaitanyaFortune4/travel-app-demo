@@ -8,18 +8,18 @@ export const GET = async (req) => {
     try {
         const params = req.nextUrl.searchParams;
         let id = params.get("query");
-        let jsonData = await readFile('getProductDetailsById.json')
+        let jsonData;
 
-        // try {
-        //     const destinationData = fs.readFileSync(
-        //         `${apiList.fileUpload}/getProductDetailsById.json`,
-        //         "utf-8"
-        //     );
-        //     jsonData = JSON.parse(destinationData);
-        // } catch (error) {
-        //     console.error("Error reading JSON file:", error);
-        //     jsonData = [];
-        // }
+        try {
+            const destinationData = fs.readFileSync(
+                `${apiList.fileUpload}/getProductDetailsById.json`,
+                "utf-8"
+            );
+            jsonData = JSON.parse(destinationData);
+        } catch (error) {
+            console.error("Error reading JSON file:", error);
+            jsonData = [];
+        }
         if (Array.isArray(jsonData)) {
             let arr = jsonData.find(v => v.productCode === id);
             if (arr) {

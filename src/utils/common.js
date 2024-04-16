@@ -1,5 +1,5 @@
-import fs from "fs";
-import { apiList } from "./constants";
+// import fs from "fs";
+// import { apiList } from "./constants";
 
 export const transformData = (data) => {
   return data.map((item) => ({
@@ -42,14 +42,14 @@ export function convertToSlug(title) {
     .trim(); // Remove leading and trailing whitespaces
 }
 
-export const readFile = (path) => {
-  try {
-    const destinationData = fs.readFileSync(
-      `${apiList.fileUpload}/${path}`,
-      "utf-8"
-    );
-    return JSON.parse(destinationData);
-  } catch (error) {
-    return [];
-  }
-}
+// export const readFile = (path) => {
+//   try {
+//     const destinationData = fs.readFileSync(
+//       `${apiList.fileUpload}/${path}`,
+//       "utf-8"
+//     );
+//     return JSON.parse(destinationData);
+//   } catch (error) {
+//     return [];
+//   }
+// }
