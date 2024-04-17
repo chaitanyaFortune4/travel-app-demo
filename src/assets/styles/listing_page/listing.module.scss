@@ -1,0 +1,14 @@
+.list-card{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    column-gap: 1.5rem;
+    .card-img{
+        border-radius: 10px;
+    }
+}

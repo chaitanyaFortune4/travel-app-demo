@@ -5,7 +5,8 @@ import { apiList } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-
+import listStyle from "../../assets/styles/listing_page/listing.module.scss"
+import commonStyle from "../../assets/styles/common.module.scss"
 const Products = ({ products }) => {
   const convertMinutesToHours = (minutes) => {
     var hours = Math.floor(minutes / 60); // Calculate hours
@@ -82,39 +83,23 @@ const Products = ({ products }) => {
         {products?.length > 0 &&
           products.slice(0,3).map((product, idx) => (
             <Link href={`/tour/${convertToSlug(product.title)}`} key={idx}>
-              <div
-                style={{
-                  cursor: "pointer",
-                  border: "1px solid grey",
-                  padding: "1rem",
-                  width: "100%",
-                  display: "flex",
-                  justifyContent: "space-around",
-                  columnGap: "0.5rem",
-                }}
+              <div className={listStyle["list-card"]}
                 onClick={() => eventTrigger(product)}
               >
                 <div>
                   <img
                     src={product.images[0].variants[8].url}
+                    className={listStyle["card-img"]}
                     style={{
-                      // height: "100%",
-                      // width: "100%",
                       objectFit: "contain",
                     }}
                     alt="Picture of the author"
                   />
                 </div>
                 <div style={{ width: "60%" }}>
-                  <div
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "1rem",
-                      marginBottom: "1rem",
-                    }}
-                  >
+                  <h3 className={listStyle["card-title"]}>
                     {product.title}
-                  </div>
+                  </h3>
                   <div style={{ marginBottom: "1rem" }}>
                     <StarRating
                       rating={product.reviews?.combinedAverageRating}
