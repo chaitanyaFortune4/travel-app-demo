@@ -5,7 +5,6 @@ import { Title } from "../Items/Title";
 import { useRouter } from "next/navigation";
 
 const AttractionsSection = ({ data }) => {
-  console.log("data", data.slice(0, 10));
   const router = useRouter();
   const onClickAttractionCard = (pageUrlName, seoId) => {
     localStorage.setItem("seo", seoId);
