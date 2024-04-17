@@ -2,7 +2,7 @@ import { getDestinationBySeoId } from "@/services/apiServices";
 
 const AttractionWrapper = async ({ seoId, pathname }) => {
   const result = await getDestinationBySeoId(seoId);
-  console.log({ result });
+  console.log('result', result.data);
 
   return (
     <>

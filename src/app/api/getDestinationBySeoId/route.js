@@ -12,7 +12,7 @@ export const GET = async (req) => {
     );
     let arr = JSON.parse(attractionData);
 
-    if (!attractionData && isDataStaleChecker(arr.updatedAt) === false) {
+    if (attractionData && isDataStaleChecker(arr.updatedAt) === false) {
       console.log("json");
       return NextResponse.json(arr, { status: 200 });
     } else {
