@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 import Search from "@/components/SearchComponent/search";
 import { getAllDestinations } from "@/services/apiServices";
 import ProductDetails from "@/components/ProductsComponent/productDetails";
+import ListingWrapper from "@/components/ListingComponent/ListingWrapper";
 
 export default async function Home() {
   const allDestinations = await getAllDestinations();
@@ -10,7 +11,6 @@ export default async function Home() {
   return (
     <>
       <Search data={allDestinations.data.data} />
-      {/* <ProductDetails /> */}
     </>
   );
 }

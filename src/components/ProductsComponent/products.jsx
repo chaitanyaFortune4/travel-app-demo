@@ -1,6 +1,9 @@
+"use client";
+
 import { convertToSlug, eventTrigger } from "@/utils/common";
 import { apiList } from "@/utils/constants";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 const Products = ({ products }) => {
@@ -75,10 +78,10 @@ const Products = ({ products }) => {
 
   return (
     <>
-      <div style={{ marginTop: "2rem" }}>
+      {/* <div style={{ marginTop: "2rem" }}> */}
         {products?.length > 0 &&
-          products.map((product, idx) => (
-            <a href={`/tour/${convertToSlug(product.title)}`} key={idx}>
+          products.slice(0,3).map((product, idx) => (
+            <Link href={`/tour/${convertToSlug(product.title)}`} key={idx}>
               <div
                 style={{
                   cursor: "pointer",
@@ -161,9 +164,9 @@ const Products = ({ products }) => {
                   </p>
                 </div>
               </div>
-            </a>
+            </Link>
           ))}
-      </div>
+      {/* </div> */}
     </>
   );
 };

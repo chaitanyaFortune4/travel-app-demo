@@ -3,33 +3,15 @@
 import React, { useEffect, useState } from "react";
 import Products from "../ProductsComponent/products";
 import { getDestinationById } from "@/services/apiServices";
+import AttractionsSection from "../AttractionComponent/AttractionsSection";
+import { useRouter } from "next/navigation";
+import { convertToSlug } from "@/utils/common";
 
 const Search = ({ data }) => {
   const [destinations, setDestinations] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredList, setFilteredList] = useState([]);
-  const [products, setProducts] = useState([]);
-
-  const fetchDestionationById = async (
-    selectedDestinationName,
-    selectedDestinationId
-  ) => {
-    console.log("ID", selectedDestinationId);
-    const selectedDestinationObj = {
-      filtering: {
-        destination: selectedDestinationId,
-      },
-      currency: "INR",
-    };
-
-    const result = await getDestinationById(selectedDestinationObj);
-
-    if (result.status === 200) {
-      setSearchTerm(selectedDestinationName);
-      setFilteredList([]);
-      setProducts(result.data.data);
-    }
-  };
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,6 +36,15 @@ const Search = ({ data }) => {
     localStorage.setItem("mobile", "9886979895");
   }, []);
 
+  const onClickDestination = (e, destination) => {
+    localStorage.setItem("destinationId", destination.destinationId);
+    router.push(`/listing/${convertToSlug(destination.destinationName)}`);
+
+    // fetchDestionationById(
+    //   destination.destinationName,
+    //   destination.destinationId
+    // );
+  };
   return (
     <>
       <div
@@ -91,13 +82,7 @@ const Search = ({ data }) => {
                         cursor: "pointer",
                         padding: "0.2rem",
                       }}
-                      onClick={() =>
-                        // setSelectedDestination(destination.destinationId)
-                        fetchDestionationById(
-                          destination.destinationName,
-                          destination.destinationId
-                        )
-                      }
+                      onClick={(e) => onClickDestination(e, destination)}
                     >
                       {destination.destinationName}
                     </div>
@@ -115,7 +100,6 @@ const Search = ({ data }) => {
           </div>
         </form>
       </div>
-      <Products products={products} />
     </>
   );
 };
