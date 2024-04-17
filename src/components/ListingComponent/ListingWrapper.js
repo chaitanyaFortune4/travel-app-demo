@@ -13,7 +13,8 @@ const ListingWrapper = async ({ destinationId }) => {
 
   return (
     <>
-      <h1>listing page</h1>
+      <h1 className="m-5">listing page</h1>
+      <h1 className="text-3xl font-bold underline">Hello world!</h1>
       <Products products={result.data.data} />
       <AttractionsSection data={result.data.attractionData} />
     </>
