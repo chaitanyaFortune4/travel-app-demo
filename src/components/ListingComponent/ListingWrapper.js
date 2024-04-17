@@ -10,7 +10,6 @@ const ListingWrapper = async ({ destinationId }) => {
     currency: "INR",
   };
   const result = await getDestinationById(selectedDestinationObj);
-  console.log("result", result.data.attractionData);
 
   return (
     <>
