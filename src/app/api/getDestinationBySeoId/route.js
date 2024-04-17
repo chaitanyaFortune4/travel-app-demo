@@ -10,18 +10,15 @@ export const GET = async (req) => {
       `${apiList.fileUpload}/destinationBySeoId.json`,
       "utf-8"
     );
-    console.log("attractions", typeof attractionData);
-
     let arr = JSON.parse(attractionData);
-    console.log("arr", typeof arr);
 
-    if (attractionData && isDataStaleChecker(arr.updatedAt) === false) {
+    if (!attractionData && isDataStaleChecker(arr.updatedAt) === false) {
+      console.log("json");
       return NextResponse.json(arr, { status: 200 });
     } else {
       const params = req.nextUrl.searchParams;
       let id = params.get("seoId");
       const attractions = await getAttractionController(id);
-      console.log("attractions", typeof attractions);
       if (attractions.status) {
         let arr = {
           updatedAt: new Date(),
@@ -41,7 +38,6 @@ export const GET = async (req) => {
 
         return NextResponse.json(attractions, { status: 200 });
       } else {
-
         throw attractions;
       }
     }

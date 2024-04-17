@@ -1,13 +1,11 @@
 "use client";
 import AttractionWrapper from "@/components/AttractionComponent/AttractionWrapper";
-import React, { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const page = () => {
-  const [seoId, setseoId] = useState("");
-  useEffect(() => {
-    let val = localStorage.getItem("seoId");
-    setseoId(val);
-  }, []);
+  const searchParams = useSearchParams();
+  const seoId = searchParams.get("seo");
+  
   return (
     <div>
       <AttractionWrapper seoId={seoId} />
