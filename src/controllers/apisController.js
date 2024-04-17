@@ -11,7 +11,7 @@ export const getAllDestinationsController = async () => {
     const query = `q=id:1&dataName:${solrDataName.allDestinations}`;
     const searchSolrResult = await searchByIdDataSolr(query);
 
-    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+    if (searchSolrResult.status) {
       return {
         ...searchSolrResult,
         data: JSON.parse(searchSolrResult.data[0].destinationsList),
@@ -24,7 +24,7 @@ export const getAllDestinationsController = async () => {
       id: "1",
       dataName: solrDataName.allDestinations,
       destinationsList: JSON.stringify(response.data),
-      updatedAt: new Date(),
+      time_to_live_s: "+1DAY",
     };
     addDataSolr(transformedData);
     return {
@@ -44,21 +44,41 @@ export const getAllDestinationsController = async () => {
 
 export const getDestinationByIdController = async (reqBody) => {
   try {
-    const query = `q=id:${reqBody.destinationId}&dataName:${solrDataName.destinationById}`;
-    const searchSolrResult = await searchByIdDataSolr(query);
-
-    if (searchSolrResult.status && searchSolrResult.isStale === false) {
-      return {
-        ...searchSolrResult,
-        data: JSON.parse(searchSolrResult.data[0].destinationDetails),
-      };
-    }
     const payload = {
       filtering: {
         destination: `${reqBody.destinationId}`,
       },
       currency: "INR",
     };
+    const query = `q=id:${reqBody.destinationId}&dataName:${solrDataName.destinationById}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+
+    if (searchSolrResult.status) {
+      if (searchSolrResult.data[0].hasOwnProperty("destinationDetails")) {
+        return {
+          ...searchSolrResult,
+          data: JSON.parse(searchSolrResult.data[0].destinationDetails),
+        };
+      } else {
+        const response = await apiPostCall(
+          `${process.env.VIATOR_BASEURL}/partner/products/search`,
+          payload
+        );
+        const existingData = searchSolrResult.data[0];
+        // Exclude the _version_ field from the existing data
+        const { _version_, expire_at_dt, ...dataWithoutVersion } = existingData;
+        const transformedData = {
+          ...dataWithoutVersion,
+          destinationDetail: JSON.stringify(response.data),
+        };
+        addDataSolr(transformedData);
+        return {
+          status: true,
+          message: "Destination products fetched successfully",
+          data: response.data,
+        };
+      }
+    }
     const response = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
       payload
@@ -67,7 +87,7 @@ export const getDestinationByIdController = async (reqBody) => {
       id: reqBody.destinationId,
       dataName: solrDataName.destinationById,
       destinationDetails: JSON.stringify({ products: response.products }),
-      updatedAt: new Date(),
+      time_to_live_s: "+1DAY",
     };
     addDataSolr(transformedData);
     return {
@@ -89,7 +109,7 @@ export const getProductByCodeController = async (reqBody) => {
   try {
     const query = `q=id:${reqBody}&dataName:${solrDataName.productByProductCode}`;
     const searchSolrResult = await searchByIdDataSolr(query);
-    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+    if (searchSolrResult.status) {
       return {
         ...searchSolrResult,
         data: JSON.parse(searchSolrResult.data[0].productDetails),
@@ -102,7 +122,7 @@ export const getProductByCodeController = async (reqBody) => {
       id: reqBody,
       dataName: solrDataName.productByProductCode,
       productDetails: JSON.stringify(response),
-      updatedAt: new Date(),
+      time_to_live_s: "+1DAY",
     };
     addDataSolr(transformedData);
     return {
@@ -122,39 +142,54 @@ export const getProductByCodeController = async (reqBody) => {
 
 export const getAttractionsByDestIdController = async (reqBody) => {
   try {
-    const query = `q=id:${reqBody.destinationId}`;
-    const searchSolrResult = await searchByIdDataSolr(query);
-
-    if (
-      searchSolrResult.status &&
-      searchSolrResult.isStale === false &&
-      searchSolrResult.data[0].hasOwnProperty("attractionsList")
-    ) {
-      return {
-        ...searchSolrResult,
-        data: JSON.parse(searchSolrResult.data[0].attractionsList),
-      };
-    }
     const payload = {
       destId: reqBody.destinationId,
       topX: "",
       sortOrder: "RECOMMENDED",
     };
+    const query = `q=id:${reqBody.destinationId}`;
+    const searchSolrResult = await searchByIdDataSolr(query);
+    if (searchSolrResult.status) {
+      if (searchSolrResult.data[0].hasOwnProperty("attractionsList")) {
+        return {
+          ...searchSolrResult,
+          data: JSON.parse(searchSolrResult.data[0].attractionsList),
+        };
+      } else {
+        const response = await apiPostCall(
+          `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/attractions`,
+          payload
+        );
+        const existingData = searchSolrResult.data[0];
+        // Exclude the _version_ field from the existing data
+        const { _version_, expire_at_dt, ...dataWithoutVersion } = existingData;
+        const transformedData = {
+          ...dataWithoutVersion,
+          attractionsList: JSON.stringify(response.data),
+        };
+        addDataSolr(transformedData);
+        return {
+          status: true,
+          message: "Attractions fetched successfully",
+          data: response.data,
+        };
+      }
+    }
     const response = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/attractions`,
       payload
     );
     const transformedData = {
       id: reqBody.destinationId,
-      fieldName: "attractionsList",
-      dataToUpdate: JSON.stringify(response.data),
-      updatedAt: new Date(),
+      dataName: solrDataName.destinationById,
+      attractionsList: JSON.stringify(response.data),
+      time_to_live_s: "+1DAY",
     };
-    updateDataSolr(transformedData);
+    addDataSolr(transformedData);
     return {
       status: true,
       message: "Attractions fetched successfully",
-      data: response,
+      data: response.data,
     };
   } catch (error) {
     console.log("error", error);
@@ -170,7 +205,7 @@ export const getAttractionsBySeoIdController = async (reqBody) => {
   try {
     const query = `q=id:${reqBody}&dataName:${solrDataName.attractionBySeoId}`;
     const searchSolrResult = await searchByIdDataSolr(query);
-    if (searchSolrResult.status && searchSolrResult.isStale === false) {
+    if (searchSolrResult.status) {
       return {
         ...searchSolrResult,
         data: JSON.parse(searchSolrResult.data[0].attractionDetails),
@@ -180,18 +215,17 @@ export const getAttractionsBySeoIdController = async (reqBody) => {
       process.env.VIATOR_BASEURL +
         `/partner/v1/attraction/products?seoId=${reqBody}`
     );
-
     const transformedData = {
       id: reqBody,
       dataName: solrDataName.attractionBySeoId,
       attractionDetails: JSON.stringify(response.data),
-      updatedAt: new Date(),
+      time_to_live_s: "+1DAY",
     };
     addDataSolr(transformedData);
     return {
       status: true,
       message: "Attraction details fetched successfully",
-      data: response,
+      data: response.data,
     };
   } catch (error) {
     console.log("error", error);

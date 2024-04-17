@@ -3,10 +3,11 @@ export const baseUrl = "http://localhost:3000";
 export const apiList = {
   getAllDestinations: `${baseUrl}/api/getAllDestinations`,
   getDestinationById: `${baseUrl}/api/getDestinationById`,
-  // getDestinationDetailsByProductId: `${baseUrl}/api/getDestinationDetailByProductId`,
-  getProductDetailsByProductCode: `${baseUrl}/api/getProductDetailsByProductCode`,
+  getProductDetailsByProductCode: `${baseUrl}/api/getProductDetailsByProductCode`, // getProductDetailsByProductCode/exampleCode
   getAttractionsByDestId: `${baseUrl}/api/getAttractionsByDestId`,
-  getAttractionBySeoId: `${baseUrl}/api/getAttractionDetailsBySeoId`,
+  getAttractionBySeoId: `${baseUrl}/api/getAttractionDetailsBySeoId?seoId=`, // seoId=123456
+
+  //Apis for direct Solr queries
   createSchemaSolr: `${baseUrl}/api/solr/createSchemaSolr`,
   addDataSolr: `${baseUrl}/api/solr/addDataSolr`,
   updateDataSolr: `${baseUrl}/api/solr/updateDataSolr`,
@@ -16,10 +17,10 @@ export const apiList = {
   addTracksdata: `${baseUrl}/api/getTracksData`,
 };
 
+// dataNames used for grouping Solr documents
 export const solrDataName = {
   allDestinations: `allDestinations`,
   destinationById: `destinationById`,
   productByProductCode: `productByProductCode`,
-  attractionsByDestId: `attractionsByDestId`,
   attractionBySeoId: `attractionBySeoId`,
 };

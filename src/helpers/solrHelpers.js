@@ -52,7 +52,6 @@ export const addDataSolr = (reqBody) => {
     client
       .add(reqBody)
       .then((solrResponse) => {
-        console.log("GG", solrResponse);
         resolve({ status: true, message: "Data added succesfully" });
       })
       .catch((error) => {
@@ -77,8 +76,6 @@ export const deleteAllDataSolr = () => {
 };
 
 export const deleteByIdSolr = (idObj) => {
-  console.log("idObj", idObj);
-
   return new Promise((resolve, reject) => {
     client
       .deleteByID(idObj.id)
@@ -112,18 +109,23 @@ export const searchAllDataSolr = () => {
 };
 
 export const searchByIdDataSolr = (query) => {
-  console.log("QQ", query);
   return new Promise((resolve, reject) => {
     client
       .search(query)
       .then((solrResponse) => {
-        console.log("SR", solrResponse);
-        resolve({
-          status: true,
-          isStale: isDataStaleChecker(solrResponse.response.docs[0]?.updatedAt),
-          message: "Data found succesfully",
-          data: solrResponse.response.docs,
-        });
+        if (solrResponse.response.numFound > 0) {
+          resolve({
+            status: true,
+            message: "Data found succesfully",
+            data: solrResponse.response.docs,
+          });
+        } else {
+          resolve({
+            status: false,
+            message: "No data found",
+            data: solrResponse.response.docs,
+          });
+        }
       })
       .catch((error) => {
         console.log("searchByIdDataSolr", error);
