@@ -28,7 +28,7 @@ export const getAllDestinationsController = async () => {
 };
 
 export const getDestinationByIdController = async (reqBody) => {
-  // console.log("REQB", reqBody);
+  console.log("REQB", reqBody);
   try {
     const response = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
@@ -54,7 +54,7 @@ export const getDestinationByIdController = async (reqBody) => {
       status: true,
       message: "Destination products fetched successfully",
       data: response.products,
-      attractionData: attractionData.data
+      attractionData: attractionData.data,
     };
   } catch (error) {
     console.log("getDestinationById error", error);
@@ -76,5 +76,25 @@ export const getProductdetailsByID = async (req) => {
     return resp;
   } catch (error) {
     console.log("error", error);
+  }
+};
+
+export const getAttractionController = async (seoId) => {
+  try {
+    const response = await apiGetCall(
+      `${process.env.VIATOR_BASEURL}/partner/v1/attraction/products?seoId=${seoId}`
+    );
+    return {
+      status: true,
+      message: "Data found successfully",
+      data: response,
+    };
+  } catch (error) {
+    console.log("getAttractionController error", error);
+    return {
+      status: false,
+      message: "getAttractions controller failed",
+      error: error,
+    };
   }
 };
