@@ -1,10 +1,9 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+// import styles from "./page.module.css";
 import Search from "@/components/SearchComponent/search";
 import { getAllDestinations } from "@/services/apiServices";
 import ProductDetails from "@/components/ProductsComponent/productDetails";
 import ListingWrapper from "@/components/ListingComponent/ListingWrapper";
-
 export default async function Home() {
   const allDestinations = await getAllDestinations();
 
