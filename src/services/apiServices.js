@@ -1,4 +1,4 @@
-import { apiList } from "@/utils/constants";
+import { apiList } from "@/utils/constants1";
 import axios from "axios";
 
 export const getAllDestinations = async () => {

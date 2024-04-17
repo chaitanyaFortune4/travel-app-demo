@@ -1,7 +1,7 @@
 "use client";
 
 import { convertToSlug, eventTrigger } from "@/utils/common";
-import { apiList } from "@/utils/constants";
+import { apiList } from "@/utils/constants1";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";

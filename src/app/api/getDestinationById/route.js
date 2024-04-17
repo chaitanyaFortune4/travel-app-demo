@@ -1,63 +1,65 @@
 import { getDestinationByIdController } from "@/controllers/apisController";
 import { NextResponse } from "next/server";
 import fs from "fs";
-import { apiList } from "@/utils/constants";
+import { apiList } from "@/utils/constants1";
+import path from "path";
+import { isDataStaleChecker } from "@/utils/common";
 
 export const POST = async (req) => {
   try {
-    const requestBody = await req.json();
-    let jsonData;
-    try {
+    const { destinationId } = await req.json();
+
+    const fileName = `${destinationId}.json`;
+    const filePath = path.join(`${apiList.fileUploadProductDestinationById}`, fileName);
+    if (fs.existsSync(filePath)) {
       const destinationByIdData = fs.readFileSync(
-        `${apiList.fileUpload}/destinationById.json`,
+        `${apiList.fileUploadProductDestinationById}/${destinationId}.json`,
         "utf-8"
       );
-      jsonData = JSON.parse(destinationByIdData);
-    } catch (error) {
-      jsonData = [];
-    }
-    if (Array.isArray(jsonData)) {
-      let arr = jsonData.find(
-        (v) => v.destinationId === requestBody?.filtering?.destination
-      );
-      if (arr) {
-        // console.log("in json destination by id");
-        let ArrOfObj = arr.destinationData;
-
-        return NextResponse.json(ArrOfObj, { status: 200 });
+      let data = JSON.parse(destinationByIdData);
+      if (!isDataStaleChecker(data.updatedAt)) {
+        return NextResponse.json(data);
       } else {
-        // console.log("in Api destination by id");
-        const destinationById = await getDestinationByIdController(requestBody);
-
-        const singleData = {
-          destinationId: requestBody?.filtering?.destination,
-          destinationData: destinationById,
-        };
-
-        jsonData.push({ ...singleData });
-        if (destinationById.status) {
-          fs.writeFile(
-            `${apiList.fileUpload}/destinationById.json`,
-            JSON.stringify(jsonData),
-            (err) => {
-              if (err) {
-                console.error("Error writing file:");
-              } else {
-                console.log("File written successfully");
-              }
-            }
-          );
-          return NextResponse.json(destinationById, { status: 200 });
-        } else {
-          throw destinationById;
+        const destinationById = await getDestinationByIdController(destinationId);
+        let arrData = {
+          destinationById,
+          updatedAt: new Date()
         }
+        fs.writeFile(
+          `${apiList.fileUploadProductDestinationById}/${destinationId}.json`,
+          JSON.stringify(arrData),
+          (err) => {
+            if (err) {
+              console.error("Error writing file:");
+            } else {
+              console.log("File written successfully");
+            }
+          }
+        );
+        return NextResponse.json({ data: arrData, message: "Data fetched successfully" }, { status: 200 });
       }
     } else {
-      console.error("Data is not an array:", jsonData);
-      return NextResponse.json(
-        { error: "Data is not an array" },
-        { status: 500 }
+      const destinationById = await getDestinationByIdController(destinationId);
+      let arrData = {
+        destinationById,
+        updatedAt: new Date()
+      }
+      fs.writeFile(
+        `${apiList.fileUploadProductDestinationById}/${destinationId}.json`,
+        JSON.stringify(arrData),
+        (err) => {
+          if (err) {
+            console.error("Error writing file:");
+          } else {
+            console.log("File written successfully");
+          }
+        }
       );
+      let mainData = {
+        data: destinationById,
+        message: "Fetch product details successfully"
+      }
+      return NextResponse.json(mainData, { status: 200 });
     }
   } catch (error) {
     console.error("getDestinationById Api error", error);

@@ -1,7 +1,7 @@
 'use client'
 import ProductDetails from '@/components/ProductsComponent/productDetails'
 import { fetchData } from '@/services/thirdPartyApiService'
-import { apiList } from '@/utils/constants'
+import { apiList } from '@/utils/constants1'
 import React, { useEffect, useState } from 'react'
 
 export default function Index() {
