@@ -81,7 +81,6 @@ export const getProductdetailsByID = async (req) => {
 
 export const getAttractionController = async (seoId) => {
   try {
-    console.log("seoId", seoId);
     const response = await apiGetCall(
       `${process.env.VIATOR_BASEURL}/partner/v1/attraction/products?seoId=${seoId}`
     );
