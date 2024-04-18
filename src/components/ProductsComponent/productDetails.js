@@ -6,6 +6,7 @@ import { GoStarFill } from "react-icons/go";
 import { FaChevronDown } from "react-icons/fa";
 import ProductDetailsImageContainer from "./ProductDetailsImageContainer";
 import TravelersPhotosSection from "./TravelersPhotosSection";
+import SeeMoreModal from "./SeeMoreModal.js";
 // import data from "../../utils/dummyData.json";
 import { CiMobile3 } from "react-icons/ci";
 import { PiChatTextLight } from "react-icons/pi";
@@ -21,6 +22,7 @@ import Image from "next/image";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
+  const [modalShow, setModalShow] = React.useState(false);
   console.log("data", data);
   const increseCount = (e) => {
     setTravelers(e.target.value);
@@ -126,12 +128,29 @@ export default function ProductDetails({ data }) {
         <div>
           <Title title={"Additional Info"} />
           <ul style={{ paddingInline: "1rem" }}>
-            {data?.additionalInfo?.map((item, index) => (
+            {data?.additionalInfo?.slice(0, 3).map((item, index) => (
               <li style={{ marginBottom: "1rem" }} key={index}>
                 {item.description}
               </li>
             ))}
           </ul>
+          <div className="and-more" onClick={() => setModalShow(true)}>
+            see {data?.additionalInfo?.length - 3} more
+          </div>
+          <SeeMoreModal
+            title={"Additional Info"}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            body={
+              <ul style={{ paddingInline: "1rem" }}>
+                {data?.additionalInfo?.map((item, index) => (
+                  <li style={{ marginBottom: "1rem" }} key={index}>
+                    {item.description}
+                  </li>
+                ))}
+              </ul>
+            }
+          />
         </div>
         <Divder />
         <TravelersPhotosSection data={data?.images} />
