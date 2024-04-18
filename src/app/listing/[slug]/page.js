@@ -1,7 +1,7 @@
 import React from "react";
-import ListingWrapper from "@/components/ListingComponent/ListingWrapper";
 import { postApiData } from "@/services/thirdPartyApiService";
 import { apiList } from "@/utils/constants";
+import ProductListingWrapper from "@/components/productListing/productListingWrapper";
 
 const page = async ({ params }) => {
   let { slug } = params;
@@ -11,7 +11,7 @@ const page = async ({ params }) => {
   let response = await postApiData(apiList.getDestinationById, payload)
   return (
     <div>
-      <ListingWrapper data={response} />
+      <ProductListingWrapper data={response} />
     </div>
   );
 };
