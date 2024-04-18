@@ -1,27 +1,27 @@
-import React from "react";
-import { Swiper } from "swiper/react";
+// import React from "react";
+// import { Swiper } from "swiper/react";
 
-import "swiper/css";
-import "swiper/css/pagination";
+// import "swiper/css";
+// import "swiper/css/pagination";
 
-import "./styles.css";
+// import "./styles.css";
 
-import { Pagination } from "swiper/modules";
+// import { Pagination } from "swiper/modules";
 
-export default function CardSwiper() {
-  return (
-    <>
-      <Swiper
-        slidesPerView={3}
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        modules={[Pagination]}
-        className="mySwiper"
-      >
+// export default function CardSwiper() {
+//   return (
+//     <>
+//       <Swiper
+//         slidesPerView={3}
+//         spaceBetween={30}
+//         pagination={{
+//           clickable: true,
+//         }}
+//         modules={[Pagination]}
+//         className="mySwiper"
+//       >
 
-      </Swiper>
-    </>
-  );
-}
+//       </Swiper>
+//     </>
+//   );
+// }

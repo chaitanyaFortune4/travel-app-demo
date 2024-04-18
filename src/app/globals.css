@@ -39,7 +39,7 @@
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 }
- @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
@@ -70,7 +70,7 @@
     --card-rgb: 100, 100, 100;
     --card-border-rgb: 200, 200, 200;
   }
-}  
+}
 
 * {
   box-sizing: border-box;
@@ -81,17 +81,13 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: "Roboto", sans-serif !important;
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  line-height: 1.4;
 }
 
 a {
@@ -99,22 +95,14 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-
-
 /*  product details swiper */
-
 
 .swiper {
   /* width: 100%; */
   height: 70vh;
   margin-left: auto;
   margin-right: auto;
+  cursor: pointer;
 }
 
 .swiper-slide {
@@ -128,14 +116,13 @@ a {
   /* width: 100%; */
 }
 .mySwiper .swiper-slide-thumb-active {
-border-radius: var(--border-radius);
- border: 1px solid rgb(var(--foreground-rgb));
+  border-radius: var(--border-radius);
+  border: 1px solid rgb(var(--foreground-rgb));
 }
 
 .mySwiper {
   box-sizing: border-box;
   padding: 10px 0;
-  
 }
 
 .mySwiper .swiper-slide {
@@ -181,7 +168,6 @@ border-radius: var(--border-radius);
   padding: 20px;
   background-color: #fff;
   color: #000;
-
 }
 
 .card-header {
@@ -189,10 +175,10 @@ border-radius: var(--border-radius);
 }
 
 .form-group {
-  margin-bottom:1rem;
+  margin-bottom: 1rem;
 }
-.form-group .input-field input{
-  margin-bottom:1rem;
+.form-group .input-field input {
+  margin-bottom: 1rem;
   background-color: #fff;
   color: #000;
 }
@@ -231,9 +217,53 @@ input {
   border-radius: 5px;
   margin-top: 20px;
 }
-.text-12{
+.text-12 {
   font-size: 12px;
 }
-.text-14{
+.text-14 {
   font-size: 14px;
+}
+
+/* attraction card */
+.card {
+  border-radius: 10px;
+  overflow: hidden;
+  width: 15rem;
+  height: 9rem;
+  margin: 1rem;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 0;
+}
+
+.card:hover {
+  background-color: black;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title {
+  color: white;
+  font-size: 18px;
 }

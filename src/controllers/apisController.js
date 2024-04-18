@@ -52,7 +52,6 @@ export const getDestinationByIdController = async (reqBody) => {
     };
     const query = `q=id:${reqBody.destinationId}&dataName:${solrDataName.destinationById}`;
     const searchSolrResult = await searchByIdDataSolr(query);
-
     if (searchSolrResult.status) {
       if (searchSolrResult.data[0].hasOwnProperty("destinationDetails")) {
         return {
@@ -64,18 +63,20 @@ export const getDestinationByIdController = async (reqBody) => {
           `${process.env.VIATOR_BASEURL}/partner/products/search`,
           payload
         );
+
         const existingData = searchSolrResult.data[0];
         // Exclude the _version_ field from the existing data
         const { _version_, expire_at_dt, ...dataWithoutVersion } = existingData;
         const transformedData = {
           ...dataWithoutVersion,
-          destinationDetail: JSON.stringify(response.data),
+          destinationDetails: JSON.stringify(response.products),
         };
+
         addDataSolr(transformedData);
         return {
           status: true,
           message: "Destination products fetched successfully",
-          data: response.data,
+          data: response.products,
         };
       }
     }

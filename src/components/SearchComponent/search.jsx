@@ -3,33 +3,17 @@
 import React, { useEffect, useState } from "react";
 import Products from "../ProductsComponent/products";
 import { getDestinationById } from "@/services/apiServices";
+import { useRouter } from "next/navigation";
+import { convertToSlug } from "@/utils/common";
+import style from "../../assets/styles/landing_page/landingpage.module.scss";
 
 const Search = ({ data }) => {
   const [destinations, setDestinations] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const [products, setProducts] = useState([]);
-
-  const fetchDestionationById = async (
-    selectedDestinationName,
-    selectedDestinationId
-  ) => {
-    console.log("ID", selectedDestinationId);
-    const selectedDestinationObj = {
-      filtering: {
-        destination: selectedDestinationId,
-      },
-      currency: "INR",
-    };
-
-    const result = await getDestinationById(selectedDestinationObj);
-
-    if (result.status === 200) {
-      setSearchTerm(selectedDestinationName);
-      setFilteredList([]);
-      setProducts(result.data.data);
-    }
-  };
+  const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,6 +30,14 @@ const Search = ({ data }) => {
     }
   };
 
+  const onFocusInput = () => {
+    setIsFocused(true);
+  };
+
+  const onBlurInput = () => {
+    setIsFocused(false);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -54,68 +46,54 @@ const Search = ({ data }) => {
     localStorage.setItem("mobile", "9886979895");
   }, []);
 
+  const onClickDestination = (e, destination) => {
+    localStorage.setItem("searchedDestination", destination.destinationName);
+    router.push(`/listing/${destination.destinationId}`);
+  };
+
   return (
     <>
-      <div
-        style={{
-          // border: "1px solid red",
-          padding: "1rem",
-        }}
-      >
-        <form onSubmit={handleSubmit}>
-          <div
-            style={{
-              //   border: "1px solid yellow",
-              padding: "1rem",
-              display: "flex",
-              justifyContent: "center",
-              columnGap: "2rem",
-            }}
-          >
-            <div>Where to?</div>
-            <div>
+      <div className={style["banner-wrapper"]}>
+        <div className={style["detail-wrap"]}>
+          <h1 className={style["banner-title"]}>Do more with Travel</h1>
+          <p className={style["sub-title"]}>
+            One site, 300,000+ travel experiences you'll remember.
+          </p>
+          <div className={style["searchinp-wrap"]}>
+            <label className={style["search-label"]}>
+              <p>Where to?</p>
               <input
+                className={style["search-inp"]}
                 autoComplete="off"
-                style={{ padding: "0.2rem" }}
                 name="searchTerm"
+                placeholder="Search for a place"
                 value={searchTerm}
+                onFocus={onFocusInput}
+                onBlur={onBlurInput}
                 onChange={(e) => handleInputChange(e)}
               />
-              <div style={{ marginTop: "0.3rem" }}>
-                {filteredList.length > 0 &&
-                  filteredList.map((destination, idx) => (
-                    <div
-                      key={idx}
-                      style={{
-                        backgroundColor: "grey",
-                        cursor: "pointer",
-                        padding: "0.2rem",
-                      }}
-                      onClick={() =>
-                        // setSelectedDestination(destination.destinationId)
-                        fetchDestionationById(
-                          destination.destinationName,
-                          destination.destinationId
-                        )
-                      }
-                    >
-                      {destination.destinationName}
-                    </div>
-                  ))}
-              </div>
+            </label>
+            <div
+              className={
+                style["datalist-wrap"] +
+                " " +
+                (isFocused == true ? style["active"] : "")
+              }
+            >
+              {filteredList?.length > 0 &&
+                filteredList.map((destination, idx) => (
+                  <div
+                    key={idx}
+                    className={style["data-list"]}
+                    onClick={(e) => onClickDestination(e, destination)}
+                  >
+                    {destination.destinationName}
+                  </div>
+                ))}
             </div>
-            {/* <div>
-              <button
-                style={{ padding: "0.1rem", width: "80px" }}
-                type="submit"
-              >
-                Search
-              </button>
-            </div> */}
           </div>
-        </form>
+        </div>
       </div>
-      <Products products={products} />
     </>
   );
 };

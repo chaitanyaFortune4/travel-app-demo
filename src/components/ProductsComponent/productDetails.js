@@ -1,5 +1,5 @@
-'use client'
-import React, { useState } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { LuShare, LuClock3 } from "react-icons/lu";
 import { SlBadge } from "react-icons/sl";
 import { GoStarFill } from "react-icons/go";
@@ -16,23 +16,31 @@ import { Title } from "../Items/Title";
 import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
 
-export default function ProductDetails({ dataa }) {
+export default function ProductDetails({ productDetails }) {
+  const [savedProductData, setSavedProductData] = useState();
+  console.log("PROD", productDetails);
+
+  console.log("Data", savedProductData);
+
+  useEffect(() => {
+    setSavedProductData(JSON.parse(localStorage.getItem("product")));
+  }, []);
   const [travelers, setTravelers] = useState(1);
+
   const increseCount = () => {
     setTravelers((prev) => prev + 1);
   };
-  const includedItems = [
-    "Daily breakfast",
-    "Free WiFi access",
-    "Access to gym facilities",
-    "Complimentary toiletries",
-  ];
-
-  const excludedItems = ["Room service", "Mini bar"];
 
   return (
-    <div style={{ marginTop: "5rem", marginLeft: "8rem", marginRight: "8rem" }}>
-      <Title title={data?.title} />
+    <div
+      style={{
+        marginTop: "5rem",
+        marginLeft: "8rem",
+        marginRight: "8rem",
+        border: "1px solid red",
+      }}
+    >
+      <Title title={productDetails.title} />
       <div
         style={{
           display: "flex",
@@ -43,7 +51,7 @@ export default function ProductDetails({ dataa }) {
         <div style={{ display: "flex" }}>
           <div style={{ marginRight: "1rem" }}>
             {" "}
-            <GoStarFill /> 37 Reviews
+            <GoStarFill /> {productDetails.reviews.totalReviews}
           </div>
           <div style={{ marginRight: "1rem" }}>
             <SlBadge /> Badge of Excellence{" "}
@@ -56,17 +64,17 @@ export default function ProductDetails({ dataa }) {
       </div>
       <div style={{ display: "flex" }}>
         <div style={{ width: "65%" }}>
-          <ProductDetailsImageContainer />
+          {/* <ProductDetailsImageContainer /> */}
         </div>{" "}
         <div style={{ marginInline: "1rem" }}>
           <AvailabilityCard
-            price={"2,966.11"}
+            price={savedProductData?.pricing?.summary?.fromPrice}
             travelers={travelers}
             increseCount={increseCount}
           />
         </div>
       </div>
-      <div style={{ paddingInline: "10rem" }}>
+      {/* <div style={{ paddingInline: "10rem" }}>
         <Divder />
         <div style={{ display: "flex" }}>
           <div style={{ marginRight: "1rem" }}>
@@ -82,48 +90,70 @@ export default function ProductDetails({ dataa }) {
           </div>
         </div>
         <Divder />
-        {/* <Title title={"Explore our promoted experiences"} /> */}
+    
         <div>
           <Title title={"Overview"} />
-          <p>
-            Enjoy personalized attention and a flexible itinerary on this
-            private tour of Mumbai. With a dedicated guide in the lead, visit
-            Mumbai highlights such as Taj Mahal Palace Hotel, the Gateway of
-            India, Tower of Silence, and others. Listen to engaging commentary
-            from your guide on the history, culture, and architecture of Mumbai
-            as you travel. Read more about Private Mumbai Sightseeing Tour
-            (Traveller's Choice Award Winner) -
-            https://www.viator.com/tours/Mumbai/Private-Full-Day-Mumbai-Sightseeing-Tour/d953-34181P6?mcid=56757
-          </p>
+          <p>{productDetails.description}</p>
         </div>
         <Divder />
 
-        <div>
+        <div style={{ marginBottom: "2rem" }}>
           <Title title={"What's Included"} />
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ flex: 1 }}>
               <ul style={{ listStyleType: "none" }}>
-                {includedItems.map((item, index) => (
+                {productDetails.inclusions.map((item, index) => (
                   <li key={index}>
                     <IoCheckmark /> &nbsp;
-                    {item}
+                    {item.description || item.otherDescription}
                   </li>
                 ))}
               </ul>
             </div>
             <div style={{ flex: 1 }}>
               <ul style={{ listStyleType: "none" }}>
-                {excludedItems.map((item, index) => (
+                {productDetails.exclusions.map((item, index) => (
                   <li key={index}>
                     <HiMiniXMark /> &nbsp;
-                    {item}
+                    {item.otherDescription}
                   </li>
                 ))}
               </ul>
             </div>
           </div>
         </div>
-      </div>
+
+        <div style={{ marginBottom: "2rem" }}>
+          <Title title={"Additonal Info"} />
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              marginBottom: "1rem",
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <ul style={{ listStyleType: "none" }}>
+                {productDetails.additionalInfo.map((item, index) => (
+                  <li key={index}>
+                    <IoCheckmark /> &nbsp;
+                    {item.description || item.otherDescription}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div style={{ fontWeight: "bold" }}>
+            Operated by{" "}
+            <span style={{ color: "red" }}>{productDetails.supplier.name}</span>
+          </div>
+        </div>
+
+        <div style={{ marginBottom: "2rem" }}>
+          <Title title={"Cancellation policy"} />
+          <div>{productDetails.cancellationPolicy.description}</div>
+        </div>
+      </div> */}
     </div>
   );
 }

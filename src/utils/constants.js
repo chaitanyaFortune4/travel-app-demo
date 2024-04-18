@@ -3,7 +3,7 @@ export const baseUrl = "http://localhost:3000";
 export const apiList = {
   getAllDestinations: `${baseUrl}/api/getAllDestinations`,
   getDestinationById: `${baseUrl}/api/getDestinationById`,
-  getProductDetailsByProductCode: `${baseUrl}/api/getProductDetailsByProductCode`, // getProductDetailsByProductCode/exampleCode
+  getProductDetailsByProductCode: `${baseUrl}/api/getProductDetailsByProductCode?query=`,
   getAttractionsByDestId: `${baseUrl}/api/getAttractionsByDestId`,
   getAttractionBySeoId: `${baseUrl}/api/getAttractionDetailsBySeoId?seoId=`, // seoId=123456
 

@@ -4,7 +4,7 @@ import { HiMiniCheckCircle } from "react-icons/hi2";
 
 const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
   const [count, setCount] = useState(travelers);
-  
+
   return (
     <div className="availability-card">
       <div className="card-header">
@@ -25,7 +25,7 @@ const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
         </div>
 
         <div className="input-field">
-          <input type="number" id="travelers" value={count} />
+          <input type="number" id="travelers" />
         </div>
       </div>
       <button className="submit-btn">Check Availability</button>
