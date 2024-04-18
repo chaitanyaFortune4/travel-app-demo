@@ -123,7 +123,7 @@ export const getProductdetailsByID = async (req) => {
       process.env.VIATOR_BASEURL + `/partner/products/${id}`
     );
     await resp.images.forEach(image => {
-      image.variants = image.variants.find(variant => variant.height === 400);
+      image.variants = image.variants.find(variant => variant.height === 446);
     });
     let modifyProduct = {
       productCode: resp.productCode,

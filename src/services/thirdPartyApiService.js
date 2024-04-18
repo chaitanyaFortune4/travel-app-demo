@@ -1,4 +1,5 @@
 export const apiGetCall = (endpoint) => {
+    // console.log('endpoint----',endpoint)
     return new Promise((resolve, reject) => {
         const header = {
             "Content-Type": "application/json",

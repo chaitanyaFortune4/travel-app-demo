@@ -1,11 +1,12 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 import { LuShare, LuClock3 } from "react-icons/lu";
 import { SlBadge } from "react-icons/sl";
 import { GoStarFill } from "react-icons/go";
 import { FaChevronDown } from "react-icons/fa";
 import ProductDetailsImageContainer from "./ProductDetailsImageContainer";
-import data from "../../utils/dummyData.json";
+import TravelersPhotosSection from "./TravelersPhotosSection";
+// import data from "../../utils/dummyData.json";
 import { CiMobile3 } from "react-icons/ci";
 import { PiChatTextLight } from "react-icons/pi";
 import { HiMiniXMark } from "react-icons/hi2";
@@ -15,11 +16,14 @@ import Link from "next/link";
 import { Title } from "../Items/Title";
 import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
+import { Button } from "react-bootstrap";
+import Image from "next/image";
 
-export default function ProductDetails({ dataa }) {
+export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
+  console.log("data", data);
   const increseCount = (e) => {
-    setTravelers(e.target.value); 
+    setTravelers(e.target.value);
   };
   const includedItems = [
     "Daily breakfast",
@@ -42,8 +46,7 @@ export default function ProductDetails({ dataa }) {
       >
         <div style={{ display: "flex" }}>
           <div style={{ marginRight: "1rem" }}>
-            {" "}
-            <GoStarFill /> 37 Reviews
+            <GoStarFill /> {data?.reviews?.totalReviews} Reviews
           </div>
           <div style={{ marginRight: "1rem" }}>
             <SlBadge /> Badge of Excellence{" "}
@@ -56,7 +59,7 @@ export default function ProductDetails({ dataa }) {
       </div>
       <div style={{ display: "flex" }}>
         <div style={{ width: "65%" }}>
-          <ProductDetailsImageContainer />
+          <ProductDetailsImageContainer data={data?.images} />
         </div>{" "}
         <div style={{ marginInline: "1rem" }}>
           <AvailabilityCard
@@ -78,23 +81,17 @@ export default function ProductDetails({ dataa }) {
           <div style={{ marginRight: "1rem" }}>
             {" "}
             <PiChatTextLight />
-            Offered in: English <Link href={"/"}>and 5 more </Link>{" "}
+            Offered in: English{" "}
+            <Link href={"/"} className="and-more">
+              and 5 more{" "}
+            </Link>{" "}
           </div>
         </div>
         <Divder />
         {/* <Title title={"Explore our promoted experiences"} /> */}
         <div>
           <Title title={"Overview"} />
-          <p>
-            Enjoy personalized attention and a flexible itinerary on this
-            private tour of Mumbai. With a dedicated guide in the lead, visit
-            Mumbai highlights such as Taj Mahal Palace Hotel, the Gateway of
-            India, Tower of Silence, and others. Listen to engaging commentary
-            from your guide on the history, culture, and architecture of Mumbai
-            as you travel. Read more about Private Mumbai Sightseeing Tour
-            (Traveller's Choice Award Winner) -
-            https://www.viator.com/tours/Mumbai/Private-Full-Day-Mumbai-Sightseeing-Tour/d953-34181P6?mcid=56757
-          </p>
+          <p>{data?.description}</p>
         </div>
         <Divder />
 
@@ -103,10 +100,12 @@ export default function ProductDetails({ dataa }) {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ flex: 1 }}>
               <ul style={{ listStyleType: "none" }}>
-                {includedItems.map((item, index) => (
+                {data?.inclusions.map((item, index) => (
                   <li key={index}>
                     <IoCheckmark /> &nbsp;
-                    {item}
+                    {item.description
+                      ? item.description
+                      : item.otherDescription}
                   </li>
                 ))}
               </ul>
@@ -123,6 +122,20 @@ export default function ProductDetails({ dataa }) {
             </div>
           </div>
         </div>
+        <Divder />
+        <div>
+          <Title title={"Additional Info"} />
+          <ul style={{ paddingInline: "1rem" }}>
+            {data?.additionalInfo?.map((item, index) => (
+              <li style={{ marginBottom: "1rem" }} key={index}>
+                {item.description}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <Divder />
+        <TravelersPhotosSection data={data?.images} />
+        <Divder />
       </div>
     </div>
   );

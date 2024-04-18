@@ -13,13 +13,12 @@ export default function Index() {
     }, [])
     const getDataById = async (id) => {
         let response = await fetchData(apiList.getDestinationDetailsByProductId + `?query=${id}`)
-        console.log('response',response)
 
         setProductData(response)
     }
     return (
         <>
-            <ProductDetails data={productData} />
+            <ProductDetails data={productData?.data} />
         </>
     )
 }

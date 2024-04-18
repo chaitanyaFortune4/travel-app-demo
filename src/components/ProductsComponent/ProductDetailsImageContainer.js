@@ -12,8 +12,9 @@ import "swiper/css/thumbs";
 
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import Image from "next/image";
 
-export default function ProductDetailsImageContainer() {
+export default function ProductDetailsImageContainer({ data }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const swiperOneOptions = {
     loop: true,
@@ -38,14 +39,13 @@ export default function ProductDetailsImageContainer() {
           className="mySwiper"
           {...swiperOneOptions}
         >
-          {Array.from({ length: 6 }, (_, index) => (
+          {data?.slice(0, 5).map((item, index) => (
             <SwiperSlide key={`thumb-slide-${index}`}>
-              <img
-                src={`https://swiperjs.com/demos/images/nature-${
-                  index + 1
-                }.jpg`}
-                alt={`Nature ${index + 1}`}
-                // style={{borderRadius:'10px'}}
+              <Image
+                src={item.variants?.url}
+                width={item.variants?.width}
+                height={item.variants?.height}
+                alt={`image ${index + 1}`}
               />
             </SwiperSlide>
           ))}
@@ -58,14 +58,13 @@ export default function ProductDetailsImageContainer() {
           className="mySwiper2"
           {...swiperTwoOptions}
         >
-          {Array.from({ length: 6 }, (_, index) => (
+          {data?.slice(0, 5).map((item, index) => (
             <SwiperSlide key={`slide-${index}`}>
-              <img
-                src={`https://swiperjs.com/demos/images/nature-${
-                  index + 1
-                }.jpg`}
-                alt={`Nature ${index + 1}`}
-                // style={{borderRadius:'10px'}}
+              <Image
+                src={item.variants?.url}
+                width={500}
+                height={500}
+                alt={`image ${index + 1}`}
               />
             </SwiperSlide>
           ))}
