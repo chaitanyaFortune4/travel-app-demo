@@ -27,34 +27,83 @@ export const getAllDestinationsController = async () => {
   }
 };
 
-export const getDestinationByIdController = async (reqBody) => {
-  console.log("REQB", reqBody);
+export const getDestinationByIdController = async (id) => {
   try {
-    const response = await apiPostCall(
+    let payload = {
+      "filtering": {
+        "destination": `${id}`
+      },
+      "currency": "INR"
+    }
+    const responseSearchProduct = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/products/search`,
-      reqBody
+      payload
     );
     const attReqBody = {
-      destId: reqBody?.filtering?.destination,
+      destId: id,
       sortOrder: "RECOMMENDED",
     };
     const attractionData = await apiPostCall(
       `${process.env.VIATOR_BASEURL}/partner/v1/taxonomy/attractions`,
       attReqBody
     );
-    // console.log("Res2", response);
-    // const data = {
-    //   id: reqBody.filtering.destination,
-    //   products: response.products,
-    // };
-    // const result = await updateDataSolrDbController(data);
-    // console.log("result", result);
-
+    function modifyResponse(originalResponse) {
+      const modifiedProducts = originalResponse?.products?.map(product => {
+        const modifiedProduct = {
+          productCode: product.productCode,
+          title: product.title,
+          description: product.description,
+          images: [
+            {
+              imageSource: product.images[0].imageSource,
+              caption: product.images[0].caption,
+              isCover: product.images[0].isCover,
+              variants: [
+                {
+                  height: 160,
+                  width: 240,
+                  url: product.images[0].variants[8].url // Using the 400x400 variant
+                }
+              ]
+            }
+          ],
+          duration: {
+            variableDurationFromMinutes: product.duration?.variableDurationFromMinutes,
+            variableDurationToMinutes: product.duration?.variableDurationToMinutes
+          },
+          pricing: {
+            summary: {
+              fromPrice: product.pricing.summary.fromPrice,
+              fromPriceBeforeDiscount: product.pricing.summary.fromPriceBeforeDiscount
+            },
+            currency: product.pricing.currency
+          },
+          flags: product.flags
+        };
+        return modifiedProduct;
+      });
+      return modifiedProducts;
+    }
+    const modifiedResponse = modifyResponse(responseSearchProduct);
+    function modifyAttraction(data) {
+      const modifiedAttractions = data.data.map(item => {
+        const modifiedArrraction = {
+          sortOrder: item.sortOrder,
+          pageUrlName: item.pageUrlName,
+          seoId: item.seoId,
+          thumbnailURL: item.thumbnailURL,
+          title: item.title
+        }
+        return modifiedArrraction;
+      })
+      return modifiedAttractions
+    }
+    const modifiedAttractionResponse = modifyAttraction(attractionData)
     return {
       status: true,
       message: "Destination products fetched successfully",
-      data: response.products,
-      attractionData: attractionData.data,
+      productList: modifiedResponse,
+      attractionData: modifiedAttractionResponse
     };
   } catch (error) {
     console.log("getDestinationById error", error);
@@ -73,7 +122,21 @@ export const getProductdetailsByID = async (req) => {
     const resp = await apiGetCall(
       process.env.VIATOR_BASEURL + `/partner/products/${id}`
     );
-    return resp;
+    await resp.images.forEach(image => {
+      image.variants = image.variants.find(variant => variant.height === 400);
+    });
+    let modifyProduct = {
+      productCode: resp.productCode,
+      title: resp.title,
+      priceInfo: resp.pricingInfo,
+      images: resp.images,
+      description: resp.description,
+      inclusions: resp.inclusions,
+      additionalInfo: resp.additionalInfo,
+      cancellationPolicy: resp.cancellationPolicy,
+      reviews: resp.reviews
+    }
+    return modifyProduct;
   } catch (error) {
     console.log("error", error);
   }

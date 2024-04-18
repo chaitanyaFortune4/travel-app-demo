@@ -12,5 +12,8 @@ export const apiList = {
   deleteAllDataSolr: `${baseUrl}/api/solr/deleteAllDataSolr`,
   addTracksdata: `${baseUrl}/api/getTracksData`,
   fileUpload: `public/json`,
+  fileUploadProduct: `public/json/product`,
   getDestinationBySeoId: `${baseUrl}/api/getDestinationBySeoId`,
+  fileUploadProductDestinationById: `public/json/productListDestinationById`,
 };
+

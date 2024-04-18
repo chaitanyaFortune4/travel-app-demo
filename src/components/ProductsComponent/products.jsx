@@ -1,12 +1,11 @@
 "use client";
-
 import { convertToSlug, eventTrigger } from "@/utils/common";
 import { apiList } from "@/utils/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import listStyle from "../../assets/styles/listing_page/listing.module.scss"
-import commonStyle from "../../assets/styles/common.module.scss"
+import listStyle from "../../assets/styles/listing_page/listing.module.scss";
+import commonStyle from "../../assets/styles/common.module.scss";
 const Products = ({ products }) => {
   const convertMinutesToHours = (minutes) => {
     var hours = Math.floor(minutes / 60); // Calculate hours
@@ -79,16 +78,17 @@ const Products = ({ products }) => {
 
   return (
     <>
-      {/* <div style={{ marginTop: "2rem" }}> */}
+      <div style={{ marginTop: "2rem" }}>
         {products?.length > 0 &&
-          products.slice(0,3).map((product, idx) => (
+          products.map((product, idx) => (
             <Link href={`/tour/${convertToSlug(product.title)}`} key={idx}>
-              <div className={listStyle["list-card"]}
+              <div
+                className={listStyle["list-card"]}
                 onClick={() => eventTrigger(product)}
               >
                 <div>
                   <img
-                    src={product.images[0].variants[8].url}
+                    src={product.images[0].variants[0].url}
                     className={listStyle["card-img"]}
                     style={{
                       objectFit: "contain",
@@ -97,9 +97,7 @@ const Products = ({ products }) => {
                   />
                 </div>
                 <div style={{ width: "60%" }}>
-                  <h3 className={listStyle["card-title"]}>
-                    {product.title}
-                  </h3>
+                  <h3 className={listStyle["card-title"]}>{product.title}</h3>
                   <div style={{ marginBottom: "1rem" }}>
                     <StarRating
                       rating={product.reviews?.combinedAverageRating}
@@ -151,7 +149,7 @@ const Products = ({ products }) => {
               </div>
             </Link>
           ))}
-      {/* </div> */}
+      </div>
     </>
   );
 };
