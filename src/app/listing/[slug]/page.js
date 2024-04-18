@@ -1,16 +1,17 @@
-"use client";
+import React from "react";
 import ListingWrapper from "@/components/ListingComponent/ListingWrapper";
-import React, { useEffect, useState } from "react";
+import { postApiData } from "@/services/thirdPartyApiService";
+import { apiList } from "@/utils/constants";
 
-const page = () => {
-  const [destinationId, setDestinationId] = useState("");
-  useEffect(() => {
-    let val = localStorage.getItem("destinationId");
-    setDestinationId(val);
-  }, []);
+const page = async ({ params }) => {
+  let { slug } = params;
+  let payload = {
+    "destinationId": `${slug}`
+  }
+  let response = await postApiData(apiList.getDestinationById, payload)
   return (
     <div>
-      <ListingWrapper destinationId={destinationId} />
+      <ListingWrapper data={response} />
     </div>
   );
 };

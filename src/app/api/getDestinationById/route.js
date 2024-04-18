@@ -1,14 +1,13 @@
 import { getDestinationByIdController } from "@/controllers/apisController";
 import { NextResponse } from "next/server";
 import fs from "fs";
-import { apiList } from "@/utils/constants1";
+import { apiList } from "@/utils/constants";
 import path from "path";
 import { isDataStaleChecker } from "@/utils/common";
 
 export const POST = async (req) => {
   try {
     const { destinationId } = await req.json();
-
     const fileName = `${destinationId}.json`;
     const filePath = path.join(`${apiList.fileUploadProductDestinationById}`, fileName);
     if (fs.existsSync(filePath)) {
@@ -18,7 +17,12 @@ export const POST = async (req) => {
       );
       let data = JSON.parse(destinationByIdData);
       if (!isDataStaleChecker(data.updatedAt)) {
-        return NextResponse.json(data);
+        let mainData = {
+          product: data.destinationById.productList,
+          attraction: data.destinationById.attractionData,
+          message: "Fetch Json product details successfully"
+        }
+        return NextResponse.json(mainData);
       } else {
         const destinationById = await getDestinationByIdController(destinationId);
         let arrData = {
@@ -36,7 +40,12 @@ export const POST = async (req) => {
             }
           }
         );
-        return NextResponse.json({ data: arrData, message: "Data fetched successfully" }, { status: 200 });
+        let mainData = {
+          product: destinationById.productList,
+          attraction: destinationById.attractionData,
+          message: "Fetch product details successfully"
+        }
+        return NextResponse.json(mainData, { status: 200 });
       }
     } else {
       const destinationById = await getDestinationByIdController(destinationId);
@@ -56,7 +65,8 @@ export const POST = async (req) => {
         }
       );
       let mainData = {
-        data: destinationById,
+        product: destinationById.productList,
+        attraction: destinationById.attractionData,
         message: "Fetch product details successfully"
       }
       return NextResponse.json(mainData, { status: 200 });

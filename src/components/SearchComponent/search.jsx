@@ -37,7 +37,6 @@ const Search = ({ data }) => {
     setIsFocused(false);
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -48,7 +47,7 @@ const Search = ({ data }) => {
 
   const onClickDestination = (e, destination) => {
     localStorage.setItem("destinationId", destination.destinationId);
-    router.push(`/listing/${convertToSlug(destination.destinationName)}`);
+    router.push(`/listing/${destination.destinationId}`);
 
     // fetchDestionationById(
     //   destination.destinationName,
@@ -62,26 +61,37 @@ const Search = ({ data }) => {
         <form onSubmit={handleSubmit}>
           <div className={style["detail-wrap"]}>
             <h1 className={style["banner-title"]}>Do more with Viator</h1>
-            <p className={style["sub-title"]}>One site, 300,000+ travel experiences you'll remember.</p>
+            <p className={style["sub-title"]}>
+              One site, 300,000+ travel experiences you'll remember.
+            </p>
             <div className={style["searchinp-wrap"]}>
               <label className={style["search-label"]}>
                 <p>Where to?</p>
-              <input
-              className={style["search-inp"]}
-                autoComplete="off"
-                name="searchTerm"
-                placeholder="Search for place"
-                value={searchTerm}
-                onFocus={onFocusInput}
-                onBlur={onBlurInput}
-                onChange={(e) => handleInputChange(e)}
-              />
+                <input
+                  className={style["search-inp"]}
+                  autoComplete="off"
+                  name="searchTerm"
+                  placeholder="Search for place"
+                  value={searchTerm}
+                  onFocus={onFocusInput}
+                  onBlur={onBlurInput}
+                  onChange={(e) => handleInputChange(e)}
+                />
               </label>
-              <div className={style["datalist-wrap"] + " " + (isFocused == true ? style["active"]:"")}>
+              <div
+                className={
+                  style["datalist-wrap"] +
+                  " " +
+                  (isFocused == true ? style["active"] : "")
+                }
+              >
                 {/* <p>Search list</p> */}
                 {filteredList?.length > 0 &&
                   filteredList.map((destination, idx) => (
-                    <div key={idx} className={style["data-list"]} onClick={(e) => onClickDestination(e, destination)}
+                    <div
+                      key={idx}
+                      className={style["data-list"]}
+                      onClick={(e) => onClickDestination(e, destination)}
                     >
                       {destination.destinationName}
                     </div>
