@@ -1,7 +1,7 @@
 import { getDestinationByIdController } from "@/controllers/apisController";
 import { NextResponse } from "next/server";
 import fs from "fs";
-import { apiList } from "@/utils/constants1";
+import { apiList } from "@/utils/constants";
 import path from "path";
 import { isDataStaleChecker } from "@/utils/common";
 

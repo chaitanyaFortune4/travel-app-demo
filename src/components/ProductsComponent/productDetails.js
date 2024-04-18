@@ -19,7 +19,7 @@ import AvailabilityCard from "../Layouts/AvailabilityCard";
 export default function ProductDetails({ dataa }) {
   const [travelers, setTravelers] = useState(1);
   const increseCount = (e) => {
-    setTravelers(e.target.value);
+    setTravelers(e.target.value); 
   };
   const includedItems = [
     "Daily breakfast",

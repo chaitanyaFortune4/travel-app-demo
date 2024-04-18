@@ -1,7 +1,7 @@
 import { getAllDestinationsController } from "@/controllers/apisController";
 import { NextResponse } from "next/server";
 import fs from "fs";
-import { apiList } from "@/utils/constants1";
+import { apiList } from "@/utils/constants";
 import { isDataStaleChecker } from "@/utils/common";
 
 export const GET = async (req) => {

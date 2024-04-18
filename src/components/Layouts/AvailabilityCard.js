@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { HiMiniCheckCircle } from "react-icons/hi2";
+import DropdownItem from "./DropdownItem";
 
 const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
-  
   return (
     <div className="availability-card">
       <div className="card-header">
@@ -24,13 +24,15 @@ const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
         </div>
 
         <div className="input-field">
-          <input
+          {/* <input
             type="number"
             id="travelers"
             min="1"
             value={travelers}
             onChange={(e) => increseCount(e)}
-          />
+          /> */}
+            
+          <DropdownItem value={travelers}/>
         </div>
       </div>
       <button className="submit-btn">Check Availability</button>
