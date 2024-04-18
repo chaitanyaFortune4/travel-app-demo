@@ -7,7 +7,7 @@ const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
   return (
     <div className="availability-card">
       <div className="card-header">
-        <h3>From ₹{price} </h3>
+        <h4>From ₹{price} </h4>
         <p className="text-12">Price varies by group size</p>
       </div>
       <div
@@ -17,7 +17,7 @@ const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
         Lowest Price Guarantee
       </div>
       <div className="form-group">
-        <h2 style={{ marginBottom: "1rem" }}>Select Date and Travelers</h2>
+        <h4 style={{ marginBottom: "1rem" }}>Select Date and Travelers</h4>
 
         <div className="input-field">
           <input type="date" id="date" />
