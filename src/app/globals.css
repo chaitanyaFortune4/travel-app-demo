@@ -285,15 +285,17 @@ input {
   border-radius: var(--border-radius);
 }
 
+.mr{
+  margin-right: 1rem;
+}
+.flex.mr{
+  align-items: center;
+}
 /* product details page */
 .product-details-page-container {
   margin: 1rem 0rem
 }
 
-#button-tooltip {
-  background-color: #fff !important;
-  color: #000;
-}
 
 .flex {
   display: flex;

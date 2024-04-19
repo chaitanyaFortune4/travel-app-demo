@@ -47,15 +47,16 @@ export default function ProductDetails({ data }) {
       <div className="title-content">
         <Title title={data?.title} />
         <div className="flex space-between mb">
-          <div style={{ display: "flex" }}> 
-            <div style={{ marginRight: "1rem" }} className="flex">
-              <StarRating rating={5} />&nbsp;
+          <div className="flex">
+            <div className="flex mr">
+              <StarRating rating={5} />
+              &nbsp;
               {data?.reviews?.totalReviews} Reviews
             </div>
-            <div style={{ marginRight: "1rem" }}  className="flex">
+            <div className="flex mr">
               <SlBadge /> Badge of Excellence
             </div>
-            <div style={{ marginRight: "1rem" }}> Corsica, France</div>
+            <div className="mr"> Corsica, France</div>
           </div>
           <div>
             <LuShare /> Share <FaChevronDown />
@@ -63,7 +64,7 @@ export default function ProductDetails({ data }) {
         </div>
       </div>
       <div className="flex product-detail-view-point">
-        <div >
+        <div>
           <ProductDetailsImageContainer data={data?.images} />
         </div>
         <div style={{ marginInline: "1rem" }}>
@@ -76,18 +77,16 @@ export default function ProductDetails({ data }) {
       </div>
       <div className="content">
         <Divder />
-        <div style={{ display: "flex" }}>
-          <div style={{ marginRight: "1rem" }}>
+        <div className="flex">
+          <div className="flex mr">
             <LuClock3 /> 6 hours
           </div>
-          <div style={{ marginRight: "1rem" }}>
+          <div className="flex mr">
             <CiMobile3 /> Mobile ticket
           </div>
-          <div style={{ marginRight: "1rem" }} className="flex">
-            <div>
-              <PiChatTextLight />
-              Offered in: English &nbsp;
-            </div>
+          <div className="flex mr">
+            <PiChatTextLight />
+            Offered in: English &nbsp;
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 400 }}
