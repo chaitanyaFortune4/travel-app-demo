@@ -32,11 +32,11 @@ export default function ProductDetailsImageContainer({ data }) {
 
   return (
     <div style={{ display: "flex" }}>
-      <div style={{ width: "20%" }}>
+      <div className="vertical-swiper-conatiner">
         <Swiper
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper"
+          className="vertical-swiper"
           {...swiperOneOptions}
         >
           {data?.slice(0, 5).map((item, index) => (
@@ -51,11 +51,11 @@ export default function ProductDetailsImageContainer({ data }) {
           ))}
         </Swiper>
       </div>
-      <div style={{ width: "80%", borderRadius: "10px" }}>
+      <div className="main-swiper-conatiner">
         <Swiper
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2"
+          className="main-swiper"
           {...swiperTwoOptions}
         >
           {data?.slice(0, 5).map((item, index) => (

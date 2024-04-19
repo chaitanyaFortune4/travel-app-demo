@@ -23,8 +23,8 @@ export default function Product({ products }) {
                                         src={product.images[0].variants[0].url}
                                         className={listStyle["card-img"]}
                                         alt="Picture of the author"
-                                        width={450}
-                                        height={300}
+                                        width={300}
+                                        height={250}
                                     />
                                 </div>
                                 <div className={listStyle["right-col"]}>
@@ -45,6 +45,8 @@ export default function Product({ products }) {
                                                     border: "none",
                                                     marginLeft: "0.5rem",
                                                     textDecoration: "underline",
+                                                    color:"#5a74ff",
+                                                    cursor:"pointer"
                                                 }}
                                             >
                                                 ...More
@@ -63,16 +65,12 @@ export default function Product({ products }) {
                                         ))}
                                     </div>
                                 </div>
-                                <div
-                                    style={{
-                                        textAlign: "right",
-                                    }}
-                                >
+                                <div className={listStyle["price-details"]}>
                                     from
-                                    <p style={{ fontWeight: "bold" }}>
-                                        Rs {product.pricing.summary.fromPrice}
+                                    <p>
+                                        Rs <span className={listStyle["price-amount"]}> {product.pricing.summary.fromPrice}</span>
                                     </p>
-                                    <p style={{ fontSize: "0.8rem" }}>
+                                    <p className={listStyle["price-desc"]}>
                                         price varies by group size
                                     </p>
                                 </div>

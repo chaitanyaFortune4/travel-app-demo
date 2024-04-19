@@ -16,7 +16,7 @@ const SeeMoreModal = (props) => {
           <Title title={title} />
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{body}</Modal.Body>
+      <Modal.Body style={{marginInline:'1rem'}}>{body}</Modal.Body>
     {/* <Modal.Footer>
     <Button onClick={props.onHide}>Close</Button>
     </Modal.Footer> */}

@@ -18,7 +18,7 @@ export default function CardSwiper() {
           clickable: true,
         }}
         modules={[Pagination]}
-        className="mySwiper"
+        className="vertical-swiper"
       >
 
       </Swiper>

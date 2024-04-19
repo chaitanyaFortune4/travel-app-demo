@@ -12,81 +12,89 @@ import { CiMobile3 } from "react-icons/ci";
 import { PiChatTextLight } from "react-icons/pi";
 import { HiMiniXMark } from "react-icons/hi2";
 import { IoCheckmark } from "react-icons/io5";
+import { BsDot } from "react-icons/bs";
 
 import Link from "next/link";
 import { Title } from "../Items/Title";
 import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
 import { Button } from "react-bootstrap";
-import Image from "next/image";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import StarRating from "../common/starRating";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
-  const [modalShow, setModalShow] = React.useState(false);
-  console.log("data", data);
-  const increseCount = (e) => {
-    setTravelers(e.target.value);
+  const [infoModal, setInfoModal] = useState(false);
+  const [whatsIncludeModal, setWhatsIncludeModal] = useState(false);
+  // console.log("data", data);
+  const onCkickChangeCount = (action) => {
+    action === "add" ? setTravelers((p) => p + 1) : setTravelers((p) => p - 1);
   };
-  const includedItems = [
-    "Daily breakfast",
-    "Free WiFi access",
-    "Access to gym facilities",
-    "Complimentary toiletries",
-  ];
 
   const excludedItems = ["Room service", "Mini bar"];
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      <h6>Offered in:</h6>
+      <p>German, English, Spanish</p>
+    </Tooltip>
+  );
+
   return (
-    <div style={{ marginTop: "5rem", marginLeft: "8rem", marginRight: "8rem" }}>
-      <Title title={data?.title} />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1rem",
-        }}
-      >
-        <div style={{ display: "flex" }}>
-          <div style={{ marginRight: "1rem" }}>
-            <GoStarFill /> {data?.reviews?.totalReviews} Reviews
+    <div className="product-details-page-container">
+      <div className="title-content">
+        <Title title={data?.title} />
+        <div className="flex space-between mb">
+          <div className="flex">
+            <div className="flex mr">
+              <StarRating rating={5} />
+              &nbsp;
+              {data?.reviews?.totalReviews} Reviews
+            </div>
+            <div className="flex mr">
+              <SlBadge /> Badge of Excellence
+            </div>
+            <div className="mr"> Corsica, France</div>
           </div>
-          <div style={{ marginRight: "1rem" }}>
-            <SlBadge /> Badge of Excellence{" "}
+          <div>
+            <LuShare /> Share <FaChevronDown />
           </div>
-          <div style={{ marginRight: "1rem" }}> Corsica, France</div>
-        </div>
-        <div>
-          <LuShare /> Share <FaChevronDown />
         </div>
       </div>
-      <div style={{ display: "flex" }}>
-        <div style={{ width: "65%" }}>
+      <div className="flex product-detail-view-point">
+        <div>
           <ProductDetailsImageContainer data={data?.images} />
-        </div>{" "}
+        </div>
         <div style={{ marginInline: "1rem" }}>
           <AvailabilityCard
             price={"2,966.11"}
             travelers={travelers}
-            increseCount={increseCount}
+            onCkickChangeCount={onCkickChangeCount}
           />
         </div>
       </div>
-      <div style={{ paddingInline: "10rem" }}>
+      <div className="content">
         <Divder />
-        <div style={{ display: "flex" }}>
-          <div style={{ marginRight: "1rem" }}>
+        <div className="flex">
+          <div className="flex mr">
             <LuClock3 /> 6 hours
           </div>
-          <div style={{ marginRight: "1rem" }}>
-            <CiMobile3 /> Mobile ticket{" "}
+          <div className="flex mr">
+            <CiMobile3 /> Mobile ticket
           </div>
-          <div style={{ marginRight: "1rem" }}>
-            {" "}
+          <div className="flex mr">
             <PiChatTextLight />
-            Offered in: English{" "}
-            <Link href={"/"} className="and-more">
-              and 5 more{" "}
-            </Link>{" "}
+            Offered in: English &nbsp;
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 250, hide: 400 }}
+              overlay={renderTooltip}
+              className="and-more"
+            >
+              <div className="and-more">and 5 more</div>
+            </OverlayTrigger>
           </div>
         </div>
         <Divder />
@@ -99,10 +107,13 @@ export default function ProductDetails({ data }) {
 
         <div>
           <Title title={"What's Included"} />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            style={{ display: "flex", justifyContent: "space-between" }}
+            className="included-section"
+          >
             <div style={{ flex: 1 }}>
-              <ul style={{ listStyleType: "none" }}>
-                {data?.inclusions.map((item, index) => (
+              <ul>
+                {data?.inclusions.slice(0, 3).map((item, index) => (
                   <li key={index}>
                     <IoCheckmark /> &nbsp;
                     {item.description
@@ -111,9 +122,17 @@ export default function ProductDetails({ data }) {
                   </li>
                 ))}
               </ul>
+              {data?.inclusions?.length > 3 && (
+                <div
+                  className="and-more"
+                  onClick={() => setWhatsIncludeModal(true)}
+                >
+                  see {data?.inclusions?.length - 3} more
+                </div>
+              )}
             </div>
-            <div style={{ flex: 1 }}>
-              <ul style={{ listStyleType: "none" }}>
+            <div style={{ flex: 1 }} className="excluded">
+              <ul>
                 {excludedItems.map((item, index) => (
                   <li key={index}>
                     <HiMiniXMark /> &nbsp;
@@ -123,6 +142,38 @@ export default function ProductDetails({ data }) {
               </ul>
             </div>
           </div>
+
+          <SeeMoreModal
+            title={"What's Included"}
+            show={whatsIncludeModal}
+            onHide={() => setWhatsIncludeModal(false)}
+            body={
+              <div className="included-section">
+                <div style={{ flex: 1 }}>
+                  <ul>
+                    {data?.inclusions.map((item, index) => (
+                      <li key={index}>
+                        <IoCheckmark /> &nbsp;
+                        {item.description
+                          ? item.description
+                          : item.otherDescription}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div style={{ flex: 1 }} className="excluded">
+                  <ul>
+                    {excludedItems.map((item, index) => (
+                      <li key={index}>
+                        <HiMiniXMark /> &nbsp;
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            }
+          />
         </div>
         <Divder />
         <div>
@@ -130,22 +181,24 @@ export default function ProductDetails({ data }) {
           <ul style={{ paddingInline: "1rem" }}>
             {data?.additionalInfo?.slice(0, 3).map((item, index) => (
               <li style={{ marginBottom: "1rem" }} key={index}>
-                {item.description}
+                <BsDot /> &nbsp;{item.description}{" "}
               </li>
             ))}
           </ul>
-          <div className="and-more" onClick={() => setModalShow(true)}>
-            see {data?.additionalInfo?.length - 3} more
-          </div>
+          {data?.additionalInfo?.length > 3 && (
+            <div className="and-more" onClick={() => setInfoModal(true)}>
+              see {data?.additionalInfo?.length - 3} more
+            </div>
+          )}
           <SeeMoreModal
             title={"Additional Info"}
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={infoModal}
+            onHide={() => setInfoModal(false)}
             body={
               <ul style={{ paddingInline: "1rem" }}>
                 {data?.additionalInfo?.map((item, index) => (
                   <li style={{ marginBottom: "1rem" }} key={index}>
-                    {item.description}
+                    <BsDot /> &nbsp;{item.description}
                   </li>
                 ))}
               </ul>
