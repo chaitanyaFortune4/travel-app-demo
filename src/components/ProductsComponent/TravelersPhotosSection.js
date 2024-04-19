@@ -7,6 +7,21 @@ import Image from "next/image";
 
 const TravelersPhotosSection = ({ data }) => {
   const lastFiveItems = data?.slice(-5);
+  const ImageFrame = ({ imgData }) => {
+    return (
+      <>
+        {imgData?.variants?.url && (
+          <Image
+            src={imgData?.variants?.url}
+            alt="image"
+            className="travel-image"
+            width={imgData?.variants?.width}
+            height={imgData?.variants?.height}
+          />
+        )}
+      </>
+    );
+  };
   return (
     <div>
       <Title title={"Traveler Photos"} />
@@ -22,7 +37,7 @@ const TravelersPhotosSection = ({ data }) => {
               height={lastFiveItems?.[0]?.variants?.height}
             />
           </Col>
-          <Col
+          {/* <Col
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -36,7 +51,7 @@ const TravelersPhotosSection = ({ data }) => {
                     <Image
                       src={lastFiveItems?.[rowIndex + colIndex]?.variants?.url}
                       alt="image"
-                      className="travel-image"
+                      className={`travel-image`}
                       width={
                         lastFiveItems?.[rowIndex + colIndex]?.variants?.width
                       }
@@ -48,6 +63,22 @@ const TravelersPhotosSection = ({ data }) => {
                 ))}
               </Row>
             ))}
+          </Col> */}
+          <Col>
+            <Row style={{ marginBottom: "1rem" }}>
+              {lastFiveItems?.slice(1, 3).map((item, index) => (
+                <Col key={index}>
+                  <ImageFrame imgData={item} />
+                </Col>
+              ))}
+            </Row>
+            <Row>
+              {lastFiveItems?.slice(3, 5).map((item, index) => (
+                <Col key={index}>
+                  <ImageFrame imgData={item} />
+                </Col>
+              ))}
+            </Row>
           </Col>
         </Row>
       </Container>
