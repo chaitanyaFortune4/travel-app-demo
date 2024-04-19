@@ -78,7 +78,11 @@ export const getDestinationByIdController = async (id) => {
             },
             currency: product.pricing.currency
           },
-          flags: product.flags
+          flags: product.flags,
+          reviews: {
+            totalReviews: product.reviews.totalReviews,
+            combinedAverageRating: product.reviews.combinedAverageRating,
+          }
         };
         return modifiedProduct;
       });

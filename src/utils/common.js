@@ -15,7 +15,7 @@ export const isDataStaleChecker = (timestamp) => {
   const currentDate = new Date();
   const differenceInMilliseconds = currentDate - givenDate;
   // Convert milliseconds to hours
-  const differenceInHours = differenceInMilliseconds / (1000 * 60 * 60);
+  const differenceInHours = differenceInMilliseconds / (1000 * 60 * 60 * 60);
   if (differenceInHours < 1) {
     return false;
   }
@@ -42,14 +42,26 @@ export function convertToSlug(title) {
     .trim(); // Remove leading and trailing whitespaces
 }
 
-// export const readFile = (path) => {
-//   try {
-//     const destinationData = fs.readFileSync(
-//       `${apiList.fileUpload}/${path}`,
-//       "utf-8"
-//     );
-//     return JSON.parse(destinationData);
-//   } catch (error) {
-//     return [];
-//   }
-// }
+export function convertFlag(flag) {
+  return flag
+    .replace(/_/g, " ")
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
+const convertMinutesToHours = (minutes) => {
+  var hours = Math.floor(minutes / 60); // Calculate hours
+  var remainingMinutes = minutes % 60; // Calculate remaining minutes
+  return hours + " hours ";
+};
+
+export function timer(duration) {
+  const len = Object.keys(duration).length;
+  if (len > 1) {
+    return `${convertMinutesToHours(
+      duration.variableDurationFromMinutes
+    )} to ${convertMinutesToHours(duration.variableDurationToMinutes)}`;
+  } else {
+    return `${convertMinutesToHours(duration.fixedDurationInMinutes)}`;
+  }
+};

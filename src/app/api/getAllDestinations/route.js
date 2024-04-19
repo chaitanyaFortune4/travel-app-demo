@@ -1,4 +1,4 @@
-import { getAllDestinationsController } from "@/controllers/apisController";
+
 import { NextResponse } from "next/server";
 import fs from "fs";
 import { apiList } from "@/utils/constants";

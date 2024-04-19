@@ -18,7 +18,11 @@ export const GET = async (req) => {
             );
             let data = JSON.parse(destinationData)
             if (!isDataStaleChecker(data.updatedAt)) {
-                return NextResponse.json(data)
+                let jsonData = {
+                    data: data.data,
+                    message: "Fetch Json product details successfully"
+                }
+                return NextResponse.json(jsonData)
             } else {
                 let data = await getProductdetailsByID(req);
                 let resData = {

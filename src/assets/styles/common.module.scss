@@ -1,6 +1,11 @@
 .container{
     padding: 25px 75px;
 }
+@media (max-width:480px) {
+    .container{
+        padding: 25px 20px;
+    }
+}
 .medium-title{
     border-bottom: 1px solid #ccc;
     margin-bottom: 30px;

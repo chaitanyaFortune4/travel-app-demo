@@ -1,12 +1,9 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Products from "../ProductsComponent/products";
-import { getDestinationById } from "@/services/apiServices";
-import AttractionsSection from "../AttractionComponent/AttractionsSection";
 import { useRouter } from "next/navigation";
-import { convertToSlug } from "@/utils/common";
 import style from "../../assets/styles/landing_page/landingpage.module.scss";
+import common from "@/css/common.module.scss"
 const Search = ({ data }) => {
   const [destinations, setDestinations] = useState(data);
   const [searchTerm, setSearchTerm] = useState("");
@@ -48,16 +45,11 @@ const Search = ({ data }) => {
   const onClickDestination = (e, destination) => {
     localStorage.setItem("destinationId", destination.destinationId);
     router.push(`/listing/${destination.destinationId}`);
-
-    // fetchDestionationById(
-    //   destination.destinationName,
-    //   destination.destinationId
-    // );
   };
 
   return (
     <>
-      <div className={style["banner-wrapper"]}>
+      <div className={common["container"] + " " + style["banner-wrapper"]}>
         <form onSubmit={handleSubmit}>
           <div className={style["detail-wrap"]}>
             <h1 className={style["banner-title"]}>Do more with Viator</h1>
