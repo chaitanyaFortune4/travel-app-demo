@@ -22,6 +22,7 @@ import { Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import StarRating from "../common/starRating";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
@@ -45,18 +46,13 @@ export default function ProductDetails({ data }) {
     <div className="product-details-page-container">
       <div className="title-content">
         <Title title={data?.title} />
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "1rem",
-          }}
-        >
-          <div style={{ display: "flex" }}>
-            <div style={{ marginRight: "1rem" }}>
-              <GoStarFill /> {data?.reviews?.totalReviews} Reviews
+        <div className="flex space-between mb">
+          <div style={{ display: "flex" }}> 
+            <div style={{ marginRight: "1rem" }} className="flex">
+              <StarRating rating={5} />&nbsp;
+              {data?.reviews?.totalReviews} Reviews
             </div>
-            <div style={{ marginRight: "1rem" }}>
+            <div style={{ marginRight: "1rem" }}  className="flex">
               <SlBadge /> Badge of Excellence
             </div>
             <div style={{ marginRight: "1rem" }}> Corsica, France</div>
@@ -67,7 +63,7 @@ export default function ProductDetails({ data }) {
         </div>
       </div>
       <div className="flex product-detail-view-point">
-        <div style={{ width: "65%" }}>
+        <div >
           <ProductDetailsImageContainer data={data?.images} />
         </div>
         <div style={{ marginInline: "1rem" }}>
