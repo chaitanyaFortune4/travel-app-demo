@@ -52,7 +52,7 @@
     margin-bottom: 2rem;
     .details-section3-content {
       display: flex;
-      justify-content: space-between;
+      // justify-content: space-between;
       @media (max-width: 480px) {
         flex-direction: column;
       }

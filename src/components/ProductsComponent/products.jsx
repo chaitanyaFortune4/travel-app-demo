@@ -190,7 +190,7 @@ const Products = ({ products }) => {
               onClick={(e) => productHandler(product)}
             >
               <div>
-                <img
+                <Image
                   src={product.images[0].variants[8].url}
                   style={{
                     height: "100%",
@@ -201,45 +201,47 @@ const Products = ({ products }) => {
                   alt="Picture of the author"
                 />
               </div>
-              <div
-                style={{
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                <span className={commonStyle["title-span"]}>
-                  {product.title}
-                </span>
-              </div>
-              <div style={{ marginBottom: "1rem" }}>
-                <StarRating rating={product.reviews?.combinedAverageRating} />
-                {product.reviews?.totalReviews}
-              </div>
-              {product.duration && (
-                <div style={{ marginTop: "1rem" }}>
-                  {timer(product.duration)}
-                </div>
-              )}
-              <div style={{ marginBottom: "0.5rem" }}>
-                {product.flags.map((flag, idx) => (
-                  <div key={idx}>{convertFlag(flag)}</div>
-                ))}
-              </div>
-              <div style={{}}>
-                <span style={{ fontWeight: "500" }}>from</span>
-                <p
+              <div style={{ padding: "0.3rem" }}>
+                <div
                   style={{
-                    display: "inline",
                     fontWeight: "bold",
-                    marginLeft: "0.5rem",
+                    fontSize: "1rem",
+                    marginBottom: "0.5rem",
                   }}
                 >
-                  Rs {product.pricing.summary.fromPrice}
-                </p>
-                <p style={{ fontSize: "0.8rem", fontWeight: "500" }}>
-                  price varies by group size
-                </p>
+                  <span className={commonStyle["title-span"]}>
+                    {product.title}
+                  </span>
+                </div>
+                <div style={{ marginBottom: "1rem" }}>
+                  <StarRating rating={product.reviews?.combinedAverageRating} />
+                  {product.reviews?.totalReviews}
+                </div>
+                {product.duration && (
+                  <div style={{ marginTop: "1rem" }}>
+                    {timer(product.duration)}
+                  </div>
+                )}
+                <div style={{ marginBottom: "0.5rem" }}>
+                  {product.flags.map((flag, idx) => (
+                    <div key={idx}>{convertFlag(flag)}</div>
+                  ))}
+                </div>
+                <div style={{}}>
+                  <span style={{ fontWeight: "500" }}>from</span>
+                  <p
+                    style={{
+                      display: "inline",
+                      fontWeight: "bold",
+                      marginLeft: "0.5rem",
+                    }}
+                  >
+                    Rs {product.pricing.summary.fromPrice}
+                  </p>
+                  <p style={{ fontSize: "0.8rem", fontWeight: "500" }}>
+                    price varies by group size
+                  </p>
+                </div>
               </div>
             </div>
           ))}

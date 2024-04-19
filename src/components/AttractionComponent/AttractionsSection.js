@@ -12,7 +12,7 @@ const AttractionsSection = ({ data }) => {
   };
 
   return (
-    <div style={{ margin: "5rem" }}>
+    <div style={{ marginTop: "2rem" }}>
       <div style={{ display: "flex", justifyContent: "center" }}>
         {data.length > 0 && <Title title={"Popular Attractions"} />}
       </div>

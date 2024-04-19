@@ -1,6 +1,8 @@
 import { getProductByCodeController } from "@/controllers/apisController";
 import { NextResponse } from "next/server";
 
+export const dynamic = "force-dynamic";
+
 export const GET = async (req) => {
   try {
     const params = req.nextUrl.searchParams;

@@ -25,9 +25,6 @@ export default function ProductDetails({ productDetails }) {
   const [show, setShow] = useState(false);
   const handleClose1 = () => setShow(false);
   const handleShow1 = () => setShow(true);
-  console.log("PROD", productDetails);
-
-  console.log("Data", savedProductData);
 
   useEffect(() => {
     if (localStorage.getItem("product")) {
@@ -112,7 +109,7 @@ export default function ProductDetails({ productDetails }) {
               <ProductDetailsImageContainer images={productDetails?.images} />
             )}
           </div>{" "}
-          <div style={{ marginInline: "1rem" }}>
+          <div style={{}}>
             <AvailabilityCard
               price={savedProductData?.pricing?.summary?.fromPrice}
               travelers={travelers}
@@ -146,17 +143,21 @@ export default function ProductDetails({ productDetails }) {
           <div className={style["details-section3"]}>
             <Title title={"What's Included"} />
             <div className={style["details-section3-content"]}>
-              <div style={{ flex: 1 }}>
-                <ul style={{ listStyleType: "none" }}>
+              <div>
+                <div style={{ listStyleType: "none" }}>
                   {productDetails.inclusions?.slice(0, 3).map((item, index) => (
                     <li key={index}>
                       <IoCheckmark /> &nbsp;
                       {item.description || item.otherDescription}
                     </li>
                   ))}
-                </ul>
+                </div>
                 <div
-                  style={{ fontWeight: "bold", cursor: "pointer" }}
+                  style={{
+                    marginTop: "0.5rem",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                  }}
                   onClick={handleShow1}
                 >
                   See more..
@@ -183,7 +184,7 @@ export default function ProductDetails({ productDetails }) {
             <Modal.Body>
               <div className={style["details-section3"]}>
                 <div className={style["details-section3-content"]}>
-                  <div style={{ flex: 1 }}>
+                  <div>
                     <ul style={{ listStyleType: "none" }}>
                       {productDetails.inclusions.map((item, index) => (
                         <li key={index}>
@@ -194,16 +195,18 @@ export default function ProductDetails({ productDetails }) {
                     </ul>
                   </div>
 
-                  <div style={{ flex: 1 }}>
-                    <ul style={{ listStyleType: "none" }}>
-                      {productDetails.exclusions.map((item, index) => (
-                        <li key={index}>
-                          <HiMiniXMark /> &nbsp;
-                          {item.otherDescription}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  {productDetails.exclusions && (
+                    <div>
+                      <ul style={{ listStyleType: "none" }}>
+                        {productDetails.exclusions.map((item, index) => (
+                          <li key={index}>
+                            <HiMiniXMark /> &nbsp;
+                            {item.description || item.otherDescription}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               </div>
             </Modal.Body>
@@ -212,15 +215,15 @@ export default function ProductDetails({ productDetails }) {
           <div className={style["details-section4"]}>
             <Title title={"Additonal Info"} />
             <div className={style["details-section4-content"]}>
-              <div style={{ flex: 1 }}>
-                <ul style={{ listStyleType: "none" }}>
+              <div>
+                <div style={{ listStyleType: "none" }}>
                   {productDetails.additionalInfo.map((item, index) => (
                     <li key={index}>
                       <IoCheckmark /> &nbsp;
                       {item.description || item.otherDescription}
                     </li>
                   ))}
-                </ul>
+                </div>
               </div>
             </div>
             <div style={{ fontWeight: "bold" }}>
