@@ -29,8 +29,8 @@ export default function ProductDetails({ data }) {
   const [infoModal, setInfoModal] = useState(false);
   const [whatsIncludeModal, setWhatsIncludeModal] = useState(false);
   // console.log("data", data);
-  const increseCount = (e) => {
-    setTravelers(e.target.value);
+  const onCkickChangeCount = (action) => {
+    action === "add" ? setTravelers((p) => p + 1) : setTravelers((p) => p - 1);
   };
 
   const excludedItems = ["Room service", "Mini bar"];
@@ -71,7 +71,7 @@ export default function ProductDetails({ data }) {
           <AvailabilityCard
             price={"2,966.11"}
             travelers={travelers}
-            increseCount={increseCount}
+            onCkickChangeCount={onCkickChangeCount}
           />
         </div>
       </div>

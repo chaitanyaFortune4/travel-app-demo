@@ -1,9 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { HiMiniCheckCircle } from "react-icons/hi2";
 import DropdownItem from "./DropdownItem";
+import RoundedButton from "../Items/RoundedButton";
+import { AiOutlinePlusCircle, AiOutlineMinusCircle } from "react-icons/ai";
+import { IoPersonOutline } from "react-icons/io5";
 
-const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
+const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Function to handle click outside dropdown
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setIsOpen(false);
+    }
+  };
+
+  // Effect to add click event listener when component mounts
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+  const applyChanges = () => {
+    setIsOpen(false);
+    togglePopup(false);
+  };
+
   return (
     <div className="availability-card">
       <div className="card-header">
@@ -20,19 +49,43 @@ const AvailabilityCard = ({ price = 0, travelers = 1, increseCount }) => {
         <h4 style={{ marginBottom: "1rem" }}>Select Date and Travelers</h4>
 
         <div className="input-field">
-          <input type="date" id="date" />
+          <input type="date" id="date" className="input" />
         </div>
 
         <div className="input-field">
-          {/* <input
-            type="number"
-            id="travelers"
-            min="1"
-            value={travelers}
-            onChange={(e) => increseCount(e)}
-          /> */}
-            
-          <DropdownItem value={travelers}/>
+          <div style={{ position: "relative" }}>
+            <div onClick={togglePopup} className="input flex">
+              <IoPersonOutline />
+              {travelers}
+            </div>
+            {isOpen && (
+              <div className="popup">
+                <div className="popup-content">
+                  <div className="flex space-between">
+                    <div>age</div>
+                    <div className="flex space-between mb">
+                      <RoundedButton
+                        onClick={() => onCkickChangeCount("remove")}
+                        disabled={travelers === 1}
+                      >
+                        <AiOutlineMinusCircle
+                          size={25}
+                          color={`${travelers === 1 ? "" : "#008768"}`}
+                        />
+                      </RoundedButton>
+                      <span className="">{travelers}</span>
+                      <RoundedButton onClick={() => onCkickChangeCount("add")}>
+                        <AiOutlinePlusCircle size={25} color="#008768" />
+                      </RoundedButton>
+                    </div>
+                  </div>
+                  <button onClick={applyChanges} className="">
+                    Apply
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <button className="submit-btn">Check Availability</button>

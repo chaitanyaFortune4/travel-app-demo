@@ -30,7 +30,7 @@ const DropdownItem = ({ value = 1 }) => {
   };
 
   return (
-    <div className="" ref={dropdownRef} style={{width:'100%', cursor:'pointer'}}>
+    <div className="" ref={dropdownRef} style={{width:'100%', cursor:'pointer', position:'relative'}}>
       <div className="">
         <div onClick={toggleDropdown} className="">
           {value}
