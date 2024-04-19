@@ -5,9 +5,11 @@ import { apiList } from "@/utils/constants";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import commonStyle from "../../assets/styles/common.module.scss";
 
 const Products = ({ products }) => {
   const router = useRouter();
+
   const convertMinutesToHours = (minutes) => {
     var hours = Math.floor(minutes / 60); // Calculate hours
     var remainingMinutes = minutes % 60; // Calculate remaining minutes
@@ -49,7 +51,11 @@ const Products = ({ products }) => {
     // Add filled stars
     for (let i = 0; i < filledStars; i++) {
       stars.push(
-        <i key={i} style={{ color: "yellow" }} className="fa-solid fa-star"></i>
+        <i
+          key={i}
+          style={{ color: "#f5c542" }}
+          className="fa-solid fa-star"
+        ></i>
       );
     }
 
@@ -58,7 +64,7 @@ const Products = ({ products }) => {
       stars.push(
         <i
           key="half"
-          style={{ color: "yellow" }}
+          style={{ color: "#f5c542" }}
           className="fa-solid fa-star-half-stroke"
         ></i>
       );
@@ -84,86 +90,156 @@ const Products = ({ products }) => {
 
   return (
     <>
-      <div style={{ marginTop: "2rem" }}>
+      <div
+        style={{
+          marginTop: "2rem",
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "2rem",
+          justifyContent: "center",
+        }}
+      >
         {products?.length > 0 &&
           products.map((product, idx) => (
+            // <div
+            //   key={idx}
+            //   style={{
+            //     cursor: "pointer",
+            //     border: "1px solid grey",
+            //     padding: "1rem",
+            //     width: "100%",
+            //     display: "flex",
+            //     justifyContent: "space-around",
+            //     columnGap: "0.5rem",
+            //   }}
+            //   onClick={(e) => productHandler(product)}
+            // >
+            //   <div>
+            //     <img
+            //       src={product.images[0].variants[8].url}
+            //       style={{
+            //         // height: "100%",
+            //         // width: "100%",
+            //         objectFit: "contain",
+            //       }}
+            //       alt="Picture of the author"
+            //     />
+            //   </div>
+            //   <div style={{ width: "60%" }}>
+            //     <div
+            //       style={{
+            //         fontWeight: "bold",
+            //         fontSize: "1rem",
+            //         marginBottom: "1rem",
+            //       }}
+            //     >
+            //       {product.title}
+            //     </div>
+            //     <div style={{ marginBottom: "1rem" }}>
+            //       <StarRating rating={product.reviews?.combinedAverageRating} />
+            //       {product.reviews?.totalReviews}
+            //     </div>
+            //     <div style={{ fontWeight: "300" }}>
+            //       {product.description.slice(0, 300)}
+            //       {product.description.length > 300 && (
+            //         <button
+            //           style={{
+            //             background: "none",
+            //             border: "none",
+            //             marginLeft: "0.5rem",
+            //             textDecoration: "underline",
+            //           }}
+            //         >
+            //           ...More
+            //         </button>
+            //       )}
+            //     </div>
+
+            //     {product.duration && (
+            //       <div style={{ marginTop: "1rem" }}>
+            //         {timer(product.duration)}
+            //       </div>
+            //     )}
+            //     <div>
+            //       {product.flags.map((flag, idx) => (
+            //         <div key={idx}>{convertFlag(flag)}</div>
+            //       ))}
+            //     </div>
+            //   </div>
+            //   <div
+            //     style={{
+            //       //   border: "1px solid red",
+            //       width: "8%",
+            //       textAlign: "right",
+            //     }}
+            //   >
+            //     from
+            //     <p style={{ fontWeight: "bold" }}>
+            //       Rs {product.pricing.summary.fromPrice}
+            //     </p>
+            //     <p style={{ fontSize: "0.8rem" }}>price varies by group size</p>
+            //   </div>
+            // </div>
             <div
               key={idx}
               style={{
                 cursor: "pointer",
-                border: "1px solid grey",
-                padding: "1rem",
-                width: "100%",
-                display: "flex",
-                justifyContent: "space-around",
-                columnGap: "0.5rem",
+                width: "330px",
               }}
+              className={commonStyle["hoverable-div"]}
               onClick={(e) => productHandler(product)}
             >
               <div>
                 <img
                   src={product.images[0].variants[8].url}
                   style={{
-                    // height: "100%",
-                    // width: "100%",
+                    height: "100%",
+                    width: "100%",
                     objectFit: "contain",
+                    borderRadius: "0.5rem",
                   }}
                   alt="Picture of the author"
                 />
               </div>
-              <div style={{ width: "60%" }}>
-                <div
-                  style={{
-                    fontWeight: "bold",
-                    fontSize: "1rem",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  {product.title}
-                </div>
-                <div style={{ marginBottom: "1rem" }}>
-                  <StarRating rating={product.reviews?.combinedAverageRating} />
-                  {product.reviews?.totalReviews}
-                </div>
-                <div style={{ fontWeight: "300" }}>
-                  {product.description.slice(0, 300)}
-                  {product.description.length > 300 && (
-                    <button
-                      style={{
-                        background: "none",
-                        border: "none",
-                        marginLeft: "0.5rem",
-                        textDecoration: "underline",
-                      }}
-                    >
-                      ...More
-                    </button>
-                  )}
-                </div>
-
-                {product.duration && (
-                  <div style={{ marginTop: "1rem" }}>
-                    {timer(product.duration)}
-                  </div>
-                )}
-                <div>
-                  {product.flags.map((flag, idx) => (
-                    <div key={idx}>{convertFlag(flag)}</div>
-                  ))}
-                </div>
-              </div>
               <div
                 style={{
-                  //   border: "1px solid red",
-                  width: "8%",
-                  textAlign: "right",
+                  fontWeight: "bold",
+                  fontSize: "1rem",
+                  marginBottom: "0.5rem",
                 }}
               >
-                from
-                <p style={{ fontWeight: "bold" }}>
+                <span className={commonStyle["title-span"]}>
+                  {product.title}
+                </span>
+              </div>
+              <div style={{ marginBottom: "1rem" }}>
+                <StarRating rating={product.reviews?.combinedAverageRating} />
+                {product.reviews?.totalReviews}
+              </div>
+              {product.duration && (
+                <div style={{ marginTop: "1rem" }}>
+                  {timer(product.duration)}
+                </div>
+              )}
+              <div style={{ marginBottom: "0.5rem" }}>
+                {product.flags.map((flag, idx) => (
+                  <div key={idx}>{convertFlag(flag)}</div>
+                ))}
+              </div>
+              <div style={{}}>
+                <span style={{ fontWeight: "500" }}>from</span>
+                <p
+                  style={{
+                    display: "inline",
+                    fontWeight: "bold",
+                    marginLeft: "0.5rem",
+                  }}
+                >
                   Rs {product.pricing.summary.fromPrice}
                 </p>
-                <p style={{ fontSize: "0.8rem" }}>price varies by group size</p>
+                <p style={{ fontSize: "0.8rem", fontWeight: "500" }}>
+                  price varies by group size
+                </p>
               </div>
             </div>
           ))}

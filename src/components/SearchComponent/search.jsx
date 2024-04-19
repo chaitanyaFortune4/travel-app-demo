@@ -48,7 +48,7 @@ const Search = ({ data }) => {
 
   const onClickDestination = (e, destination) => {
     localStorage.setItem("searchedDestination", destination.destinationName);
-    router.push(`/listing/${destination.destinationId}`);
+    router.push(`/${destination.destinationName}/${destination.destinationId}`);
   };
 
   return (

@@ -1,8 +1,13 @@
 .container {
-  padding: 25px 75px;
+  // padding: 25px 75px;
+  padding: 1rem;
 }
 .medium-title {
   border-bottom: 1px solid #ccc;
   margin-bottom: 30px;
   padding-bottom: 5px;
+}
+
+.hoverable-div:hover .title-span {
+  text-decoration: underline;
 }

@@ -6,18 +6,18 @@ import {
 
 const page = async ({ params }) => {
   const destinationDetails = await getDestinationById({
-    destinationId: params.listingId,
+    destinationId: params.destinationId,
   });
 
   const attractionsList = await getAttractionsByDestId({
-    destinationId: params.listingId,
+    destinationId: params.destinationId,
   });
 
   return (
     <>
-      <div>Test</div>
       <div>
         <ListingWrapper
+          destinationName={params.destination}
           destinationDetails={destinationDetails.data.data}
           attractionsList={attractionsList.data.data}
         />
