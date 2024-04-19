@@ -36,7 +36,7 @@ export default function ProductDetailsImageContainer({ data }) {
         <Swiper
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper"
+          className="vertical-swiper"
           {...swiperOneOptions}
         >
           {data?.slice(0, 5).map((item, index) => (
@@ -55,7 +55,7 @@ export default function ProductDetailsImageContainer({ data }) {
         <Swiper
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="mySwiper2"
+          className="main-swiper"
           {...swiperTwoOptions}
         >
           {data?.slice(0, 5).map((item, index) => (
