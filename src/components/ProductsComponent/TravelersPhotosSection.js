@@ -66,18 +66,20 @@ const TravelersPhotosSection = ({ data }) => {
           </Col> */}
           <Col>
             <Row style={{ marginBottom: "1rem" }}>
-              {lastFiveItems?.slice(1, 3).map((item, index) => (
-                <Col key={index}>
-                  <ImageFrame imgData={item} />
-                </Col>
-              ))}
+              <Col>
+                <ImageFrame imgData={lastFiveItems?.[1]} />
+              </Col>
+              <Col>
+                <ImageFrame imgData={lastFiveItems?.[2]} />
+              </Col>
             </Row>
             <Row>
-              {lastFiveItems?.slice(3, 5).map((item, index) => (
-                <Col key={index}>
-                  <ImageFrame imgData={item} />
-                </Col>
-              ))}
+              <Col>
+                <ImageFrame imgData={lastFiveItems?.[3]} />
+              </Col>
+              <Col>
+                <ImageFrame imgData={lastFiveItems?.[4]} />
+              </Col>
             </Row>
           </Col>
         </Row>
