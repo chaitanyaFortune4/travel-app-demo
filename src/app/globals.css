@@ -232,17 +232,21 @@ input {
 
 /* attraction card */
 .card {
+  height: 170px;
+  width: 250px;
   border-radius: 10px;
   overflow: hidden;
-  width: 15rem;
-  height: 9rem;
-  margin: 1rem;
   position: relative;
   text-align: center;
   transition: background-color 0.3s ease;
   cursor: pointer;
 }
-
+.card img{
+  height: 100% !important;
+  width: 100% !important;
+}
+.card .content{padding:15px;}
+.card .content h3{font-size:18px;}
 .overlay {
   position: absolute;
   top: 0;
@@ -251,16 +255,13 @@ input {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5); 
   opacity: 1; 
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
 .card:hover .overlay {
   opacity: 0; 
 }
 
-.card:hover {
-  background-color: black; 
-}
 
 .centered {
   position: absolute;
@@ -269,9 +270,9 @@ input {
   transform: translate(-50%, -50%);
 }
 
-.title {
+.card .title {
   color: white;
-  font-size: 18px;
+  font-weight: 600;
 }
 .and-more{
   text-decoration: underline;

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import React from 'react'
 import { convertFlag, convertToSlug, eventTrigger, timer } from '@/utils/common';
-import listStyle from "../../assets/styles/listing_page/listing.module.scss";
+import listStyle from "@/css/listing_page/listing.module.scss";
 import Image from 'next/image';
 import StarRating from '../common/starRating';
 
@@ -10,7 +10,7 @@ export default function Product({ products }) {
 
     return (
         <>
-            <div style={{ marginTop: "2rem" }}>
+            <div className='container'>
                 {products?.length > 0 &&
                     products.map((product, idx) => (
                         <Link href={`/tour/${convertToSlug(product.title)}`} key={idx}>
@@ -18,7 +18,7 @@ export default function Product({ products }) {
                                 className={listStyle["list-card"]}
                                 onClick={() => eventTrigger(product)}
                             >
-                                <div>
+                                <div className={listStyle["img-wrapper"]}>
                                     <Image
                                         src={product.images[0].variants[0].url}
                                         className={listStyle["card-img"]}
@@ -27,17 +27,18 @@ export default function Product({ products }) {
                                         height={250}
                                     />
                                 </div>
-                                <div style={{ width: "60%" }}>
+                                <div className={listStyle["right-col"]}>
+                                <div>
                                     <h3 className={listStyle["card-title"]}>{product.title}</h3>
-                                    <div style={{ marginBottom: "1rem" }}>
+                                    <div className={listStyle["rating-wrapper"]}>
                                         <StarRating
                                             rating={product.reviews?.combinedAverageRating}
                                         />
                                         {product.reviews?.totalReviews}
                                     </div>
-                                    <div style={{ fontWeight: "300" }}>
-                                        {product.description.slice(0, 300)}
-                                        {product.description.length > 300 && (
+                                    <div className={listStyle["caed-desc"]} style={{ fontWeight: "300" }}>
+                                        {product.description.slice(0, 200)}
+                                        {product.description.length > 200 && (
                                             <button
                                                 style={{
                                                     background: "none",
@@ -52,11 +53,11 @@ export default function Product({ products }) {
                                     </div>
 
                                     {product.duration && (
-                                        <div style={{ marginTop: "1rem" }}>
+                                        <div className={listStyle["timer-txt"]}>
                                             {timer(product.duration)}
                                         </div>
                                     )}
-                                    <div>
+                                    <div className={listStyle["offer-detail"]}>
                                         {product.flags.map((flag, idx) => (
                                             <div key={idx}>{convertFlag(flag)}</div>
                                         ))}
@@ -64,8 +65,6 @@ export default function Product({ products }) {
                                 </div>
                                 <div
                                     style={{
-                                        //   border: "1px solid red",
-                                        width: "8%",
                                         textAlign: "right",
                                     }}
                                 >
@@ -76,6 +75,7 @@ export default function Product({ products }) {
                                     <p style={{ fontSize: "0.8rem" }}>
                                         price varies by group size
                                     </p>
+                                </div>
                                 </div>
                             </div>
                         </Link>
