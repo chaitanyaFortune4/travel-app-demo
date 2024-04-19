@@ -12,13 +12,16 @@ import { CiMobile3 } from "react-icons/ci";
 import { PiChatTextLight } from "react-icons/pi";
 import { HiMiniXMark } from "react-icons/hi2";
 import { IoCheckmark } from "react-icons/io5";
+import { BsDot } from "react-icons/bs";
 
 import Link from "next/link";
 import { Title } from "../Items/Title";
 import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
 import { Button } from "react-bootstrap";
-import Image from "next/image";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+import { IoArrowForwardCircleOutline } from "react-icons/io5";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
@@ -31,33 +34,42 @@ export default function ProductDetails({ data }) {
 
   const excludedItems = ["Room service", "Mini bar"];
 
+  const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      <h6>Offered in:</h6>
+      <p>German, English, Spanish</p>
+    </Tooltip>
+  );
+
   return (
     <div className="product-details-page-container">
-      <Title title={data?.title} />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          marginBottom: "1rem",
-        }}
-      >
-        <div style={{ display: "flex" }}>
-          <div style={{ marginRight: "1rem" }}>
-            <GoStarFill /> {data?.reviews?.totalReviews} Reviews
+      <div className="title-content">
+        <Title title={data?.title} />
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "1rem",
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <div style={{ marginRight: "1rem" }}>
+              <GoStarFill /> {data?.reviews?.totalReviews} Reviews
+            </div>
+            <div style={{ marginRight: "1rem" }}>
+              <SlBadge /> Badge of Excellence
+            </div>
+            <div style={{ marginRight: "1rem" }}> Corsica, France</div>
           </div>
-          <div style={{ marginRight: "1rem" }}>
-            <SlBadge /> Badge of Excellence{" "}
+          <div>
+            <LuShare /> Share <FaChevronDown />
           </div>
-          <div style={{ marginRight: "1rem" }}> Corsica, France</div>
-        </div>
-        <div>
-          <LuShare /> Share <FaChevronDown />
         </div>
       </div>
-      <div style={{ display: "flex" }}>
+      <div className="flex product-detail-view-point">
         <div style={{ width: "65%" }}>
           <ProductDetailsImageContainer data={data?.images} />
-        </div>{" "}
+        </div>
         <div style={{ marginInline: "1rem" }}>
           <AvailabilityCard
             price={"2,966.11"}
@@ -66,22 +78,28 @@ export default function ProductDetails({ data }) {
           />
         </div>
       </div>
-      <div style={{ paddingInline: "10rem" }}>
+      <div className="content">
         <Divder />
         <div style={{ display: "flex" }}>
           <div style={{ marginRight: "1rem" }}>
             <LuClock3 /> 6 hours
           </div>
           <div style={{ marginRight: "1rem" }}>
-            <CiMobile3 /> Mobile ticket{" "}
+            <CiMobile3 /> Mobile ticket
           </div>
-          <div style={{ marginRight: "1rem" }}>
-            {" "}
-            <PiChatTextLight />
-            Offered in: English{" "}
-            <Link href={"/"} className="and-more">
-              and 5 more{" "}
-            </Link>{" "}
+          <div style={{ marginRight: "1rem" }} className="flex">
+            <div>
+              <PiChatTextLight />
+              Offered in: English &nbsp;
+            </div>
+            <OverlayTrigger
+              placement="top"
+              delay={{ show: 250, hide: 400 }}
+              overlay={renderTooltip}
+              className="and-more"
+            >
+              <div className="and-more">and 5 more</div>
+            </OverlayTrigger>
           </div>
         </div>
         <Divder />
@@ -94,9 +112,12 @@ export default function ProductDetails({ data }) {
 
         <div>
           <Title title={"What's Included"} />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <div
+            style={{ display: "flex", justifyContent: "space-between" }}
+            className="included-section"
+          >
             <div style={{ flex: 1 }}>
-              <ul style={{ listStyleType: "none" }}>
+              <ul>
                 {data?.inclusions.slice(0, 3).map((item, index) => (
                   <li key={index}>
                     <IoCheckmark /> &nbsp;
@@ -107,16 +128,16 @@ export default function ProductDetails({ data }) {
                 ))}
               </ul>
               {data?.inclusions?.length > 3 && (
-              <div
-                className="and-more"
-                onClick={() => setWhatsIncludeModal(true)}
-              >
-                see {data?.inclusions?.length - 3} more
-              </div>
+                <div
+                  className="and-more"
+                  onClick={() => setWhatsIncludeModal(true)}
+                >
+                  see {data?.inclusions?.length - 3} more
+                </div>
               )}
             </div>
-            <div style={{ flex: 1 }}>
-              <ul style={{ listStyleType: "none" }}>
+            <div style={{ flex: 1 }} className="excluded">
+              <ul>
                 {excludedItems.map((item, index) => (
                   <li key={index}>
                     <HiMiniXMark /> &nbsp;
@@ -132,9 +153,9 @@ export default function ProductDetails({ data }) {
             show={whatsIncludeModal}
             onHide={() => setWhatsIncludeModal(false)}
             body={
-              <div style={{ display: "flex", justifyContent: "space-between" }}>
+              <div className="included-section">
                 <div style={{ flex: 1 }}>
-                  <ul style={{ listStyleType: "none" }}>
+                  <ul>
                     {data?.inclusions.map((item, index) => (
                       <li key={index}>
                         <IoCheckmark /> &nbsp;
@@ -145,8 +166,8 @@ export default function ProductDetails({ data }) {
                     ))}
                   </ul>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <ul style={{ listStyleType: "none" }}>
+                <div style={{ flex: 1 }} className="excluded">
+                  <ul>
                     {excludedItems.map((item, index) => (
                       <li key={index}>
                         <HiMiniXMark /> &nbsp;
@@ -165,7 +186,7 @@ export default function ProductDetails({ data }) {
           <ul style={{ paddingInline: "1rem" }}>
             {data?.additionalInfo?.slice(0, 3).map((item, index) => (
               <li style={{ marginBottom: "1rem" }} key={index}>
-                {item.description}
+                <BsDot /> &nbsp;{item.description}{" "}
               </li>
             ))}
           </ul>
@@ -182,7 +203,7 @@ export default function ProductDetails({ data }) {
               <ul style={{ paddingInline: "1rem" }}>
                 {data?.additionalInfo?.map((item, index) => (
                   <li style={{ marginBottom: "1rem" }} key={index}>
-                    {item.description}
+                    <BsDot /> &nbsp;{item.description}
                   </li>
                 ))}
               </ul>

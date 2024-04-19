@@ -9,68 +9,59 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --primary-glow: conic-gradient(
-    from 180deg at 50% 50%,
-    #16abff33 0deg,
-    #0885ff33 55deg,
-    #54d6ff33 120deg,
-    #0071ff33 160deg,
-    transparent 360deg
-  );
-  --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
-  );
+  --primary-glow: conic-gradient(from 180deg at 50% 50%,
+      #16abff33 0deg,
+      #0885ff33 55deg,
+      #54d6ff33 120deg,
+      #0071ff33 160deg,
+      transparent 360deg);
+  --secondary-glow: radial-gradient(rgba(255, 255, 255, 1),
+      rgba(255, 255, 255, 0));
 
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
-  --tile-border: conic-gradient(
-    #00000080,
-    #00000040,
-    #00000030,
-    #00000020,
-    #00000010,
-    #00000010,
-    #00000080
-  );
+  --tile-border: conic-gradient(#00000080,
+      #00000040,
+      #00000030,
+      #00000020,
+      #00000010,
+      #00000010,
+      #00000080);
 
   --callout-rgb: 238, 240, 241;
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
   --card-border-rgb: 131, 134, 135;
 }
- @media (prefers-color-scheme: dark) {
+
+@media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
 
     --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
-    --secondary-glow: linear-gradient(
-      to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
-    );
+    --secondary-glow: linear-gradient(to bottom right,
+        rgba(1, 65, 255, 0),
+        rgba(1, 65, 255, 0),
+        rgba(1, 65, 255, 0.3));
 
     --tile-start-rgb: 2, 13, 46;
     --tile-end-rgb: 2, 5, 19;
-    --tile-border: conic-gradient(
-      #ffffff80,
-      #ffffff40,
-      #ffffff30,
-      #ffffff20,
-      #ffffff10,
-      #ffffff10,
-      #ffffff80
-    );
+    --tile-border: conic-gradient(#ffffff80,
+        #ffffff40,
+        #ffffff30,
+        #ffffff20,
+        #ffffff10,
+        #ffffff10,
+        #ffffff80);
 
     --callout-rgb: 20, 20, 20;
     --callout-border-rgb: 108, 108, 108;
     --card-rgb: 100, 100, 100;
     --card-border-rgb: 200, 200, 200;
   }
-}  
+}
 
 * {
   box-sizing: border-box;
@@ -103,7 +94,7 @@ a {
 
 .swiper {
   /* width: 100%; */
-  height: 70vh;
+  height: 95%;
   margin-left: auto;
   margin-right: auto;
   cursor: pointer;
@@ -115,27 +106,25 @@ a {
   /* border-radius: var(--border-radius); */
 }
 
-.mySwiper2 {
-  /* height: 5%; */
-  /* width: 100%; */
-}
-.mySwiper .swiper-slide-thumb-active {
-border-radius: var(--border-radius);
- border: 1px solid rgb(var(--foreground-rgb));
+
+
+.vertical-swiper .swiper-slide-thumb-active {
+  border-radius: var(--border-radius);
+  border: 1px solid rgb(var(--foreground-rgb));
 }
 
-.mySwiper {
+.vertical-swiper {
   box-sizing: border-box;
   padding: 10px 0;
-  
+
 }
 
-.mySwiper .swiper-slide {
+.vertical-swiper .swiper-slide {
   width: 90%;
   opacity: 0.4;
 }
 
-.mySwiper .swiper-slide-thumb-active {
+.vertical-swiper .swiper-slide-thumb-active {
   opacity: 1;
 }
 
@@ -153,6 +142,7 @@ border-radius: var(--border-radius);
   background-size: 100% auto;
   background-position: center;
 }
+
 .swiper-button-prev {
   background-image: url(../assets/svg/leftArrow.svg);
   background-repeat: no-repeat;
@@ -163,9 +153,11 @@ border-radius: var(--border-radius);
 .swiper-button-next::after {
   display: none;
 }
+
 .swiper-button-prev::after {
   display: none;
 }
+
 /*  */
 .availability-card {
   border-radius: 10px;
@@ -181,10 +173,11 @@ border-radius: var(--border-radius);
 }
 
 .form-group {
-  margin-bottom:1rem;
+  margin-bottom: 1rem;
 }
-.form-group .input-field input{
-  margin-bottom:1rem;
+
+.form-group .input-field input {
+  margin-bottom: 1rem;
   background-color: #fff;
   color: #000;
 }
@@ -223,10 +216,12 @@ input {
   border-radius: 5px;
   margin-top: 20px;
 }
-.text-12{
+
+.text-12 {
   font-size: 12px;
 }
-.text-14{
+
+.text-14 {
   font-size: 14px;
 }
 
@@ -249,17 +244,17 @@ input {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  opacity: 1; 
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 1;
   transition: opacity 0.3s ease;
 }
 
 .card:hover .overlay {
-  opacity: 0; 
+  opacity: 0;
 }
 
 .card:hover {
-  background-color: black; 
+  background-color: black;
 }
 
 .centered {
@@ -273,15 +268,159 @@ input {
   color: white;
   font-size: 18px;
 }
-.and-more{
+
+.and-more {
   text-decoration: underline;
   cursor: pointer;
 }
-.and-more:hover{
-  color:#00513e ;
+
+.and-more:hover {
+  color: #00513e;
 }
-.travel-image{
+
+.travel-image {
   width: 100%;
   height: 100%;
   border-radius: var(--border-radius);
+}
+
+/* product details page */
+.product-details-page-container {
+  margin: 1rem 0rem
+}
+
+#button-tooltip {
+  background-color: #fff !important;
+  color: #000;
+}
+
+.flex {
+  display: flex;
+}
+
+.vertical-swiper-conatiner {
+  display: none;
+}
+
+.product-detail-view-point {
+  flex-direction: column;
+}
+
+.main-swiper-conatiner {
+  width: 40vw;
+  height: 30vw;
+}
+
+.modal-body .included-section {
+  display: flex;
+  justify-content: space-between;
+}
+
+ul {
+  list-style: none;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.traveller-photos-row:nth-child(1) {
+  margin-bottom: 1rem;
+}
+
+
+@media (min-width: 900px) {
+
+  .product-detail-view-point {
+    flex-direction: row;
+  }
+
+}
+
+.product-details-page-container .content {
+  padding-inline: 10rem;
+}
+
+.pack {
+  position: relative;
+  display: inline-block;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius);
+}
+
+.text {
+  color: white;
+  text-align: center;
+}
+
+
+
+
+@media (max-width: 750px) {
+  .included-section .excluded {
+    display: none;
+  }
+
+  .modal-body .included-section {
+    flex-direction: column;
+  }
+
+  ul {
+    padding: 0 !important;
+  }
+
+  .traveller-photos-row:nth-child(1) {
+    display: none;
+  }
+
+  .traveller-photos-row:nth-child(2) {
+    margin-top: 1rem;
+  }
+
+  .travel-image.container {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0px !important;
+  }
+
+  .main-swiper-conatiner {
+    width: 100vw;
+    height: 70vw;
+  }
+
+  .title-content {
+    padding: 1rem;
+  }
+
+  .product-details-page-container .content {
+    padding-inline: 1rem;
+  }
+}
+
+@media (min-width: 1250px) {
+
+  .product-details-page-container {
+    margin: 5rem 8rem
+  }
+
+  .vertical-swiper-conatiner {
+    display: block;
+  }
 }

@@ -32,7 +32,7 @@ export default function ProductDetailsImageContainer({ data }) {
 
   return (
     <div style={{ display: "flex" }}>
-      <div style={{ width: "20%" }}>
+      <div className="vertical-swiper-conatiner">
         <Swiper
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Navigation, Thumbs]}
@@ -51,7 +51,7 @@ export default function ProductDetailsImageContainer({ data }) {
           ))}
         </Swiper>
       </div>
-      <div style={{ width: "80%", borderRadius: "10px" }}>
+      <div className="main-swiper-conatiner">
         <Swiper
           thumbs={{ swiper: thumbsSwiper }}
           modules={[FreeMode, Navigation, Thumbs]}
