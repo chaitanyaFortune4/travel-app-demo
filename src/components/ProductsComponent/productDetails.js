@@ -22,22 +22,17 @@ import Image from "next/image";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
-  const [modalShow, setModalShow] = React.useState(false);
-  console.log("data", data);
+  const [infoModal, setInfoModal] = useState(false);
+  const [whatsIncludeModal, setWhatsIncludeModal] = useState(false);
+  // console.log("data", data);
   const increseCount = (e) => {
     setTravelers(e.target.value);
   };
-  const includedItems = [
-    "Daily breakfast",
-    "Free WiFi access",
-    "Access to gym facilities",
-    "Complimentary toiletries",
-  ];
 
   const excludedItems = ["Room service", "Mini bar"];
 
   return (
-    <div style={{ marginTop: "5rem", marginLeft: "8rem", marginRight: "8rem" }}>
+    <div className="product-details-page-container">
       <Title title={data?.title} />
       <div
         style={{
@@ -102,7 +97,7 @@ export default function ProductDetails({ data }) {
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{ flex: 1 }}>
               <ul style={{ listStyleType: "none" }}>
-                {data?.inclusions.map((item, index) => (
+                {data?.inclusions.slice(0, 3).map((item, index) => (
                   <li key={index}>
                     <IoCheckmark /> &nbsp;
                     {item.description
@@ -111,6 +106,14 @@ export default function ProductDetails({ data }) {
                   </li>
                 ))}
               </ul>
+              {data?.inclusions?.length > 3 && (
+              <div
+                className="and-more"
+                onClick={() => setWhatsIncludeModal(true)}
+              >
+                see {data?.inclusions?.length - 3} more
+              </div>
+              )}
             </div>
             <div style={{ flex: 1 }}>
               <ul style={{ listStyleType: "none" }}>
@@ -123,6 +126,38 @@ export default function ProductDetails({ data }) {
               </ul>
             </div>
           </div>
+
+          <SeeMoreModal
+            title={"What's Included"}
+            show={whatsIncludeModal}
+            onHide={() => setWhatsIncludeModal(false)}
+            body={
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div style={{ flex: 1 }}>
+                  <ul style={{ listStyleType: "none" }}>
+                    {data?.inclusions.map((item, index) => (
+                      <li key={index}>
+                        <IoCheckmark /> &nbsp;
+                        {item.description
+                          ? item.description
+                          : item.otherDescription}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div style={{ flex: 1 }}>
+                  <ul style={{ listStyleType: "none" }}>
+                    {excludedItems.map((item, index) => (
+                      <li key={index}>
+                        <HiMiniXMark /> &nbsp;
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            }
+          />
         </div>
         <Divder />
         <div>
@@ -134,13 +169,15 @@ export default function ProductDetails({ data }) {
               </li>
             ))}
           </ul>
-          <div className="and-more" onClick={() => setModalShow(true)}>
-            see {data?.additionalInfo?.length - 3} more
-          </div>
+          {data?.additionalInfo?.length > 3 && (
+            <div className="and-more" onClick={() => setInfoModal(true)}>
+              see {data?.additionalInfo?.length - 3} more
+            </div>
+          )}
           <SeeMoreModal
             title={"Additional Info"}
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={infoModal}
+            onHide={() => setInfoModal(false)}
             body={
               <ul style={{ paddingInline: "1rem" }}>
                 {data?.additionalInfo?.map((item, index) => (
