@@ -23,8 +23,8 @@ export default function Product({ products }) {
                                         src={product.images[0].variants[0].url}
                                         className={listStyle["card-img"]}
                                         alt="Picture of the author"
-                                        width={300}
-                                        height={250}
+                                        width={450}
+                                        height={300}
                                     />
                                 </div>
                                 <div style={{ width: "60%" }}>
