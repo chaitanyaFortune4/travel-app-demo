@@ -50,38 +50,38 @@ export const getDestinationByIdController = async (id) => {
     function modifyResponse(originalResponse) {
       const modifiedProducts = originalResponse?.products?.map(product => {
         const modifiedProduct = {
-          productCode: product.productCode,
-          title: product.title,
-          description: product.description,
+          productCode: product?.productCode,
+          title: product?.title,
+          description: product?.description,
           images: [
             {
-              imageSource: product.images[0].imageSource,
-              caption: product.images[0].caption,
-              isCover: product.images[0].isCover,
+              imageSource: product?.images[0]?.imageSource,
+              caption: product?.images[0]?.caption,
+              isCover: product?.images[0]?.isCover,
               variants: [
                 {
                   height: 160,
                   width: 240,
-                  url: product.images[0].variants[8].url // Using the 400x400 variant
+                  url: product?.images[0]?.variants[8]?.url // Using the 400x400 variant
                 }
               ]
             }
           ],
           duration: {
-            variableDurationFromMinutes: product.duration?.variableDurationFromMinutes,
-            variableDurationToMinutes: product.duration?.variableDurationToMinutes
+            variableDurationFromMinutes: product?.duration?.variableDurationFromMinutes,
+            variableDurationToMinutes: product?.duration?.variableDurationToMinutes
           },
           pricing: {
             summary: {
-              fromPrice: product.pricing.summary.fromPrice,
-              fromPriceBeforeDiscount: product.pricing.summary.fromPriceBeforeDiscount
+              fromPrice: product?.pricing?.summary?.fromPrice,
+              fromPriceBeforeDiscount: product?.pricing?.summary?.fromPriceBeforeDiscount
             },
-            currency: product.pricing.currency
+            currency: product?.pricing?.currency
           },
-          flags: product.flags,
+          flags: product?.flags,
           reviews: {
-            totalReviews: product.reviews.totalReviews,
-            combinedAverageRating: product.reviews.combinedAverageRating,
+            totalReviews: product?.reviews?.totalReviews,
+            combinedAverageRating: product?.reviews?.combinedAverageRating,
           }
         };
         return modifiedProduct;
@@ -92,11 +92,11 @@ export const getDestinationByIdController = async (id) => {
     function modifyAttraction(data) {
       const modifiedAttractions = data.data.map(item => {
         const modifiedArrraction = {
-          sortOrder: item.sortOrder,
-          pageUrlName: item.pageUrlName,
-          seoId: item.seoId,
-          thumbnailURL: item.thumbnailURL,
-          title: item.title
+          sortOrder: item?.sortOrder,
+          pageUrlName: item?.pageUrlName,
+          seoId: item?.seoId,
+          thumbnailURL: item?.thumbnailURL,
+          title: item?.title
         }
         return modifiedArrraction;
       })
