@@ -46,7 +46,7 @@ const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
         Lowest Price Guarantee
       </div>
       <div className="form-group">
-        <h4 style={{ marginBottom: "1rem" }}>Select Date and Travelers</h4>
+        <h4 className="mb">Select Date and Travelers</h4>
 
         <div className="input-field">
           <input type="date" id="date" className="input" />
@@ -89,9 +89,12 @@ const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
         </div>
       </div>
       <button className="submit-btn">Check Availability</button>
-      <div className="note">
-        <HiMiniCheckCircle color="#008768" /> Note: Lorem ipsum dolor sit amet,
-        consectetur adipiscing elit.
+      <div className="note flex">
+        <HiMiniCheckCircle color="#008768" size={30} />
+        <p>
+          <span>Free cancellation</span> up to 24 hours before the experience
+          starts (local time)
+        </p>
       </div>
     </div>
   );

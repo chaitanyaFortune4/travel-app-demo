@@ -221,6 +221,13 @@ label {
   border-radius: 5px;
   margin-top: 20px;
 }
+.note p {
+margin-left: 0.5rem;
+}
+.note span{
+  text-decoration: underline;
+  font-weight: 600;
+}
 
 .text-12 {
   font-size: 12px;
