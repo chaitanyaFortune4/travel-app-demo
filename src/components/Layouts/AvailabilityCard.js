@@ -52,7 +52,7 @@ const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
           <input type="date" id="date" className="input" />
         </div>
 
-        <div className="input-field">
+        <div className="input-field" ref={dropdownRef}>
           <div style={{ position: "relative" }}>
             <div onClick={togglePopup} className="input flex ">
               <IoPersonOutline />
@@ -75,7 +75,7 @@ const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
                       </RoundedButton>
                       <span className="">&nbsp;{travelers}&nbsp;</span>
                       <RoundedButton onClick={() => onCkickChangeCount("add")}>
-                        &nbsp;<AiOutlinePlusCircle size={25} color="#008768" />
+                        <AiOutlinePlusCircle size={25} color="#008768" />
                       </RoundedButton>
                     </div>
                   </div>
