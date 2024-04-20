@@ -25,7 +25,7 @@ const page = async ({ params }) => {
       </div>
       <div>
         <ListingWrapper
-          destinationName={params.destination}
+          destinationName={decodeURIComponent(params.destination)}
           destinationDetails={destinationDetails.data.data}
           attractionsList={attractionsList.data.data}
         />

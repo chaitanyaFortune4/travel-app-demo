@@ -21,7 +21,7 @@ export const isDataStaleChecker = (timestamp) => {
 
 export const eventTrigger = async (data) => {
   let mobile = localStorage.getItem("mobile");
-  localStorage.setItem("productId", data.productCode)
+  localStorage.setItem("productId", data.productCode);
   let payload = {
     id: data.productCode,
     name: data.title,
@@ -31,10 +31,36 @@ export const eventTrigger = async (data) => {
 };
 
 export function convertToSlug(title) {
-  return title.toLowerCase()
-    .replace(/&/g, 'and') // Replace '&' with 'and'
-    .replace(/[^\w\s-]/g, '') // Remove special characters except whitespace and '-'
-    .replace(/\s+/g, '-') // Replace whitespace with '-'
-    .replace(/--+/g, '-') // Replace multiple '-' with single '-'
+  return title
+    .toLowerCase()
+    .replace(/&/g, "and") // Replace '&' with 'and'
+    .replace(/[^\w\s-]/g, "") // Remove special characters except whitespace and '-'
+    .replace(/\s+/g, "-") // Replace whitespace with '-'
+    .replace(/--+/g, "-") // Replace multiple '-' with single '-'
     .trim(); // Remove leading and trailing whitespaces
 }
+
+export const convertMinutesToHours = (minutes) => {
+  var hours = Math.floor(minutes / 60); // Calculate hours
+  var remainingMinutes = minutes % 60; // Calculate remaining minutes
+  return hours + " hours ";
+};
+
+export const timer = (duration) => {
+  // console.log("DU", duration);
+  const len = Object.keys(duration).length;
+  if (len > 1) {
+    return `${convertMinutesToHours(
+      duration.variableDurationFromMinutes
+    )} to ${convertMinutesToHours(duration.variableDurationToMinutes)}`;
+  } else {
+    return `${convertMinutesToHours(duration.fixedDurationInMinutes)}`;
+  }
+};
+
+export const convertFlag = (flag) => {
+  return flag
+    .replace(/_/g, " ")
+    .toLowerCase()
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};

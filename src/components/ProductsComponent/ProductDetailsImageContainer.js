@@ -14,6 +14,7 @@ import "swiper/css/thumbs";
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import style from "../../assets/styles/productDetail_page/productDetail.module.scss";
 import Image from "next/image";
+import CustomImage from "../CommonComponent/CustomImage";
 
 export default function ProductDetailsImageContainer({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -42,7 +43,7 @@ export default function ProductDetailsImageContainer({ images }) {
         >
           {images?.slice(0, 5).map((item, index) => (
             <SwiperSlide key={`thumb-slide-${index}`}>
-              <Image
+              <CustomImage
                 src={item.variants[8]?.url}
                 width={item.variants[8]?.width}
                 height={item.variants[8]?.height}
@@ -64,9 +65,11 @@ export default function ProductDetailsImageContainer({ images }) {
         >
           {images?.slice(0, 5).map((item, index) => (
             <SwiperSlide key={`slide-${index}`}>
-              <Image
+              <CustomImage
                 className={style["mainImageSize"]}
                 src={item.variants[8]?.url}
+                width={item.variants[8]?.width}
+                height={item.variants[8]?.height}
                 alt={`image ${index + 1}`}
                 // style={{ height: "100%", width: "100%" }}
               />
