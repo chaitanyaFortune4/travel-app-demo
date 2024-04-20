@@ -54,14 +54,14 @@ const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
 
         <div className="input-field">
           <div style={{ position: "relative" }}>
-            <div onClick={togglePopup} className="input flex">
+            <div onClick={togglePopup} className="input flex ">
               <IoPersonOutline />
-              {travelers}
+              &nbsp;{travelers}
             </div>
             {isOpen && (
               <div className="popup">
                 <div className="popup-content">
-                  <div className="flex space-between">
+                  <div className="flex space-between pricing-row">
                     <div>age</div>
                     <div className="flex space-between mb">
                       <RoundedButton
@@ -73,13 +73,13 @@ const AvailabilityCard = ({ price = 0, travelers = 1, onCkickChangeCount }) => {
                           color={`${travelers === 1 ? "" : "#008768"}`}
                         />
                       </RoundedButton>
-                      <span className="">{travelers}</span>
+                      <span className="">&nbsp;{travelers}&nbsp;</span>
                       <RoundedButton onClick={() => onCkickChangeCount("add")}>
-                        <AiOutlinePlusCircle size={25} color="#008768" />
+                        &nbsp;<AiOutlinePlusCircle size={25} color="#008768" />
                       </RoundedButton>
                     </div>
                   </div>
-                  <button onClick={applyChanges} className="">
+                  <button onClick={applyChanges} className="submit-btn">
                     Apply
                   </button>
                 </div>
