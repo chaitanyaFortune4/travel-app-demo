@@ -4,13 +4,20 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import style from "../../assets/styles/landing_page/landingpage.module.scss";
 import common from "@/css/common.module.scss"
-const Search = ({ data }) => {
-  const [destinations, setDestinations] = useState(data);
+import { getAllDestinations } from "@/services/apiServices";
+const Search = () => {
+  const [destinations, setDestinations] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredList, setFilteredList] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
   const router = useRouter();
-
+  useEffect(() => {
+    async function fetchData() {
+      let response = await getAllDestinations()
+      setDestinations(response.data.data)
+    }
+    fetchData()
+  }, [])
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "searchTerm") {

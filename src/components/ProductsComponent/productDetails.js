@@ -36,7 +36,7 @@ export default function ProductDetails({ data }) {
 
   const excludedItems = ["Room service", "Mini bar"];
 
-  const renderTooltip = (props) => (
+  const RenderTooltip = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       <h6>Offered in:</h6>
       <p>German, English, Spanish</p>
@@ -93,7 +93,7 @@ export default function ProductDetails({ data }) {
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 400 }}
-              overlay={renderTooltip}
+              overlay={RenderTooltip}
               className="and-more"
             >
               <div className="and-more">and 5 more</div>

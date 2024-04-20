@@ -3,8 +3,8 @@ import Link from 'next/link';
 import React from 'react'
 import { convertFlag, convertToSlug, eventTrigger, timer } from '@/utils/common';
 import listStyle from "@/css/listing_page/listing.module.scss";
-import Image from 'next/image';
 import StarRating from '../common/starRating';
+import CustomImage from '../common/customImage';
 
 export default function Product({ products }) {
 
@@ -19,12 +19,11 @@ export default function Product({ products }) {
                                 onClick={() => eventTrigger(product)}
                             >
                                 <div className={listStyle["img-wrapper"]}>
-                                    <Image
+                                    <CustomImage
                                         src={product.images[0].variants[0].url}
                                         className={listStyle["card-img"]}
-                                        alt="Picture of the author"
-                                        width={300}
-                                        height={250}
+                                        width={250}
+                                        height={300}
                                     />
                                 </div>
                                 <div className={listStyle["right-col"]}>

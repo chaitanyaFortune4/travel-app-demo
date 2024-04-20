@@ -3,6 +3,7 @@ import fs from "fs";
 import { apiList } from "@/utils/constants";
 import { isDataStaleChecker } from "@/utils/common";
 import { getAttractionController } from "@/controllers/apisController";
+export const dynamic = 'force-dynamic';
 
 export const GET = async (req) => {
   try {
