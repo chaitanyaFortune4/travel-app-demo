@@ -15,10 +15,10 @@ export default function Attraction({ attraction }) {
         <>
             <div className={attrStyle["attr-wrapper"]}>
                 <div>
-                    {attraction.length > 0 && <Title title={"Popular Attractions"} />}
+                    {attraction?.length > 0 && <Title title={"Popular Attractions"} />}
                 </div>
                 <div className={attrStyle["card-wrapper"]}>
-                    {attraction.slice(0, 10).map((item, index) => (
+                    {attraction?.slice(0, 10).map((item, index) => (
                         <AttractionCard
                             key={index}
                             title={item.title}

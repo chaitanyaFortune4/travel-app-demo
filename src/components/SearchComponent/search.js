@@ -54,7 +54,7 @@ const Search = ({ data }) => {
           <div className={style["detail-wrap"]}>
             <h1 className={style["banner-title"]}>Do more with Viator</h1>
             <p className={style["sub-title"]}>
-              One site, 300,000+ travel experiences you'll remember.
+              One site, 300,000+ travel experiences you&apos;ll remember.
             </p>
             <div className={style["searchinp-wrap"]}>
               <label className={style["search-label"]}>

@@ -2,7 +2,7 @@
 import AttractionWrapper from "@/components/AttractionComponent/AttractionWrapper";
 import { useSearchParams } from "next/navigation";
 
-const page = () => {
+const Page = () => {
   const searchParams = useSearchParams();
   const seoId = searchParams.get("seo");
   
@@ -13,4 +13,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
