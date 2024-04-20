@@ -267,7 +267,7 @@ label {
 }
 
 .card:hover .overlay {
-  opacity: 0;
+  opacity: 0.8;
 }
 
 .card:hover {
