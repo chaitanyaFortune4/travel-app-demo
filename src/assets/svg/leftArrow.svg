@@ -1,8 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21">
-    <g fill="none" fill-rule="evenodd" stroke="#2A2E3B" stroke-linecap="round"
+<svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 21 21">
+    <g fill="none" fill-rule="evenodd" stroke="#000" stroke-linecap="round"
         stroke-linejoin="round" transform="matrix(-1 0 0 1 19 2)">
-        <circle cx="8.5" cy="8.5" r="8" />
+        <circle cx="8.5" cy="8.5" r="10" />
         <polyline points="9.576 6.389 9.646 10.561 5.404 10.561"
-            transform="scale(1 -1) rotate(-45 -12.935 0)" />
+            transform="scale(1 -1) rotate(-45 -12.935 0)" fill="#fff"/>
     </g>
 </svg>
