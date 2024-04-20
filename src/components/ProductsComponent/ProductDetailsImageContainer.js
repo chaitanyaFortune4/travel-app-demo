@@ -31,7 +31,7 @@ export default function ProductDetailsImageContainer({ data }) {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="flex">
       <div className="vertical-swiper-conatiner">
         <Swiper
           onSwiper={setThumbsSwiper}
