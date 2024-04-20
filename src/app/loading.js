@@ -1,4 +1,4 @@
-import Loader from "../components/SpinnerComponent/Spinner.jsx";
+import Loader from "@/components/SpinnerComponent/spinner";
 
 const HomeLoading = () => {
   return (

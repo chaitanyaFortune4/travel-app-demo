@@ -13,6 +13,7 @@ import "swiper/css/thumbs";
 // import required modules
 import { FreeMode, Navigation, Thumbs } from "swiper/modules";
 import Image from "next/image";
+import CustomImage from "../common/customImage";
 
 export default function ProductDetailsImageContainer({ data }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -25,6 +26,7 @@ export default function ProductDetailsImageContainer({ data }) {
     direction: "vertical",
   };
   const swiperTwoOptions = {
+    slidesPerView: 1,
     loop: true,
     spaceBetween: 10,
     navigation: true,
@@ -41,7 +43,7 @@ export default function ProductDetailsImageContainer({ data }) {
         >
           {data?.slice(0, 5).map((item, index) => (
             <SwiperSlide key={`thumb-slide-${index}`}>
-              <Image
+              <CustomImage
                 src={item.variants?.url}
                 width={item.variants?.width}
                 height={item.variants?.height}
@@ -53,14 +55,17 @@ export default function ProductDetailsImageContainer({ data }) {
       </div>
       <div className="main-swiper-conatiner">
         <Swiper
-          thumbs={{ swiper: thumbsSwiper }}
+          thumbs={{
+            swiper:
+              thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+          }}
           modules={[FreeMode, Navigation, Thumbs]}
           className="main-swiper"
           {...swiperTwoOptions}
         >
           {data?.slice(0, 5).map((item, index) => (
             <SwiperSlide key={`slide-${index}`}>
-              <Image
+              <CustomImage
                 src={item.variants?.url}
                 width={500}
                 height={500}

@@ -5,6 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "next/image";
 import { PiArrowCircleRightThin } from "react-icons/pi";
+import CustomImage from "../common/customImage";
 
 
 const TravelersPhotosSection = ({ data }) => {
@@ -13,7 +14,7 @@ const TravelersPhotosSection = ({ data }) => {
     return (
       <>
         {imgData?.variants?.url && (
-          <Image
+          <CustomImage
             src={imgData?.variants?.url}
             alt="image"
             className="travel-image"
@@ -31,7 +32,7 @@ const TravelersPhotosSection = ({ data }) => {
       <Container className="travel-image">
         <Row>
           <Col xs={12} md={6}>
-            <Image
+            <CustomImage
               src={lastFiveItems?.[0]?.variants?.url}
               alt="image"
               className="travel-image"

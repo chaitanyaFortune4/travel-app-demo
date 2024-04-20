@@ -3,9 +3,8 @@ import React, { useEffect, useState } from "react";
 import { LuShare, LuClock3 } from "react-icons/lu";
 import { SlBadge } from "react-icons/sl";
 import { FaChevronDown } from "react-icons/fa";
-import ProductDetailsImageContainer from "./ProductDetailsImageContainer";
-import TravelersPhotosSection from "./TravelersPhotosSection";
-import SeeMoreModal from "./SeeMoreModal.js";
+import ProductDetailsImageContainer from "./productDetailsImageContainer";
+import TravelersPhotosSection from "./travelersPhotosSection";
 import { CiMobile3 } from "react-icons/ci";
 import { PiChatTextLight } from "react-icons/pi";
 import { HiMiniXMark } from "react-icons/hi2";
@@ -17,6 +16,7 @@ import AvailabilityCard from "../Layouts/AvailabilityCard";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import StarRating from "../common/starRating";
+import SeeMoreModal from "./seeMoreModal";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
