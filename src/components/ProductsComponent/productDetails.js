@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LuShare, LuClock3 } from "react-icons/lu";
 import { SlBadge } from "react-icons/sl";
 import { FaChevronDown } from "react-icons/fa";
@@ -21,8 +21,15 @@ import StarRating from "../common/starRating";
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
   const [infoModal, setInfoModal] = useState(false);
+  const [productData, setProductData] = useState({});
   const [whatsIncludeModal, setWhatsIncludeModal] = useState(false);
   // console.log("data", data);
+  useEffect(() => {
+    let temData = localStorage.getItem("productData");
+    setProductData(JSON.parse(temData));
+  }, []);
+  console.log("productData", productData);
+
   const onCkickChangeCount = (action) => {
     action === "add" ? setTravelers((p) => p + 1) : setTravelers((p) => p - 1);
   };
@@ -63,7 +70,7 @@ export default function ProductDetails({ data }) {
         </div>
         {/* <div style={{ marginInline: "1rem" }}> */}
         <AvailabilityCard
-          price={"2,966.11"}
+          price={productData?.pricing?.summary?.fromPrice}
           travelers={travelers}
           onCkickChangeCount={onCkickChangeCount}
         />
