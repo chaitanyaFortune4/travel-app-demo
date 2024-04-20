@@ -1,7 +1,19 @@
+import Loader from "../components/SpinnerComponent/Spinner.jsx";
+
 const HomeLoading = () => {
   return (
     <>
-      <div>loading...</div>
+      <div
+        style={{
+          height: "100vh",
+          width: "100vw",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Loader />
+      </div>
     </>
   );
 };
