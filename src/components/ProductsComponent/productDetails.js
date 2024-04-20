@@ -62,25 +62,27 @@ export default function ProductDetails({ data }) {
           <ProductDetailsImageContainer data={data?.images} />
         </div>
         {/* <div style={{ marginInline: "1rem" }}> */}
-          <AvailabilityCard
-            price={"2,966.11"}
-            travelers={travelers}
-            onCkickChangeCount={onCkickChangeCount}
-          />
+        <AvailabilityCard
+          price={"2,966.11"}
+          travelers={travelers}
+          onCkickChangeCount={onCkickChangeCount}
+        />
         {/* </div> */}
       </div>
       <div className="content">
         <Divder />
         <div className="flex">
           <div className="flex mr">
-            <LuClock3 /> 6 hours
+            <LuClock3 color="#008768" />
+            &nbsp;6 hours
           </div>
           <div className="flex mr">
-            <CiMobile3 /> Mobile ticket
+            <CiMobile3 color="#008768" />
+            &nbsp;Mobile ticket
           </div>
           <div className="flex mr">
-            <PiChatTextLight />
-            Offered in: English &nbsp;
+            <PiChatTextLight color="#008768" />
+            &nbsp;Offered in: English &nbsp;
             <OverlayTrigger
               placement="top"
               delay={{ show: 250, hide: 400 }}
