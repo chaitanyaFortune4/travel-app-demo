@@ -2,26 +2,20 @@
 import React, { useState } from "react";
 import { LuShare, LuClock3 } from "react-icons/lu";
 import { SlBadge } from "react-icons/sl";
-import { GoStarFill } from "react-icons/go";
 import { FaChevronDown } from "react-icons/fa";
 import ProductDetailsImageContainer from "./ProductDetailsImageContainer";
 import TravelersPhotosSection from "./TravelersPhotosSection";
 import SeeMoreModal from "./SeeMoreModal.js";
-// import data from "../../utils/dummyData.json";
 import { CiMobile3 } from "react-icons/ci";
 import { PiChatTextLight } from "react-icons/pi";
 import { HiMiniXMark } from "react-icons/hi2";
 import { IoCheckmark } from "react-icons/io5";
 import { BsDot } from "react-icons/bs";
-
-import Link from "next/link";
 import { Title } from "../Items/Title";
 import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
-import { Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
 import StarRating from "../common/starRating";
 
 export default function ProductDetails({ data }) {
@@ -67,13 +61,13 @@ export default function ProductDetails({ data }) {
         <div>
           <ProductDetailsImageContainer data={data?.images} />
         </div>
-        <div style={{ marginInline: "1rem" }}>
+        {/* <div style={{ marginInline: "1rem" }}> */}
           <AvailabilityCard
             price={"2,966.11"}
             travelers={travelers}
             onCkickChangeCount={onCkickChangeCount}
           />
-        </div>
+        {/* </div> */}
       </div>
       <div className="content">
         <Divder />

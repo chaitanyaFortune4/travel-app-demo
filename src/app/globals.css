@@ -162,11 +162,12 @@ a {
 /*  */
 .availability-card {
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
   padding: 20px;
   background-color: #fff;
   color: #000;
-
+  width: 30%;
+  height: max-content;
 }
 
 .card-header {
@@ -323,8 +324,8 @@ label {
 }
 
 .main-swiper-conatiner {
-  width: 40vw;
-  height: 30vw;
+  width: 45vw;
+  height: 33vw;
 }
 
 .modal-body .included-section {
@@ -350,7 +351,7 @@ ul {
 
   .product-detail-view-point {
     flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
 
   }
 
