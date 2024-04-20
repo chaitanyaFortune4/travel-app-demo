@@ -1,95 +1,96 @@
-.list-card{
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    padding: 1rem;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    column-gap: 1.5rem;
-    overflow: hidden;
-    @media (max-width:480px) {
-      padding: 0;
-      column-gap: 5px;
+.list-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  column-gap: 1.5rem;
+  overflow: hidden;
+  @media (max-width: 480px) {
+    padding: 0;
+    column-gap: 5px;
+  }
+  .img-wrapper {
+    @media (max-width: 480px) {
+      max-width: 10rem;
+      flex: 0 0 auto;
     }
-    .img-wrapper{
-      @media (max-width:480px) {
-        max-width: 10rem;
-        flex: 0 0 auto;
-      }
-    
-    .card-img{
+
+    .card-img {
+      border-radius: 10px;
+      object-fit: cover;
+      @media (max-width: 480px) {
+        border-radius: 0;
         border-radius: 10px;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        @media (max-width:480px) {
-          border-radius: 0;
-        }
+      }
     }
   }
-    .right-col{
+  .right-col {
+    display: flex;
+    padding: 10px;
+    .card-title {
+      @media (max-width: 480px) {
+        font-size: 16px;
+      }
+    }
+    .rating-wrapper {
       display: flex;
-      padding: 10px;
-      .card-title{
-        @media (max-width:480px) {
-          font-size: 16px;
-        }
-      }
-      .rating-wrapper{
-        display: flex;
-        gap: 10px;
-        margin: 5px 0;
-      }
-      .offer-detail{
-        div{
-          font-size: 14px !important;
-          color: #008234;
-          @extend .timer-txt
-        }
-      }
-      @media (max-width:480px) {
-        flex-direction: column;
-      }
-      .caed-desc{
-        @media (max-width:480px) {
-          display: none;
-        }
-        margin-bottom: 10px;
-
-      }
-      .timer-txt{
-        font-size: 14px;
+      gap: 10px;
+      margin: 5px 0;
+    }
+    .offer-detail {
+      div {
+        font-size: 14px !important;
         color: #008234;
-        display: flex;
-        gap: 7px;
-        &::before{
-          content: "";
-          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' fill='%23008234' version='1.1' id='Layer_1' viewBox='0 0 24 24' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;%7D%0A%3C/style%3E%3Cpath d='M19.3,5.3L9,15.6l-4.3-4.3l-1.4,1.4l5,5L9,18.4l0.7-0.7l11-11L19.3,5.3z'/%3E%3Crect class='st0' width='24' height='24'/%3E%3C/svg%3E");
-          background-repeat: no-repeat;
-          background-size: 100%;
-          height: 17px;
-          width: 17px;
-          display: block;
-        }
+        @extend .timer-txt;
       }
-}
-.price-details{
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
-  font-size: 13px;
-  .price-amount{
-    font-size: 23px;
-    font-weight: 600;
-    @media (max-width:480px) {
-      font-size: 18px;
+    }
+    @media (max-width: 480px) {
+      flex-direction: column;
+    }
+    .caed-desc {
+      @media (max-width: 480px) {
+        display: none;
+      }
+      margin-bottom: 10px;
+    }
+    .timer-txt {
+      font-size: 14px;
+      color: #008234;
+      display: flex;
+      gap: 7px;
+      &::before {
+        content: "";
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' fill='%23008234' version='1.1' id='Layer_1' viewBox='0 0 24 24' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;%7D%0A%3C/style%3E%3Cpath d='M19.3,5.3L9,15.6l-4.3-4.3l-1.4,1.4l5,5L9,18.4l0.7-0.7l11-11L19.3,5.3z'/%3E%3Crect class='st0' width='24' height='24'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: 100%;
+        height: 17px;
+        width: 17px;
+        display: block;
+      }
     }
   }
-  .price-desc{
-    white-space: nowrap;
+  .price-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    font-size: 13px;
+    .price-amount {
+      font-size: 23px;
+      font-weight: 600;
+      @media (max-width: 480px) {
+        font-size: 18px;
+      }
+    }
+    .price-desc {
+      white-space: nowrap;
+    }
   }
-}
 }

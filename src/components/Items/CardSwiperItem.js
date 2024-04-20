@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 import { FaRegHeart } from "react-icons/fa";
 
@@ -14,10 +15,12 @@ const CardSwiperItem = ({ image, location, title, rating, price }) => {
       }}
     >
       <div style={{ position: "relative" }}>
-        <img
+        <Image
           src={image}
           alt={title}
-          style={{ width: "100%", height: "200px", objectFit: "cover" }}
+          style={{ objectFit: "cover" }}
+          width={200}
+          height={200}
         />
         <div style={{ position: "absolute", top: "10px", right: "10px" }}>
           <FaRegHeart />

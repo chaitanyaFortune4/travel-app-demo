@@ -4,7 +4,7 @@ import fs from "fs";
 import path from 'path';
 import { apiList } from "@/utils/constants";
 import { isDataStaleChecker } from "@/utils/common";
-
+export const dynamic = 'force-dynamic';
 export const GET = async (req) => {
     try {
         const params = req.nextUrl.searchParams;
