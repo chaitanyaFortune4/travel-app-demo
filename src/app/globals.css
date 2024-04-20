@@ -421,6 +421,10 @@ ul {
   .travel-image.container {
     padding: 1rem;
   }
+  .main-swiper-conatiner {
+    width: 100vw;
+    height: 70vw;
+  }
 }
 
 @media (max-width: 900px) {
@@ -442,6 +446,10 @@ ul {
 
   .product-details-page-container .content {
     padding-inline: 1rem;
+  }
+  .availability-card {
+    width: 100%;
+    margin:  2rem 0;
   }
 }
 
