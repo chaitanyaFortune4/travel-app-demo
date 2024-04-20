@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { LuShare, LuClock3 } from "react-icons/lu";
+import { LuClock3, LuCopy, LuCopyCheck, LuMail } from "react-icons/lu";
 import { SlBadge } from "react-icons/sl";
-import { FaChevronDown } from "react-icons/fa";
 import ProductDetailsImageContainer from "./productDetailsImageContainer";
 import TravelersPhotosSection from "./travelersPhotosSection";
 import { CiMobile3 } from "react-icons/ci";
@@ -15,22 +14,24 @@ import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
-import { IoArrowForwardCircleOutline } from "react-icons/io5";
-import listStyle from "@/css/listing_page/listing.module.scss";
 import StarRating from "../common/starRating";
 import SeeMoreModal from "./seeMoreModal";
+import { NavDropdown } from "react-bootstrap";
+import { useRouter } from "next/navigation";
+import copy from "clipboard-copy";
 
 export default function ProductDetails({ data }) {
   const [travelers, setTravelers] = useState(1);
   const [infoModal, setInfoModal] = useState(false);
   const [productData, setProductData] = useState({});
   const [whatsIncludeModal, setWhatsIncludeModal] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
   // console.log("data", data);
+
   useEffect(() => {
     let temData = localStorage.getItem("productData");
     setProductData(JSON.parse(temData));
   }, []);
-  console.log("productData", productData);
 
   const onCkickChangeCount = (action) => {
     action === "add" ? setTravelers((p) => p + 1) : setTravelers((p) => p - 1);
@@ -44,6 +45,28 @@ export default function ProductDetails({ data }) {
       <p>German, English, Spanish</p>
     </Tooltip>
   );
+  const SharePopUp = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      <h6>Offered in:</h6>
+      <p>German, English, Spanish</p>
+    </Tooltip>
+  );
+  const share = useRouter();
+  const base = "http://localhost:3000";
+  const links = base + share.asPath;
+  const copyToClipboard = async (e) => {
+    try {
+      let url = window.location.href;
+      await copy(url);
+      setIsCopied(true);
+    } catch (error) {
+      console.error("Failed to copy text to clipboard", error);
+    }
+  };
+  function copyText(entryText) {
+    console.log(navigator);
+    navigator?.clipboard?.writeText(entryText);
+  }
 
   return (
     <div className="product-details-page-container">
@@ -51,7 +74,7 @@ export default function ProductDetails({ data }) {
         <Title title={data?.title} />
         <div className="flex space-between mb">
           <div className="flex rating-sec">
-            <div className="flex mr" >
+            <div className="flex mr">
               <StarRating rating={data?.reviews?.combinedAverageRating} />
               &nbsp;{data?.reviews?.totalReviews}
             </div>
@@ -60,8 +83,24 @@ export default function ProductDetails({ data }) {
             </div>
             <div className="mr"> Corsica, France</div>
           </div>
-          <div>
-            <LuShare /> Share <FaChevronDown />
+          <div className="mr ">
+            <NavDropdown
+              title="Share"
+              menuVariant="light"
+              autoClose="outside"
+              className="share-dropdown"
+              
+            >
+              <NavDropdown.Item>
+                <div onClick={copyToClipboard}>
+                  {isCopied ? <LuCopyCheck /> : <LuCopy />} &nbsp;
+                  {isCopied ? "Link Copied!" : "Copy Link"}
+                </div>
+              </NavDropdown.Item>
+
+              <NavDropdown.Item><LuMail />&nbsp; Email</NavDropdown.Item>
+            </NavDropdown>
+            {/* <FaChevronDown /> */}
           </div>
         </div>
       </div>
