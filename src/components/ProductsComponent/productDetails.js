@@ -15,6 +15,8 @@ import { Divder } from "../Items/Divder";
 import AvailabilityCard from "../Layouts/AvailabilityCard";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { IoArrowForwardCircleOutline } from "react-icons/io5";
+import listStyle from "@/css/listing_page/listing.module.scss";
 import StarRating from "../common/starRating";
 import SeeMoreModal from "./seeMoreModal";
 
@@ -48,14 +50,13 @@ export default function ProductDetails({ data }) {
       <div className="title-content">
         <Title title={data?.title} />
         <div className="flex space-between mb">
-          <div className="flex">
-            <div className="flex mr">
-              <StarRating rating={5} />
-              &nbsp;
-              {data?.reviews?.totalReviews} Reviews
+          <div className="flex rating-sec">
+            <div className="flex mr" >
+              <StarRating rating={data?.reviews?.combinedAverageRating} />
+              &nbsp;{data?.reviews?.totalReviews}
             </div>
             <div className="flex mr">
-              <SlBadge /> Badge of Excellence
+              <SlBadge /> &nbsp;Badge of Excellence
             </div>
             <div className="mr"> Corsica, France</div>
           </div>

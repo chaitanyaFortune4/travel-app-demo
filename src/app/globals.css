@@ -417,6 +417,10 @@ ul {
 
 
 
+.rating-sec{
+  flex-direction: row;
+  align-items: center;
+}
 
 @media (max-width: 750px) {
   .included-section .excluded {
@@ -446,6 +450,10 @@ ul {
   .main-swiper-conatiner {
     width: 100vw;
     height: 70vw;
+  }
+  .rating-sec{
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
 
