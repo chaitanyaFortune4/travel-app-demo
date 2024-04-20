@@ -72,6 +72,7 @@ export default function ProductDetails({ data }) {
     <div className="product-details-page-container">
       <div className="title-content">
         <Title title={data?.title} />
+        <Divder mrtop={false}/>
         <div className="flex space-between mb">
           <div className="flex rating-sec">
             <div className="flex mr">

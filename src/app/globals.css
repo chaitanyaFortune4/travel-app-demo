@@ -195,7 +195,7 @@ label {
 .input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #383838;
   border-radius: 5px;
 }
 
@@ -330,7 +330,6 @@ label {
   height: 22px;
   float: left;
 }
-.dropdown-toggle::after {}
 
 .flex {
   display: flex;
