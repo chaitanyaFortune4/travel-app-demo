@@ -466,7 +466,9 @@ ul {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 0 15px 2px #000;
+    -moz-box-shadow: 0 0 5px 2px #000;
+    box-shadow: 0 0 10px 2px #9e9e9e;
 
 }
 
@@ -477,4 +479,10 @@ ul {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.input.flex{
+  align-items: center;
+}
+.pricing-row{
+  margin-bottom: 1rem;
 }
