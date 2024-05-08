@@ -1,4 +1,4 @@
-export const baseUrl = "http://192.168.10.126:3000";
+export const baseUrl = "http://192.168.10.147:3000";
 
 export const apiList = {
   getAllDestinations: `${baseUrl}/api/getAllDestinations`,
