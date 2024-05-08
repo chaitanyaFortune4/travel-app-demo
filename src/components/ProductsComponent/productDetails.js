@@ -45,12 +45,6 @@ export default function ProductDetails({ data }) {
       <p>German, English, Spanish</p>
     </Tooltip>
   );
-  const SharePopUp = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      <h6>Offered in:</h6>
-      <p>German, English, Spanish</p>
-    </Tooltip>
-  );
   const share = useRouter();
   const base = "http://localhost:3000";
   const links = base + share.asPath;
@@ -67,12 +61,31 @@ export default function ProductDetails({ data }) {
     console.log(navigator);
     navigator?.clipboard?.writeText(entryText);
   }
+  const [isOverlayVisible, setOverlayVisibility] = useState(false);
+
+  const toggleOverlay = () => {
+    setOverlayVisibility(!isOverlayVisible);
+  };
 
   return (
     <div className="product-details-page-container">
       <div className="title-content">
         <Title title={data?.title} />
-        <Divder mrtop={false}/>
+        <Divder mrtop={false} />
+
+        <div className="test">
+          <button onClick={toggleOverlay}>Show Overlay</button>
+
+          {isOverlayVisible && (
+            <div className="overlay-screen" onClick={toggleOverlay}>
+              {/* You can add any content you want to display in the overlay */}
+              <div className="overlay-content">
+                <h2>This is the overlay content</h2>
+                <p>Click anywhere to close</p>
+              </div>
+            </div>
+          )}
+        </div>
         <div className="flex space-between mb">
           <div className="flex rating-sec">
             <div className="flex mr">
@@ -90,7 +103,6 @@ export default function ProductDetails({ data }) {
               menuVariant="light"
               autoClose="outside"
               className="share-dropdown"
-              
             >
               <NavDropdown.Item>
                 <div onClick={copyToClipboard}>
@@ -99,7 +111,10 @@ export default function ProductDetails({ data }) {
                 </div>
               </NavDropdown.Item>
 
-              <NavDropdown.Item><LuMail />&nbsp; Email</NavDropdown.Item>
+              <NavDropdown.Item>
+                <LuMail />
+                &nbsp; Email
+              </NavDropdown.Item>
             </NavDropdown>
             {/* <FaChevronDown /> */}
           </div>

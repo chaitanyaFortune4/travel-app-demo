@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import { apiList } from "@/utils/constants";
 import { isDataStaleChecker } from "@/utils/common";
+import { getAllDestinationsController } from "@/controllers/apisController";
 
 export const GET = async (req) => {
   try {
